@@ -57,6 +57,8 @@ class Ladder
 	Ladder(this.id,this.boundary);
 }
 
+String playerTeleFrom = "";
+
 class Street 
 {    
 	String label;
@@ -114,7 +116,18 @@ class Street
 			
 			// set the street.
 			currentStreet = this;
+			
+			int groundY = -(_data['dynamic']['ground_y'] as num).abs();
 		      
+			DivElement interactionCanvas = new DivElement()
+				..classes.add('streetcanvas')
+				..style.pointerEvents = "auto"
+				..id = "interractions"
+				..style.width = streetBounds.width.toString() + "px"
+				..style.height = streetBounds.height.toString() + "px"
+				..style.position = 'absolute'
+				..attributes['ground_y'] = groundY.toString();
+			
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
 			gradientCanvas.classes.add('streetcanvas');
@@ -285,14 +298,65 @@ class Street
 				
 				for (Map signpost in layer['signposts'])
 				{
-					((signpost['connects']) as List).forEach((Map<String,String> exit)
+					int x = signpost['x'];
+					int y = signpost['y'] - signpost['h'] + groundY;
+					if(layer['name'] == 'middleground')
 					{
-						exits[exit['label']] = exit['tsid'];
-					});
+						//middleground has different layout needs
+						y += layer['h'];
+						x += layer['w']~/2;
+					}
+					
+					DivElement pole = new DivElement()
+						..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
+						..style.backgroundRepeat = "no-repeat"
+						..style.width = signpost['w'].toString() + "px"
+						..style.height = signpost['h'].toString() + "px"
+						..style.position = "absolute"
+						..style.top = y.toString() + "px"
+						..style.left = (x-48).toString() + "px";
+					interactionCanvas.append(pole);
+					
+					int i=0;
+					List signposts = signpost['connects'] as List;
+					for(Map<String,String> exit in signposts)
+					{
+						if(exit['label'] == playerTeleFrom || playerTeleFrom == "console")
+						{
+							if(playerTeleFrom == "console")
+								print("setting x: $x, y: $y");
+							CurrentPlayer.posX = x;
+							CurrentPlayer.posY = y;
+						}
+						
+						String tsid = exit['tsid'].replaceFirst("L", "G");
+						SpanElement span = new SpanElement()
+						        ..style.position = "absolute"
+    							..style.top = (y+i*25+10).toString() + "px"
+    							..style.left = x.toString() + "px"
+    							..text = exit["label"]
+    							..className = "ExitLabel"
+                                ..attributes['url'] = 'http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$tsid.callback.json'
+                                ..attributes['tsid'] = tsid
+								..attributes['from'] = currentStreet.label
+                                ..style.transform = "rotate(-5deg)";
+						
+						if(i %2 != 0)
+						{
+							gradientCanvas.append(span);
+							span.style.left = (x-span.clientWidth).toString() + "px";
+							span.style.transform = "rotate(5deg)";
+						}
+
+						interactionCanvas.append(span);
+						i++;
+					}
 				}
 				
 				// Append the canvas to the screen
 				layers.append(decoCanvas);
+				
+				layers.append(interactionCanvas);
 			}
 			
 			DivElement entityHolder = new DivElement();

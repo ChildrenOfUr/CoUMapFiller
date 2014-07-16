@@ -14,7 +14,9 @@ part 'player.dart';
 part 'animation.dart';
 part 'input.dart';
 part 'ui.dart';
+
 part 'shrines_and_vendors.dart';
+part 'maps_data.dart';
 
 String currentLayer = "EntityHolder";
 int width = 3000 , height = 1000;
@@ -94,10 +96,7 @@ main()
             popup.hidden = false;
             querySelector("#LoadingPreview").hidden = false;
 			
-            HttpRequest.getString('http://robertmcdermot.com:8080/streetPreview?tsid=$tsid').then((String response)
-			{
-				displayPreview(JSON.decode(response));
-			});
+            displayPreview(JSON.decode(event.data));
 		});
 	});
     
@@ -118,10 +117,15 @@ main()
     });
 }
 
-void displayPreview(Map response)
+void displayPreview(Map streetData)
 {
-	String imageUrl = response['previewUrl'];
-	String region = response['region'];
+	String imageUrl = streetData['loading_image']['url'];
+	String hub = streetData['hub_id'];
+	String tsid = streetData['tsid'];
+	
+	DataMaps map = new DataMaps();
+	Map<String,String> hubInfo = map.data_maps_hubs[hub]();
+	String region = hubInfo['name'];
 	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool")
 	{
 		if(region == "Chakra Phool")
@@ -132,17 +136,37 @@ void displayPreview(Map response)
 	}
 	else
 		querySelector("#NormalShrines").style.display = "block";
-	
-	displayMissingStuff(response);
-	
+		
 	num width,height;
 	DivElement popup = querySelector("#PreviewWindow");
 	ImageElement preview = querySelector("#Preview");
 	popup.hidden = false;
-	String initialWidth = popup.clientWidth.toString()+"px";
+	String initialWidth = (popup.clientWidth+15).toString()+"px";
 	String initialHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
 	popup.attributes['initialWidth'] = initialWidth;
 	popup.attributes['initialHeight'] = initialHeight;
+	
+	UListElement missingEntities = querySelector("#MissingEntities");
+	missingEntities.children.clear();
+	List<Map<String,String>> objrefs = streetData['objrefs'];
+	objrefs.forEach((Map<String,String> entity)
+	{
+		LIElement missing = new LIElement();
+		missing.text = "${entity['label']} (${entity['tsid']})";
+		missingEntities.append(missing);
+	});
+	if(shrines.containsKey(tsid))
+	{
+		LIElement missing = new LIElement();
+		missing.text = "A shrine to ${capitalizeFirstLetter(shrines[tsid])}";
+		missingEntities.append(missing);
+	}
+	if(vendors.containsKey(tsid))
+	{
+		LIElement missing = new LIElement();
+		missing.text = "${vendors[tsid]} Vendor";
+		missingEntities.append(missing);
+	}
 	
 	Element popupAction = querySelector("#PopupAction");
 	popupAction.onClick.first.then((_) => minimizePopup());
@@ -169,23 +193,22 @@ void displayPreview(Map response)
 		preview.attributes['scaledHeight'] = height.toString();
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
-		popup.style.width = width.toString()+'px';
-		popup.style.height = "calc("+height.toString()+"px" + " + 2em)";
+		
+		//popup.style.width = width.toString()+'px';
+		//popup.style.height = "calc("+height.toString()+"px" + " + 2em)";
 		popup.onMouseDown.listen((MouseEvent event)
 		{
+			num offsetX = event.layer.x;
+			num offsetY = event.layer.y;
+			
 			StreamSubscription move = window.onMouseMove.listen((MouseEvent event)
 			{
-				popup.style.left = event.client.x.toString()+"px";
-				popup.style.top = event.client.y.toString()+"px";
+				popup.style.left = (event.client.x - offsetX).toString()+"px";
+				popup.style.top = (event.client.y - offsetY).toString()+"px";
 			});
 			window.onMouseUp.first.then((_) => move.cancel());
 		});
 	});
-}
-
-void displayMissingStuff(Map response)
-{
-	
 }
 
 void minimizePopup()
@@ -193,11 +216,13 @@ void minimizePopup()
 	DivElement popup = querySelector("#PreviewWindow");
    	ImageElement preview = querySelector("#Preview");
    	Element popupAction = querySelector("#PopupAction");
+   	UListElement missing = querySelector("#MissingEntities");
    	
    	popupAction.classes.toggle("fa-chevron-down");
    	popupAction.classes.toggle("fa-chevron-up");
    	popupAction.onClick.first.then((_) => maximizePopup());
 	preview.hidden = true;
+	missing.style.display = "none";
 	popup.style.bottom = "0px";
 	popup.style.right = "0px";
 	popup.style.top = "initial";
@@ -211,20 +236,22 @@ void maximizePopup()
 	DivElement popup = querySelector("#PreviewWindow");
     ImageElement preview = querySelector("#Preview");
     Element popupAction = querySelector("#PopupAction");
+    UListElement missing = querySelector("#MissingEntities");
    	
     num height = num.parse(preview.attributes['scaledHeight']);
     num width = num.parse(preview.attributes['scaledWidth']);
    	popupAction.classes.toggle("fa-chevron-down");
    	popupAction.classes.toggle("fa-chevron-up");
    	popupAction.onClick.first.then((_) => minimizePopup());
+   	missing.style.display = "inline-block";
     preview.hidden = false;
     preview.height = height;
-	popup.style.width = width.toString()+'px';
+	popup.style.width = "initial";
 	popup.style.height = "calc("+height.toString()+"px" + " + 2em)";
-	popup.style.bottom = "0px";
-	popup.style.right = "0px";
-	popup.style.top = "initial";
-	popup.style.left = "initial";
+	popup.style.bottom = "initial";
+	popup.style.right = "initial";
+	popup.style.top = "25px";
+	popup.style.left = "0px";
 }
 
 void loadLocationJson()
@@ -618,4 +645,9 @@ Map generate()
 void updateBounds(num left, num top, num width, num height)
 {
 	bounds = new Rectangle(left,top,width,height);
+}
+
+String capitalizeFirstLetter(String string)
+{
+    return string[0].toUpperCase() + string.substring(1);
 }

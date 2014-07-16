@@ -122,6 +122,24 @@
 	width: 43.5px; /*87/2*/
 	height: 20px; /*40/2*/
 }
+#VisitingStone {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/visiting_stone__x1_1_png_1354840181.png');
+	background-size: 25.25px 38.75px;
+	width: 25.25px; /*101/4*/
+	height: 38.75px; /*155/4*/
+}
+#DustTrap {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/dust_trap__x1_iconic_png_1354833763.png');
+	background-size: 22.5px 43px;
+	width: 22.5px; /*45/2*/
+	height: 43px; /*86/2*/
+}
+#Mailbox {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_mailbox_variant_mailboxLeft_x1_idle_png_1354832232.png');
+	background-size: 24.25px 36.5px;
+	width: 24.25px; /*97/4*/
+	height: 36.5px; /*146/4*/
+}
 #Img {
 	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
 	width: 40px;

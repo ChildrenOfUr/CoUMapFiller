@@ -28,6 +28,18 @@ class Input
 			ignoreKeys = false;
 		});
 		
+		document.onClick.listen((MouseEvent event)
+		{
+			Element target = event.target;
+			if(target.className == "ExitLabel")
+			{
+				ScriptElement loadStreet = new ScriptElement();
+				loadStreet.src = target.attributes['url'];
+				playerTeleFrom = target.attributes['from'];
+				document.body.append(loadStreet);
+			}
+		});
+		
 		//Handle player input
 	    //KeyUp and KeyDown are neccesary for preventing weird movement glitches
 	    //keyCode's could be configurable in the future

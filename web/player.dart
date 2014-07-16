@@ -28,7 +28,7 @@ class Player
 		speed = 300; //pixels per second
 		yVel = 0;
 		posX = 1.0;
-		posY = 0;//currentStreet.ui.gameScreenHeight - 170;
+		posY = 300;
 		for(Platform platform in currentStreet.platforms)
 		{
 			if(platform.start.x <= 5)

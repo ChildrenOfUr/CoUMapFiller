@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoUMapFiller</title>
+    
+    <!-- Import Stylesheets -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="./css/entities.css">
+	<!--Import Stylesheets -->
+
+  </head>
+ 
+  <body>
+  	<div id="MainScreen">
+	  	<form style="display: inline;">
+	  		<input id="fileLoad" type="file">
+	  	</form>
+	  	<form style="display: inline;" id="LocationCodeForm">
+	  		<input type="text" id="LocationCodeInput" placeholder="enter location code to load">
+	  		<input type="button" id="LocationCodeButton" value="Load">
+	  	</form>
+  		<div id="GameScreenParent">
+		  	<div id="CurrentLocation">
+	        	<img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
+	          		<div>
+	            		Current Location:
+	            		<div id="Location">
+	            		</div>
+	          		</div>
+	        </div>
+	  		<div id="GameScreen"></div>
+	  	</div>
+	    <div id="ToolBox" class="shadow">
+	    	<div style="text-align: center;">Entities</div>
+	    	<hr>
+	    	<div id="Trees">
+	    		<div class="entity">
+	    			<div id="BeanTree" class="centerEntity"></div>
+	    			<div>Bean Tree</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="BubbleTree" class="centerEntity"></div>
+	    			<div>Bubble Tree</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="EggPlant" class="centerEntity"></div>
+	    			<div>Egg Plant</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="FruitTree" class="centerEntity"></div>
+	    			<div>Fruit Tree</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="GasPlant" class="centerEntity"></div>
+	    			<div>Gas Plant</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="PaperTree" class="centerEntity"></div>
+	    			<div>Paper Tree</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="SpicePlant" class="centerEntity"></div>
+	    			<div>Spice Plant</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="WoodTree" class="centerEntity"></div>
+	    			<div>Wood Tree</div>
+	    		</div>
+	    	</div>
+	    	<hr>
+	    	<div id="Rocks">
+	    		<div class="entity">
+	    			<div id="BerylRock" class="centerEntity"></div>
+	    			<div>Beryl Rock</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="DulliteRock" class="centerEntity"></div>
+	    			<div>Dullite Rock</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="MetalRock" class="centerEntity"></div>
+	    			<div>Metal Rock</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="SparklyRock" class="centerEntity"></div>
+	    			<div>Sparkly Rock</div>
+	    		</div>
+	    	</div>
+	    	<hr>
+	    	<div id="Quoins">
+	    		<div class="entity">
+	    			<div id="Img" class="centerEntity" scale = 1></div>
+	    			<div>Img</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Mood" class="centerEntity" scale = 1></div>
+	    			<div>Mood</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Energy" class="centerEntity" scale = 1></div>
+	    			<div>Energy</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Currant" class="centerEntity" scale = 1></div>
+	    			<div>Currant</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Mystery" class="centerEntity" scale = 1></div>
+	    			<div>Mystery</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Favor" class="centerEntity" scale = 1></div>
+	    			<div>Favor</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Time" class="centerEntity" scale = 1></div>
+	    			<div>Time</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Quarazy" class="centerEntity" scale = 1></div>
+	    			<div>Quarazy</div>
+	    		</div>
+	    	</div>
+	    	<hr>
+	    	<div id="Misc">
+	    		<div class="entity">
+	    			<div id="Garden" class="centerEntity" scale = 2></div>
+	    			<div>Garden</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Patch" class="centerEntity" scale = 2></div>
+	    			<div>Patch</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="DarkPatch" class="centerEntity" scale = 2></div>
+	    			<div>Dark Patch</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="DirtPile" class="centerEntity"></div>
+	    			<div>Dirt Pile</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="PeatBog" class="centerEntity"></div>
+	    			<div>Peat Bog</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Firefly" class="centerEntity" scale = 2></div>
+	    			<div>Firefly</div>
+	    		</div>
+	    	</div>
+	    	<hr>
+	    	<div id="Shrines">
+	    		<div class="tabs">
+					<div class="tab">
+						<input type="radio" id="Normal" name="zoneGroup" checked>
+		       			<label for="Normal">Normal</label>
+	      				<div class="content">
+	       					<div class="entity">
+				    			<div id="Alph" class="centerEntity"></div>
+				    			<div>Alph</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Cosma" class="centerEntity"></div>
+				    			<div>Cosma</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Friendly" class="centerEntity"></div>
+				    			<div>Friendly</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Grendaline" class="centerEntity"></div>
+				    			<div>Grendaline</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Humbaba" class="centerEntity"></div>
+				    			<div>Humbaba</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Lem" class="centerEntity"></div>
+				    			<div>Lem</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Mab" class="centerEntity"></div>
+				    			<div>Mab</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Pot" class="centerEntity"></div>
+				    			<div>Pot</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Spriggan" class="centerEntity"></div>
+				    			<div>Spriggan</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Tii" class="centerEntity"></div>
+				    			<div>Tii</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="Zille" class="centerEntity"></div>
+				    			<div>Zille</div>
+				    		</div>
+	       				</div> 
+			   		</div>
+			   		<div class="tab">
+						<input type="radio" id="Firebog" name="zoneGroup">
+		       			<label for="Firebog">Firebog</label>
+	      				<div class="content">
+	       					<div class="entity">
+				    			<div id="AlphFirebog" class="centerEntity"></div>
+				    			<div>Alph</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="CosmaFirebog" class="centerEntity"></div>
+				    			<div>Cosma</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="FriendlyFirebog" class="centerEntity"></div>
+				    			<div>Friendly</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="GrendalineFirebog" class="centerEntity"></div>
+				    			<div>Grendaline</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="HumbabaFirebog" class="centerEntity"></div>
+				    			<div>Humbaba</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="LemFirebog" class="centerEntity"></div>
+				    			<div>Lem</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="MabFirebog" class="centerEntity"></div>
+				    			<div>Mab</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="PotFirebog" class="centerEntity"></div>
+				    			<div>Pot</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="SprigganFirebog" class="centerEntity"></div>
+				    			<div>Spriggan</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="TiiFirebog" class="centerEntity"></div>
+				    			<div>Tii</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="ZilleFirebog" class="centerEntity"></div>
+				    			<div>Zille</div>
+				    		</div>
+	       				</div> 
+			   		</div>
+			   		<div class="tab">
+						<input type="radio" id="Ix" name="zoneGroup">
+		       			<label for="Ix">Ix</label>
+	      				<div class="content">
+	       					<div class="entity">
+				    			<div id="AlphIx" class="centerEntity"></div>
+				    			<div>Alph</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="CosmaIx" class="centerEntity"></div>
+				    			<div>Cosma</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="FriendlyIx" class="centerEntity"></div>
+				    			<div>Friendly</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="GrendalineIx" class="centerEntity"></div>
+				    			<div>Grendaline</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="HumbabaIx" class="centerEntity"></div>
+				    			<div>Humbaba</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="LemIx" class="centerEntity"></div>
+				    			<div>Lem</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="MabIx" class="centerEntity"></div>
+				    			<div>Mab</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="PotIx" class="centerEntity"></div>
+				    			<div>Pot</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="SprigganIx" class="centerEntity"></div>
+				    			<div>Spriggan</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="TiiIx" class="centerEntity"></div>
+				    			<div>Tii</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="ZilleIx" class="centerEntity"></div>
+				    			<div>Zille</div>
+				    		</div>
+	       				</div> 
+			   		</div>
+			   		<div class="tab">
+						<input type="radio" id="Uralia" name="zoneGroup">
+		       			<label for="Uralia">Uralia</label>
+	      				<div class="content">
+	       					<div class="entity">
+				    			<div id="AlphUralia" class="centerEntity"></div>
+				    			<div>Alph</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="CosmaUralia" class="centerEntity"></div>
+				    			<div>Cosma</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="FriendlyUralia" class="centerEntity"></div>
+				    			<div>Friendly</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="GrendalineUralia" class="centerEntity"></div>
+				    			<div>Grendaline</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="HumbabaUralia" class="centerEntity"></div>
+				    			<div>Humbaba</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="LemUralia" class="centerEntity"></div>
+				    			<div>Lem</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="MabUralia" class="centerEntity"></div>
+				    			<div>Mab</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="PotUralia" class="centerEntity"></div>
+				    			<div>Pot</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="SprigganUralia" class="centerEntity"></div>
+				    			<div>Spriggan</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="TiiUralia" class="centerEntity"></div>
+				    			<div>Tii</div>
+				    		</div>
+				    		<div class="entity">
+				    			<div id="ZilleUralia" class="centerEntity"></div>
+				    			<div>Zille</div>
+				    		</div>
+	       				</div> 
+			   		</div>
+				</div>
+	    	</div>
+	    </div>
+	    <div id="GenerateParent">
+	    	<div id="Generate" class="shadow">Generate</div>
+	    </div>
+  	</div>
+  	
+  	<div class="PopWindow" id="PreviewWindow" hidden="true">
+	    <div class="PopWindowHeader handle">
+	      Street Preview (click and drag to move)
+	        <i id="PopupAction" style="float:right" class="fa fa-chevron-down fa-lg red"></i>
+	    </div>
+	    <span id="LoadingPreview">Loading Preview</span>
+	    <img id="Preview"/>
+  	</div>
+  	
+  	<!--Necessary to get around Cross-Domain stuff-->
+	<script type="text/javascript">
+	function getRoom(dataJSON)
+	{
+		window.postMessage(JSON.stringify(dataJSON), '*');
+	}
+	</script>
+    
+    
+    <script type="application/dart" src="index.dart"></script>
+    <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

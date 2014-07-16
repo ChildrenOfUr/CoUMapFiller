@@ -433,3 +433,15 @@
 	width: 31.5px; /*126 / 4*/
 	height: 47px; /*188 / 4 */
 }
+#NormalShrines {
+	display: block;
+}
+#FirebogShrines {
+	display: none;
+}
+#IxShrines {
+	display: none;
+}
+#UraliaShrines {
+	display: none;
+}

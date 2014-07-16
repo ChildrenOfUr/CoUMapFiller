@@ -14,6 +14,7 @@ part 'player.dart';
 part 'animation.dart';
 part 'input.dart';
 part 'ui.dart';
+part 'shrines_and_vendors.dart';
 
 String currentLayer = "EntityHolder";
 int width = 3000 , height = 1000;
@@ -95,7 +96,7 @@ main()
 			
             HttpRequest.getString('http://robertmcdermot.com:8080/streetPreview?tsid=$tsid').then((String response)
 			{
-				displayPreview(response);
+				displayPreview(JSON.decode(response));
 			});
 		});
 	});
@@ -117,8 +118,23 @@ main()
     });
 }
 
-void displayPreview(String imageUrl)
+void displayPreview(Map response)
 {
+	String imageUrl = response['previewUrl'];
+	String region = response['region'];
+	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool")
+	{
+		if(region == "Chakra Phool")
+			region = "Firebog";
+		
+		querySelector("#NormalShrines").style.display = "none";
+		querySelector("#${region}Shrines").style.display = "block";
+	}
+	else
+		querySelector("#NormalShrines").style.display = "block";
+	
+	displayMissingStuff(response);
+	
 	num width,height;
 	DivElement popup = querySelector("#PreviewWindow");
 	ImageElement preview = querySelector("#Preview");
@@ -165,6 +181,11 @@ void displayPreview(String imageUrl)
 			window.onMouseUp.first.then((_) => move.cancel());
 		});
 	});
+}
+
+void displayMissingStuff(Map response)
+{
+	
 }
 
 void minimizePopup()

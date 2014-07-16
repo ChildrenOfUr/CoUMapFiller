@@ -1,4 +1,4 @@
-LocoDarto
+CoUMapFiller
 =========
 
-A map builder and decorator for the online game: Children of Ur
+A dart web application to allow users to fill in the missing entities in the location .json files.

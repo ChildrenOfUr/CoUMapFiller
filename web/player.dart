@@ -160,7 +160,7 @@ class Player
 			moving = false;
 			
 	    //primitive jumping
-		if (playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
+		if (doPhysicsApply && playerInput.jumpKey == true && !jumping && !climbingUp && !climbingDown)
 		{
 			Random rand = new Random();
 			if(rand.nextInt(4) == 3)

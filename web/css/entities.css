@@ -451,6 +451,30 @@
 	width: 31.5px; /*126 / 4*/
 	height: 47px; /*188 / 4 */
 }
+#StreetSpiritGroddle {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_groddle_base_base_L0dirt_bottom_none_eyes_eyes_L0eyes2_skull_skull_L0dirt_top_none_x1_open_png_1354834585.png');
+	background-size: 245px 75px; /*980 / 4, 300 / 4*/
+	width: 24.5px; /*98 / 4*/
+	height: 37.5px; /*150 / 4 */
+}
+#StreetSpiritFirebog {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_firebog_size_large_x1_idle_move_png_1354832884.png');
+	background-size: 214px 183px; /*856 / 4, 732 / 4*/
+	width: 26.75px; /*107 / 4*/
+	height: 61px; /*244 / 4 */
+}
+#StreetSpiritZutto {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_zutto_cap_capAqua_x1_hoverIdle_png_1354833704.png');
+	background-size: 226.5px 180px; /*906 / 4, 720 / 4*/
+	width: 37.75px; /*151 / 4*/
+	height: 45px; /*180 / 4 */
+}
+#ToolVendor {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_tool_vendor__x1_turn_left_png_1354831414.png');
+	background-size: 231.25px 125px; /*925 / 4, 500 / 4*/
+	width: 46.25px; /*185 / 4*/
+	height: 62.5px; /*250 / 4 */
+}
 #NormalShrines {
 	display: block;
 }

@@ -9,6 +9,7 @@ class Camera
 	int zoom = 0; // for future eyeballery
 	bool dirty = true;
 	Camera(this._x,this._y);
+	Rectangle visibleRect;
 	
   	// we're using css transitions for smooth scrolling.
 	void setCamera(String xy) //  format 'x,y'
@@ -21,6 +22,7 @@ class Camera
 				dirty = true;
 			_x = newX;
 			_y = newY;
+			visibleRect = new Rectangle(_x,_y,ui.gameScreenWidth,ui.gameScreenHeight);
 		}
 		catch (error)
 		{
@@ -122,7 +124,7 @@ class Street
 			DivElement interactionCanvas = new DivElement()
 				..classes.add('streetcanvas')
 				..style.pointerEvents = "auto"
-				..id = "interractions"
+				..id = "EntityHolder"
 				..style.width = streetBounds.width.toString() + "px"
 				..style.height = streetBounds.height.toString() + "px"
 				..style.position = 'absolute'
@@ -358,15 +360,6 @@ class Street
 				
 				layers.append(interactionCanvas);
 			}
-			
-			DivElement entityHolder = new DivElement();
-        	entityHolder.classes.add('streetcanvas');
-        	entityHolder.id = 'EntityHolder';
-        	entityHolder.style.width = streetBounds.width.toString() + "px";
-            entityHolder.style.height = streetBounds.height.toString() + "px";
-        	entityHolder.style.position = 'absolute';
-        	entityHolder.attributes['ground_y'] = "0";
-        	layers.append(entityHolder);
 			
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;

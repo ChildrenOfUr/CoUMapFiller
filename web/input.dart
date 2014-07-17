@@ -38,6 +38,11 @@ class Input
 				playerTeleFrom = target.attributes['from'];
 				document.body.append(loadStreet);
 			}
+			if(target.className == "placedEntity")
+			{
+				clickListener = getClickListener(target,event);
+				moveListener = getMoveListener(target);
+			}
 		});
 		
 		//Handle player input
@@ -45,6 +50,14 @@ class Input
 	    //keyCode's could be configurable in the future
 	    document.onKeyDown.listen((KeyboardEvent k)
 		{
+	    	//check for delete key
+	    	if(k.keyCode == 46)
+	    	{
+	    		clickListener.cancel();
+	    		moveListener.cancel();
+	    		querySelectorAll(".dashedBorder").forEach((Element element) => element.remove());
+	    	}
+	    	
 	    	if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
 				upKey = true;
 			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing

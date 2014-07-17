@@ -18,11 +18,13 @@ part 'ui.dart';
 part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
-String currentLayer = "EntityHolder";
+String currentLayer = "EntityHolder", tsid;
 int width = 3000 , height = 1000;
 DivElement gameScreen, layers;
 Rectangle bounds;
 Random rand = new Random();
+StreamSubscription moveListener, clickListener;
+bool madeChanges = false;
 
 // Declare our game_loop
 double lastTime = 0.0;
@@ -54,7 +56,7 @@ main()
 	});
     generateButton.onMouseUp.listen((_)
 	{
-    	generate();
+    	saveToServer();
 		generateButton.classes.add("shadow");
 	});
     
@@ -88,7 +90,7 @@ main()
 		loadStreet(JSON.decode(event.data)).then((_)
 		{
 			//load a preview image of the street
-			String tsid = JSON.decode(event.data)['tsid'];
+			tsid = JSON.decode(event.data)['tsid'];
 			if(tsid.startsWith("G"))
 				tsid = tsid.replaceFirst("G", "L");
 			
@@ -194,8 +196,6 @@ void displayPreview(Map streetData)
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
 		
-		//popup.style.width = width.toString()+'px';
-		//popup.style.height = "calc("+height.toString()+"px" + " + 2em)";
 		popup.onMouseDown.listen((MouseEvent event)
 		{
 			num offsetX = event.layer.x;
@@ -254,11 +254,45 @@ void maximizePopup()
 	popup.style.left = "0px";
 }
 
+void saveToServer()
+{
+	if(!madeChanges)
+		return;
+	
+	List<Map> entities = [];
+	querySelectorAll(".placedEntity").forEach((Element element)
+	{
+		Map entity = {};
+		entity['type'] = element.attributes['type'];
+		entity['url'] = element.getComputedStyle().backgroundImage;
+		entity['x'] = element.client.left;
+		entity['y'] = element.client.top;
+		entities.add(entity);
+	});
+	
+	Map data = {'tsid':tsid,'entities':JSON.encode(entities)};
+	HttpRequest.postFormData("http://robertmcdermot.com:8080/entityUpload",data).then((HttpRequest request) => print(request.response));
+}
+
 void loadLocationJson()
 {
-	String location = (querySelector("#LocationCodeInput") as TextInputElement).value;
+	if(madeChanges)
+	{
+		Element saveDialog = querySelector("#SaveDialog");
+		saveDialog.hidden = false;
+		querySelector("#SaveYes").onClick.first.then((_)
+		{
+			saveDialog.hidden = true;
+			saveToServer();
+		});
+		querySelector("#SaveNo").onClick.first.then((_) => saveDialog.hidden = true);
+	}
+	
+	TextInputElement locationInput = querySelector("#LocationCodeInput");
+	String location = locationInput.value;
 	if(location != "")
 	{
+		locationInput.blur();
 		if(location.startsWith("L"))
 			location = location.replaceFirst("L", "G");
 		String url = "http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$location.callback.json";
@@ -273,8 +307,6 @@ void setupListener(DivElement entityParent)
 	DivElement entity = entityParent.querySelector(".centerEntity");
 	entityParent.onClick.listen((MouseEvent event)
 	{
-		StreamSubscription moveListener, clickListener;
-		
 		DivElement drag = new DivElement();
 		CssStyleDeclaration style = entity.getComputedStyle();
 		int scale = 4;
@@ -284,6 +316,7 @@ void setupListener(DivElement entityParent)
 		num height = num.parse(style.height.replaceAll("px", "")) * scale;
 		drag.style.backgroundImage = style.backgroundImage;
 		drag.style.backgroundPosition = style.backgroundPosition;
+		drag.attributes['type'] = entity.id;
 		drag.style.position = "absolute";
 		drag.style.width = width.toString()+"px";
 		drag.style.height = height.toString()+"px";
@@ -292,131 +325,58 @@ void setupListener(DivElement entityParent)
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
 		
-		Element layer = querySelector("#$currentLayer");
-		clickListener = layers.onClick.listen((MouseEvent event)
-    	{			
-			num x,y;
-			//if we clicked on another deco inside the target layer
-    		if((event.target as Element).id != layer.id)
-    		{
-    			y = (event.target as Element).offset.top+event.layer.y+currentStreet.offsetY[currentLayer];
-    			x = (event.target as Element).offset.left+event.layer.x+currentStreet.offsetX[currentLayer];
-    		}
-    		//else we clicked on empty space in the layer
-    		else
-    		{
-    			y = event.layer.y+currentStreet.offsetY[currentLayer];
-    			x = event.layer.x+currentStreet.offsetX[currentLayer];
-    		}
-    		drag.style.top = (y-drag.clientHeight).toString()+"px";
-            drag.style.left = x.toString()+"px";
-            drag.classes.add("deco");
-            drag.classes.remove("dashedBorder");
-            //drag.onClick.listen((_) => editDetails(drag));
-            
-            layer.append(drag);
-            //editDetails(drag);
-
-            moveListener.cancel();
-            clickListener.cancel();
-    	});
-		
-		moveListener = document.body.onMouseMove.listen((MouseEvent event)
-    	{
-    		drag.style.top = (event.page.y-drag.clientHeight).toString()+"px";
-            drag.style.left = (event.page.x+1).toString()+"px";
-    	});
+		clickListener = getClickListener(drag,event);
+		moveListener = getMoveListener(drag);
 	});
 }
 
-StreamSubscription xInputListener,yInputListener,zInputListener,wInputListener,hInputListener,rotateInputListener;
-
-void editDetails(ImageElement clone)
-{	
-	//delete previous listeners so only one deco moves around
-	if(xInputListener != null)
-		xInputListener.cancel();
-	if(yInputListener != null)
-    	yInputListener.cancel();
-	if(zInputListener != null)
-    	zInputListener.cancel();
-	if(wInputListener != null)
-    	wInputListener.cancel();
-	if(hInputListener != null)
-    	hInputListener.cancel();
-	if(rotateInputListener != null)
-		rotateInputListener.cancel();
-	
-	querySelectorAll(".deco").forEach((Element e) 
-	{
-		if(e != clone)
-			e.classes.remove("dashedBorder");
-	});
-	clone.classes.toggle("dashedBorder");
-	Element decoDetails = querySelector("#DecoDetails");
-	
-	//if we just selected it
-	if(clone.classes.contains("dashedBorder"))
-	{
-		decoDetails.hidden = false;
-		
-		InputElement xInput = (querySelector("#DecoX") as InputElement);
-		xInput.value = clone.style.left.replaceAll("px", "");
-		xInputListener = xInput.onInput.listen((_) => clone.style.left = xInput.value +"px");
-		InputElement yInput = (querySelector("#DecoY") as InputElement);
-		yInput.value = clone.style.top.replaceAll("px", "");
-		yInputListener = yInput.onInput.listen((_) => clone.style.top = yInput.value +"px");
-		InputElement zInput = (querySelector("#DecoZ") as InputElement);
-		zInput.value = clone.style.zIndex;
-		zInputListener = zInput.onInput.listen((_) => clone.style.zIndex = zInput.value);
-		
-		InputElement wInput = (querySelector("#DecoW") as InputElement);
-        wInput.value = clone.style.maxWidth.replaceAll("px", "");
-        wInput.placeholder = "default: " + clone.naturalWidth.toString();
-        wInputListener = wInput.onInput.listen((_)
-        {
-        	if(wInput.value == "")
-        		clone.style.maxWidth = clone.naturalWidth.toString() + "px";
-        	else
-        		clone.style.maxWidth = wInput.value +"px";
-        });
-        InputElement hInput = (querySelector("#DecoH") as InputElement);
-        hInput.value = clone.style.maxHeight.replaceAll("px", "");
-        hInput.placeholder = "default: " + clone.naturalHeight.toString();
-        hInputListener = hInput.onInput.listen((_)
-        {
-        	if(hInput.value == "")
-        		clone.style.maxHeight = clone.naturalHeight.toString() + "px";
-        	else
-        		clone.style.maxHeight = hInput.value +"px";
-        });
-        
-        InputElement rotateInput = (querySelector("#DecoRotate") as InputElement);
-        rotateInput.value = getTransformAngle(clone.getComputedStyle().transform).toString();
-        rotateInputListener = rotateInput.onInput.listen((_) => clone.style.transform = "rotate("+rotateInput.value +"deg)");	
-		
-        (querySelector("#FlipDeco") as CheckboxInputElement).checked = clone.classes.contains("flip");
-		//special case for rotated deco which needs to also be flipped...
-        if(clone.style.transform.contains("rotate") && clone.classes.contains("flip"))
-        	clone.style.transform += " scale(-1,1)";        	
-	}
-	//else we deselected it
-	else
-	{
-		decoDetails.hidden = true;
-	}
-}
-
-num getTransformAngle(String tr)
+StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 {
-	if(tr == "none")
-		return 0;
+	drag.style.top = (event.page.y-drag.client.height).toString()+"px";
+	drag.style.left = event.page.x.toString()+"px";
+	document.body.append(drag);
+	Element layer = querySelector("#$currentLayer");
+	clickListener = layers.onClick.listen((MouseEvent event)
+	{			
+		num x,y;
+		//if we clicked on another deco inside the target layer
+		if((event.target as Element).id != layer.id)
+		{
+			y = (event.target as Element).offset.top+event.layer.y+currentStreet.offsetY[currentLayer];
+			x = (event.target as Element).offset.left+event.layer.x+currentStreet.offsetX[currentLayer];
+		}
+		//else we clicked on empty space in the layer
+		else
+		{
+			y = event.layer.y+currentStreet.offsetY[currentLayer];
+			x = event.layer.x+currentStreet.offsetX[currentLayer];
+		}
+		drag.style.top = (y-drag.clientHeight).toString()+"px";
+        drag.style.left = x.toString()+"px";
+        drag.classes.add("placedEntity");
+        drag.classes.remove("dashedBorder");
+        
+        layer.append(drag);
+        madeChanges = true;
+
+        moveListener.cancel();
+        clickListener.cancel();
+	});
 	
-	List<String> values = tr.split('(')[1].split(')')[0].split(',');
-    num a = num.parse(values[0]);
-    num b = num.parse(values[1]);
-    num angle = (atan2(b, a) * (180/PI));
-    return angle;
+	return clickListener;
+}
+
+StreamSubscription getMoveListener(DivElement drag)
+{
+	drag.classes.add("dashedBorder");
+	document.body.append(drag);
+	moveListener = document.body.onMouseMove.listen((MouseEvent event)
+	{
+		drag.style.top = (event.page.y-drag.clientHeight).toString()+"px";
+        drag.style.left = (event.page.x+1).toString()+"px";
+	});
+	
+	return moveListener;
 }
 
 Future loadStreet(Map streetData)
@@ -435,106 +395,6 @@ Future loadStreet(Map streetData)
     	c.complete();
    	});
 	return c.future;
-}
-
-void showLineCanvas()
-{	
-	CanvasElement lineCanvas = new CanvasElement()
-		..classes.add("streetcanvas")
-		..style.position = "absolute"
-		..width = bounds.width
-		..height = bounds.height
-		..attributes["ground_y"] = currentStreet._data['dynamic']['ground_y'].toString()
-		..id = "lineCanvas";
-	layers.append(lineCanvas);
-	
-	camera.dirty = true; //force a recalculation of any offset
-	
-	repaint(lineCanvas);
-	
-	int startX = -1, startY = -1;
-
-	lineCanvas.onMouseDown.listen((MouseEvent event)
-	{
-		startX = event.layer.x+currentStreet.offsetX["lineCanvas"].toInt();
-		startY = event.layer.y+currentStreet.offsetY["lineCanvas"].toInt();
-	});
-	lineCanvas.onMouseMove.listen((MouseEvent event)
-	{
-		if(startX == -1)
-			return;
-		
-		Point start = new Point(startX,startY);
-		Point end = new Point(event.layer.x+currentStreet.offsetX["lineCanvas"].toInt(),event.layer.y+currentStreet.offsetY["lineCanvas"].toInt());
-		Platform temporary = new Platform("temp",start,end);
-		repaint(lineCanvas,temporary);
-	});
-	lineCanvas.onMouseUp.listen((MouseEvent event)
-	{
-		if(startX == -1)
-			return;
-		
-		int endX = event.layer.x+currentStreet.offsetX["lineCanvas"].toInt();
-		int endY = event.layer.y+currentStreet.offsetY["lineCanvas"].toInt();
-		//make sure the startX is < endX
-		if(endX < startX)
-		{
-			int tempX = endX;
-			int tempY = endY;
-			endX = startX;
-			startX = tempX;
-			endY = startY;
-			startY = tempY;
-		}
-		Point start = new Point(startX,startY);
-		Point end = new Point(endX,endY);
-		Platform newPlat = new Platform("plat_"+rand.nextInt(10000000).toString(),start,end);
-		currentStreet.platforms.add(newPlat);
-		currentStreet.platforms.sort((x,y) => x.compareTo(y));
-		repaint(lineCanvas);
-		
-		startX = -1;
-	});
-}
-
-void repaint(CanvasElement lineCanvas, [Platform temporary])
-{
-	CanvasRenderingContext2D context = lineCanvas.context2D;
-	context.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
-	context.beginPath();
-	for(Platform platform in currentStreet.platforms)
-	{
-		context.moveTo(platform.start.x, platform.start.y);
-		context.lineTo(platform.end.x, platform.end.y);
-	}
-	if(temporary != null)
-	{
-		context.moveTo(temporary.start.x, temporary.start.y);
-        context.lineTo(temporary.end.x, temporary.end.y);
-	}
-	context.stroke();
-}
-
-void newExit([String exitName])
-{
-	Element exitList = querySelector("#exitList");
-	
-	LIElement item = new LIElement();
-	ImageElement deleteButton = new ImageElement(src:"assets/images/delete.png")
-		..classes.add("deleteButton");
-	TextInputElement titleInput = new TextInputElement()
-		..classes.add("exitTitle")
-		..placeholder = "street name";
-	TextInputElement tsidInput = new TextInputElement()
-		..classes.add("exitTsid")
-		..placeholder = "tsid";
-	
-	deleteButton.onClick.first.then((_) => item.remove());
-	
-	item.append(deleteButton);
-	item.append(titleInput);
-	item.append(tsidInput);
-	exitList.append(item);
 }
 
 Map generate()
@@ -577,9 +437,6 @@ Map generate()
             	decoY -= bounds.height;
             }
 			Map decoMap = {"filename":filename,"w":deco.clientWidth,"h":deco.clientHeight,"z":0,"x":decoX.toInt(),"y":decoY.toInt()};
-			int rotation = getTransformAngle(deco.getComputedStyle().transform).toInt();
-			if(rotation != 0)
-				decoMap["r"] = rotation;
 			if(deco.classes.contains("flip"))
 				decoMap["h_flip"] = true;
 			decosList.add(decoMap);

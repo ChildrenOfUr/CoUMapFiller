@@ -40,6 +40,7 @@ class Input
 			}
 			if(target.className == "placedEntity")
 			{
+				unCrossOff(target);
 				clickListener = getClickListener(target,event);
 				moveListener = getMoveListener(target);
 			}
@@ -55,7 +56,11 @@ class Input
 	    	{
 	    		clickListener.cancel();
 	    		moveListener.cancel();
-	    		querySelectorAll(".dashedBorder").forEach((Element element) => element.remove());
+	    		querySelectorAll(".dashedBorder").forEach((Element element)
+	    		{
+	    			unCrossOff(element);
+	    			element.remove();
+	    		});
 	    	}
 	    	
 	    	if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing

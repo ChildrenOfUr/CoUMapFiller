@@ -69,6 +69,7 @@ class Street
 	List<Platform> platforms = new List();
 	List<Ladder> ladders = new List();
 	Map<String,double> offsetX = {}, offsetY = {};
+	int groundY;
 	
 	Rectangle streetBounds;
   
@@ -119,7 +120,7 @@ class Street
 			// set the street.
 			currentStreet = this;
 			
-			int groundY = -(_data['dynamic']['ground_y'] as num).abs();
+			groundY = -(_data['dynamic']['ground_y'] as num).abs();
 		      
 			DivElement interactionCanvas = new DivElement()
 				..classes.add('streetcanvas')
@@ -128,7 +129,7 @@ class Street
 				..style.width = streetBounds.width.toString() + "px"
 				..style.height = streetBounds.height.toString() + "px"
 				..style.position = 'absolute'
-				..attributes['ground_y'] = groundY.toString();
+				..attributes['ground_y'] = "0";
 			
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
@@ -315,7 +316,7 @@ class Street
 						..style.width = signpost['w'].toString() + "px"
 						..style.height = signpost['h'].toString() + "px"
 						..style.position = "absolute"
-						..style.top = y.toString() + "px"
+						..style.top = (y-groundY).toString() + "px"
 						..style.left = (x-48).toString() + "px";
 					interactionCanvas.append(pole);
 					
@@ -334,7 +335,7 @@ class Street
 						String tsid = exit['tsid'].replaceFirst("L", "G");
 						SpanElement span = new SpanElement()
 						        ..style.position = "absolute"
-    							..style.top = (y+i*25+10).toString() + "px"
+    							..style.top = (y+i*25+10-groundY).toString() + "px"
     							..style.left = x.toString() + "px"
     							..text = exit["label"]
     							..className = "ExitLabel"

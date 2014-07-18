@@ -311,7 +311,7 @@ body {
 #MissingEntities {
 	display: inline-block;
 	text-align: left;
-	max-height: 160px;
+	max-height: 90%;
 	overflow: auto;
 	margin: 0px;
 	padding: 5px;
@@ -342,6 +342,7 @@ body {
 .playerParent {
 	text-align: center;
 	display: inline-block;
+	pointer-events: none;
 }
 .playerName {
 	text-shadow: #ffffff 0 0 0.4em, #ffffff 0 0 0.4em,
@@ -372,4 +373,8 @@ body {
 	-moz-transform: translateX(-50%) translateY(-50%);
 	-ms-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
+}
+.crossedOff {
+	text-decoration: line-through;
+	color: red;
 }

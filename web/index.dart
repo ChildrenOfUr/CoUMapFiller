@@ -18,7 +18,8 @@ part 'ui.dart';
 part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
-String currentLayer = "EntityHolder", tsid;
+String currentLayer = "EntityHolder", tsid, initialPopupWidth, initialPopupHeight;
+String serverAddress = "http://localhost:8181";
 int width = 3000 , height = 1000;
 DivElement gameScreen, layers;
 Rectangle bounds;
@@ -121,7 +122,7 @@ main()
 
 void displayPreview(Map streetData)
 {
-	String imageUrl = streetData['loading_image']['url'];
+	String imageUrl = streetData['main_image']['url'];
 	String hub = streetData['hub_id'];
 	String tsid = streetData['tsid'];
 	
@@ -143,10 +144,13 @@ void displayPreview(Map streetData)
 	DivElement popup = querySelector("#PreviewWindow");
 	ImageElement preview = querySelector("#Preview");
 	popup.hidden = false;
-	String initialWidth = (popup.clientWidth+15).toString()+"px";
-	String initialHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
-	popup.attributes['initialWidth'] = initialWidth;
-	popup.attributes['initialHeight'] = initialHeight;
+	if(initialPopupWidth == null)
+	{
+		initialPopupWidth = (popup.clientWidth+15).toString()+"px";
+    	initialPopupHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
+	}
+	popup.attributes['initialWidth'] = initialPopupWidth;
+	popup.attributes['initialHeight'] = initialPopupHeight;
 	
 	UListElement missingEntities = querySelector("#MissingEntities");
 	missingEntities.children.clear();
@@ -169,6 +173,12 @@ void displayPreview(Map streetData)
 		missing.text = "${vendors[tsid]} Vendor";
 		missingEntities.append(missing);
 	}
+	
+	//and cross off (and display) ones that already exist
+	HttpRequest.getString("$serverAddress/getEntities?tsid=$tsid").then((String response)
+	{
+		loadExistingEntities(JSON.decode(response));
+	});
 	
 	Element popupAction = querySelector("#PopupAction");
 	popupAction.onClick.first.then((_) => minimizePopup());
@@ -196,8 +206,14 @@ void displayPreview(Map streetData)
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
 		
+		popup.style.width = "initial";
+		popup.style.height = "initial";
+		
 		popup.onMouseDown.listen((MouseEvent event)
 		{
+			if(event.button != 0)
+				return;
+			
 			num offsetX = event.layer.x;
 			num offsetY = event.layer.y;
 			
@@ -263,15 +279,20 @@ void saveToServer()
 	querySelectorAll(".placedEntity").forEach((Element element)
 	{
 		Map entity = {};
+		String url = element.getComputedStyle().backgroundImage.replaceAll("url(", "");
+		url = url.substring(0,url.length-1);
 		entity['type'] = element.attributes['type'];
-		entity['url'] = element.getComputedStyle().backgroundImage;
-		entity['x'] = element.client.left;
-		entity['y'] = element.client.top;
+		entity['url'] = url;
+		entity['animationRows'] = int.parse(element.attributes['rows']);
+		entity['animationColumns'] = int.parse(element.attributes['columns']);
+		entity['animationNumFrames'] = int.parse(element.attributes['frames']);
+		entity['x'] = num.parse(element.style.left.replaceAll("px", "")).toInt();
+		entity['y'] = currentStreet.streetBounds.height-num.parse(element.style.top.replaceAll("px", "")).toInt()-element.client.height;
 		entities.add(entity);
 	});
 	
 	Map data = {'tsid':tsid,'entities':JSON.encode(entities)};
-	HttpRequest.postFormData("http://robertmcdermot.com:8080/entityUpload",data).then((HttpRequest request) => print(request.response));
+	HttpRequest.postFormData("$serverAddress/entityUpload",data).then((HttpRequest request) => print(request.response));
 }
 
 void loadLocationJson()
@@ -317,6 +338,9 @@ void setupListener(DivElement entityParent)
 		drag.style.backgroundImage = style.backgroundImage;
 		drag.style.backgroundPosition = style.backgroundPosition;
 		drag.attributes['type'] = entity.id;
+		drag.attributes['rows'] = entity.attributes['rows'];
+		drag.attributes['columns'] = entity.attributes['columns'];
+		drag.attributes['frames'] = entity.attributes['frames'];
 		drag.style.position = "absolute";
 		drag.style.width = width.toString()+"px";
 		drag.style.height = height.toString()+"px";
@@ -336,7 +360,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 	drag.style.left = event.page.x.toString()+"px";
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
-	clickListener = layers.onClick.listen((MouseEvent event)
+	clickListener = layer.onClick.listen((MouseEvent event)
 	{			
 		num x,y;
 		//if we clicked on another deco inside the target layer
@@ -358,6 +382,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         
         layer.append(drag);
         madeChanges = true;
+        crossOff(drag);
 
         moveListener.cancel();
         clickListener.cancel();
@@ -377,6 +402,119 @@ StreamSubscription getMoveListener(DivElement drag)
 	});
 	
 	return moveListener;
+}
+
+void loadExistingEntities(Map entities)
+{
+	entities['entities'].forEach((Map ent)
+	{
+		String type = ent['type'];
+		Element entity = querySelector("#$type");
+		
+		DivElement drag = new DivElement();
+		CssStyleDeclaration style = entity.getComputedStyle();
+		int scale = 4;
+		if(entity.attributes['scale'] != null)
+			scale = int.parse(entity.attributes['scale']);
+		num width = num.parse(style.width.replaceAll("px", "")) * scale;
+		num height = num.parse(style.height.replaceAll("px", "")) * scale;
+		
+		num x = ent['x'];
+        num y = currentStreet.streetBounds.height-ent['y']-height;
+        		
+		drag.style.backgroundImage = style.backgroundImage;
+		drag.style.backgroundPosition = style.backgroundPosition;
+		drag.attributes['type'] = entity.id;
+		drag.attributes['rows'] = entity.attributes['rows'];
+		drag.attributes['columns'] = entity.attributes['columns'];
+		drag.attributes['frames'] = entity.attributes['frames'];
+		drag.style.position = "absolute";
+		drag.style.width = width.toString()+"px";
+		drag.style.height = height.toString()+"px";
+		drag.style.top = y.toString()+"px";
+		drag.style.left = x.toString()+"px";
+		drag.classes.add("placedEntity");
+		querySelector("#$currentLayer").append(drag);
+		
+		crossOff(drag);
+	});
+}
+
+void crossOff(Element placed)
+{
+	UListElement missingEntities = querySelector("#MissingEntities");
+	String type = normalizeType(placed);
+	
+	//now check the list for an un-crossed-out instance of type
+	bool found = false;
+	missingEntities.children.forEach((Element listItem)
+	{
+		if(!found && listItem.text.contains(type) && !listItem.classes.contains("crossedOff"))
+		{
+			listItem.classes.add("crossedOff");
+			missingEntities.append(listItem);
+			found = true;
+		}
+	});
+}
+
+void unCrossOff(Element removed)
+{
+	UListElement missingEntities = querySelector("#MissingEntities");
+	String type = normalizeType(removed);
+    int numOfType = 0;
+    querySelectorAll(".placedEntity").forEach((Element placedEntity)
+	{
+		if(normalizeType(placedEntity) == type)
+			numOfType++;
+	});
+	    
+    //now check the list for a crossed-out instance of type
+    Element found = null;
+    int numOnList = 0;
+    missingEntities.children.forEach((Element listItem)
+	{
+		if(listItem.text.contains(type) && listItem.classes.contains("crossedOff"))
+		{
+			numOnList++;
+			if(found == null)
+				found = listItem;
+		}
+	});
+    
+    //only uncross off an item if there are not enough left on screen after removal of this one
+    if(numOnList > numOfType - 1)
+    {
+    	found.classes.remove("crossedOff");
+        missingEntities.insertBefore(found, missingEntities.children.first);	
+    }
+}
+
+String normalizeType(Element placed)
+{
+	String type = placed.attributes['type'];
+	if(type == "Img" || type == "Mood" || type == "Energy" || type == "Currant"
+    	|| type == "Mystery" || type == "Favor" || type == "Time" || type == "Quarazy")
+	{
+        	type = "Quoin";
+	}
+	
+	//check for camel case and insert a space if so
+	for(int i=1; i<type.length; i++)
+	{
+		String char = type[i];
+		if(char == char.toUpperCase())
+		{
+			type = type.substring(0,i) + " " + type.substring(i,type.length);
+			i++; //skip past the space
+		}
+	}
+	
+	type = type.replaceAll(" Ix",""); type = type.replaceAll(" Firebog",""); 
+	type = type.replaceAll(" Uralia",""); type = type.replaceAll(" Groddle",""); 
+	type = type.replaceAll(" Zutto","");
+	
+	return type;
 }
 
 Future loadStreet(Map streetData)

@@ -60,17 +60,50 @@ class Input
 	    		{
 	    			unCrossOff(element);
 	    			element.remove();
+	    			madeChanges = true;
 	    		});
 	    	}
 	    	
 	    	if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
-				upKey = true;
+	    	{
+	    		querySelectorAll(".dashedBorder").forEach((Element element)
+				{
+	    			if(k.shiftKey)
+	    				flip(element);					
+				});
+	    		if(!k.shiftKey)
+					upKey = true;
+	    	}
 			if ((k.keyCode == keys["DownBindingPrimary"] || k.keyCode == keys["DownBindingAlt"]) && !ignoreKeys) //down arrow or s and not typing
-				downKey = true;
+			{
+	    		querySelectorAll(".dashedBorder").forEach((Element element)
+				{
+	    			if(k.shiftKey)
+	    				flip(element);					
+				});
+	    		if(!k.shiftKey)
+					downKey = true;
+	    	}
 			if ((k.keyCode == keys["LeftBindingPrimary"] || k.keyCode == keys["LeftBindingAlt"]) && !ignoreKeys) //left arrow or a and not typing
-				leftKey = true;
+			{
+	    		querySelectorAll(".dashedBorder").forEach((Element element)
+				{
+	    			if(k.shiftKey)
+						rotate(element,-90);
+				});
+	    		if(!k.shiftKey)
+					leftKey = true;
+			}
 			if ((k.keyCode == keys["RightBindingPrimary"] || k.keyCode == keys["RightBindingAlt"]) && !ignoreKeys) //right arrow or d and not typing
-				rightKey = true;
+			{
+	    		querySelectorAll(".dashedBorder").forEach((Element element)
+				{
+	    			if(k.shiftKey)
+						rotate(element,90);
+				});
+	    		if(!k.shiftKey)
+					rightKey = true;
+			}
 			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
 				jumpKey = true;
 	    });

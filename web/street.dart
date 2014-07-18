@@ -99,8 +99,8 @@ class Street
 		{
 			for (Map deco in layer['decos'])
 			{
-				if (!decosToLoad.contains('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png'))
-        			decosToLoad.add('http://revdancatt.github.io/CAT422-glitch-location-viewer/img/scenery/' + deco['filename'] + '.png');
+				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+                        decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
 			}
 		}
     
@@ -151,6 +151,7 @@ class Street
 			
 			// Append it to the screen*/
 			layers.append(gradientCanvas);
+			layers.append(interactionCanvas);
 		    
 			/* //// Scenery Canvases //// */
 			//For each layer on the street . . .
@@ -212,6 +213,17 @@ class Street
 					if (ASSET[deco['filename']] != null)
 					{
 						ImageElement d = ASSET[deco['filename']].get();
+						
+						//resize the image now so that it doesn't have to be done each time
+						//it comes into view by the browser's rendering engine
+						//TODO maybe uncomment someday - looks terrible
+						/*if(w != d.naturalWidth || h != d.naturalHeight)
+						{
+							print("need to resize ${deco['filename']} from ${d.naturalWidth}x${d.naturalHeight} to ${w}x${h}");
+	                      	resizeImage(d,w,h);
+	                      	print("new size is ${d.width}x${d.height}");
+						}*/
+						
 						d.style.position = 'absolute';
 						d.style.left = x.toString() + 'px';
 						d.style.top = y.toString() + 'px';
@@ -369,6 +381,26 @@ class Street
         // Done initializing street.
 		return c.future;
 	}
+	
+	void resizeImage(ImageElement img, int newWidth, int newHeight) 
+	{
+		CanvasElement canvas = new CanvasElement();
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        CanvasRenderingContext2D context = canvas.context2D;
+        context.drawImage(img, 0, 0);
+         
+        new js.JsObject(js.context['resample_hermite'],[canvas, img.naturalWidth, img.naturalHeight, newWidth, newHeight]);
+         
+        CanvasElement copy = new CanvasElement();
+        copy.width = newWidth;
+        copy.height = newHeight;
+        CanvasRenderingContext2D cctx = copy.context2D;
+         
+        cctx.putImageData( context.getImageData( 0, 0, newWidth, newHeight ), 0, 0 );
+         
+        img.src = copy.toDataUrl();
+    }
  
 	//Parallaxing: Adjust the position of each canvas in #GameScreen
 	//based on the camera position and relative size of canvas to Street
@@ -381,31 +413,22 @@ class Street
 			num currentPercentY = camera.getY() / (streetBounds.height - ui.gameScreenHeight);
 			
 			//modify left and top for parallaxing
-			Map<String,Element> transforms = new Map();
-			for(Element canvas in gameScreen.querySelectorAll('.streetcanvas'))
+			Map<String,DivElement> transforms = new Map();
+			for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
 			{
-				int canvasWidth, canvasHeight;
-				if(canvas is DivElement)
-				{
-					canvasWidth = int.parse(canvas.style.width.replaceAll('px', ''));
-					canvasHeight = int.parse(canvas.style.height.replaceAll('px', ''));
-				}
-				else
-				{
-					canvasWidth = (canvas as CanvasElement).width;
-					canvasHeight = (canvas as CanvasElement).height;
-				}
-				offsetX[canvas.id] = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
-				offsetY[canvas.id] = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
+				int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
+				int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
+				double offsetX = (canvasWidth - ui.gameScreenWidth) * currentPercentX;
+				double offsetY = (canvasHeight - ui.gameScreenHeight) * currentPercentY;
 				
-				int groundY = int.parse(canvas.attributes['ground_y']);
-                offsetY[canvas.id] += groundY;
+				int groundY = num.parse(canvas.attributes['ground_y']).toInt();
+				offsetY += groundY;
 				
 				//translateZ(0) forces the gpu to render the transform
-				transforms[canvas.id+"translateZ(0) translateX("+(-offsetX[canvas.id]).toString()+"px) translateY("+(-offsetY[canvas.id]).toString()+"px)"] = canvas;
+				transforms[canvas.id+"translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
 			}
 			//try to bundle DOM writes together for performance.
-			transforms.forEach((String transform, Element canvas)
+			transforms.forEach((String transform, DivElement canvas)
 			{
 				transform = transform.replaceAll(canvas.id, '');
 				canvas.style.transform = transform;

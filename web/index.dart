@@ -4,6 +4,7 @@ import "dart:html";
 import "dart:math";
 import "dart:async";
 import "dart:convert";
+import "dart:js" as js;
 
 import 'package:libld/libld.dart'; // Nice and simple asset loading.
 
@@ -14,6 +15,7 @@ part 'player.dart';
 part 'animation.dart';
 part 'input.dart';
 part 'ui.dart';
+part 'divResizer.dart';
 
 part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
@@ -47,9 +49,9 @@ main()
 	layers = new DivElement()
 		..id = "layers"
 		..style.position = "absolute";
-			
+	
 	gameScreen.append(layers);
-    
+	    
     DivElement generateButton = querySelector("#Generate");
     generateButton.onMouseDown.listen((_)
 	{
@@ -88,26 +90,40 @@ main()
     
     window.onMessage.listen((MessageEvent event)
 	{
-		loadStreet(JSON.decode(event.data)).then((_)
-		{
-			//load a preview image of the street
-			tsid = JSON.decode(event.data)['tsid'];
-			if(tsid.startsWith("G"))
-				tsid = tsid.replaceFirst("G", "L");
-			
-			DivElement popup = querySelector("#PreviewWindow");
-            popup.hidden = false;
-            querySelector("#LoadingPreview").hidden = false;
-			
-            displayPreview(JSON.decode(event.data));
-		});
+    	if(madeChanges && tsid != null)
+    	{
+    		showSaveWindow(()
+			{
+    			loadStreet(JSON.decode(event.data)).then((_)
+        		{
+        			//load a preview image of the street
+        			tsid = JSON.decode(event.data)['tsid'];
+        			if(tsid.startsWith("G"))
+        				tsid = tsid.replaceFirst("G", "L");
+        			
+                    displayPreview(JSON.decode(event.data));
+        		});
+			});
+    	}
+    	else
+    	{
+    		loadStreet(JSON.decode(event.data)).then((_)
+    		{
+    			//load a preview image of the street
+    			tsid = JSON.decode(event.data)['tsid'];
+    			if(tsid.startsWith("G"))
+    				tsid = tsid.replaceFirst("G", "L");
+    			
+                displayPreview(JSON.decode(event.data));
+    		});
+    	}
 	});
     
     querySelectorAll(".entity").forEach((Element treeDiv)
 	{
 		setupListener(treeDiv);
 	});
-      
+          
     ui.init();
     playerInput = new Input();
     playerInput.init();
@@ -122,6 +138,10 @@ main()
 
 void displayPreview(Map streetData)
 {
+	Element existingPreview = querySelector("#PreviewWindow");
+	if(existingPreview != null)
+		existingPreview.remove();
+	
 	String imageUrl = streetData['main_image']['url'];
 	String hub = streetData['hub_id'];
 	String tsid = streetData['tsid'];
@@ -129,9 +149,10 @@ void displayPreview(Map streetData)
 	DataMaps map = new DataMaps();
 	Map<String,String> hubInfo = map.data_maps_hubs[hub]();
 	String region = hubInfo['name'];
-	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool")
+	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool" || region == "Kalavana"
+		|| region == "Shimla Mirch")
 	{
-		if(region == "Chakra Phool")
+		if(region == "Chakra Phool" || region == "Kalavana" || region == "Shimla Mirch")
 			region = "Firebog";
 		
 		querySelector("#NormalShrines").style.display = "none";
@@ -141,16 +162,23 @@ void displayPreview(Map streetData)
 		querySelector("#NormalShrines").style.display = "block";
 		
 	num width,height;
+	TemplateElement t = querySelector('#PreviewTemplate');
+	document.body.append(t.content.clone(true));
 	DivElement popup = querySelector("#PreviewWindow");
 	ImageElement preview = querySelector("#Preview");
+	Element resizeHandle = querySelector("#ResizeHandle");
+	//addResizeListener(popup,resizeHandle);
+	
+	querySelector("#LoadingPreview").hidden = false;
+    	
 	popup.hidden = false;
 	if(initialPopupWidth == null)
 	{
 		initialPopupWidth = (popup.clientWidth+15).toString()+"px";
     	initialPopupHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
+    	popup.attributes['initialWidth'] = initialPopupWidth;
+    	popup.attributes['initialHeight'] = initialPopupHeight;
 	}
-	popup.attributes['initialWidth'] = initialPopupWidth;
-	popup.attributes['initialHeight'] = initialPopupHeight;
 	
 	UListElement missingEntities = querySelector("#MissingEntities");
 	missingEntities.children.clear();
@@ -177,7 +205,9 @@ void displayPreview(Map streetData)
 	//and cross off (and display) ones that already exist
 	HttpRequest.getString("$serverAddress/getEntities?tsid=$tsid").then((String response)
 	{
-		loadExistingEntities(JSON.decode(response));
+		Map entities = JSON.decode(response);
+		if(entities['entities'] != null)
+			loadExistingEntities(entities);
 	});
 	
 	Element popupAction = querySelector("#PopupAction");
@@ -191,23 +221,27 @@ void displayPreview(Map streetData)
 		preview.hidden = false;
 		height = preview.naturalHeight;
 		width = preview.naturalWidth;
-		if(height > window.innerHeight - 100)
+		num widthToHeight = width/height;
+		if(height > width && height > window.innerHeight - 100)
 		{
 			height = window.innerHeight - 100;
+			width = widthToHeight*height;
 			preview.height = height;
+			preview.width = width.toInt();
 		}
-		if(width > window.innerWidth - 100)
+		else if(width > height && width > window.innerWidth - 100)
 		{
 			width = window.innerWidth - 100;
+			height = width/widthToHeight;
 			preview.width = width;
+			preview.height = height.toInt();
 		}
 		
 		preview.attributes['scaledHeight'] = height.toString();
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
 		
-		popup.style.width = "initial";
-		popup.style.height = "initial";
+		missingEntities.style.maxHeight = height.toString()+"px";
 		
 		popup.onMouseDown.listen((MouseEvent event)
 		{
@@ -216,6 +250,9 @@ void displayPreview(Map streetData)
 			
 			num offsetX = event.layer.x;
 			num offsetY = event.layer.y;
+			
+			popup.style.bottom = "initial";
+			popup.style.right = "initial";
 			
 			StreamSubscription move = window.onMouseMove.listen((MouseEvent event)
 			{
@@ -272,8 +309,20 @@ void maximizePopup()
 
 void saveToServer()
 {
-	if(!madeChanges)
+	Element toastMessage = querySelector("#ToastMessage");
+    Element toast = querySelector("#Toast");
+    
+	if(!madeChanges || tsid == null)
+	{
+		if(!madeChanges)
+			toastMessage.text = "No changes to save.";
+		if(tsid == null)
+			toastMessage.text = "No street loaded.";
+		
+		toast.style.opacity = "initial";
+        new Timer(new Duration(seconds:2), () => toast.style.opacity = "0");
 		return;
+	}
 	
 	List<Map> entities = [];
 	querySelectorAll(".placedEntity").forEach((Element element)
@@ -288,27 +337,54 @@ void saveToServer()
 		entity['animationNumFrames'] = int.parse(element.attributes['frames']);
 		entity['x'] = num.parse(element.style.left.replaceAll("px", "")).toInt();
 		entity['y'] = currentStreet.streetBounds.height-num.parse(element.style.top.replaceAll("px", "")).toInt()-element.client.height;
+		if(element.attributes['flipped'] != null)
+			entity['hflip'] = "true";
+		if(element.attributes['rotation'] != null)
+			entity['rotation'] = int.parse(element.attributes['rotation']);
 		entities.add(entity);
 	});
 	
 	Map data = {'tsid':tsid,'entities':JSON.encode(entities)};
-	HttpRequest.postFormData("$serverAddress/entityUpload",data).then((HttpRequest request) => print(request.response));
+	HttpRequest.postFormData("$serverAddress/entityUpload",data).then((HttpRequest request)
+	{
+		if(request.response == "OK")
+		{
+			toastMessage.text = "Entities Saved";
+			madeChanges = false;
+		}
+		else
+			toastMessage.text = "There was a problem, try again later.";
+		
+		toast.style.opacity = "initial";
+		new Timer(new Duration(seconds:2), () => toast.style.opacity = "0");
+	});
+}
+
+void showSaveWindow(Function onResponse)
+{
+	Element saveDialog = querySelector("#SaveDialog");
+	saveDialog.hidden = false;
+	querySelector("#SaveYes").onClick.first.then((_)
+	{
+		saveDialog.hidden = true;
+		saveToServer();
+		onResponse();
+	});
+	querySelector("#SaveNo").onClick.first.then((_)
+	{
+		saveDialog.hidden = true;
+		madeChanges = false;
+		onResponse();
+	});
+	
+	return;
 }
 
 void loadLocationJson()
 {
-	if(madeChanges)
-	{
-		Element saveDialog = querySelector("#SaveDialog");
-		saveDialog.hidden = false;
-		querySelector("#SaveYes").onClick.first.then((_)
-		{
-			saveDialog.hidden = true;
-			saveToServer();
-		});
-		querySelector("#SaveNo").onClick.first.then((_) => saveDialog.hidden = true);
-	}
-	
+	if(madeChanges && tsid != null)
+		showSaveWindow(loadLocationJson);
+		
 	TextInputElement locationInput = querySelector("#LocationCodeInput");
 	String location = locationInput.value;
 	if(location != "")
@@ -361,19 +437,19 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
 	clickListener = layer.onClick.listen((MouseEvent event)
-	{			
+	{		
 		num x,y;
 		//if we clicked on another deco inside the target layer
 		if((event.target as Element).id != layer.id)
 		{
-			y = (event.target as Element).offset.top+event.layer.y+currentStreet.offsetY[currentLayer];
-			x = (event.target as Element).offset.left+event.layer.x+currentStreet.offsetX[currentLayer];
+			y = (event.target as Element).offset.top+event.offset.y;
+			x = (event.target as Element).offset.left+event.offset.x;
 		}
 		//else we clicked on empty space in the layer
 		else
 		{
-			y = event.layer.y+currentStreet.offsetY[currentLayer];
-			x = event.layer.x+currentStreet.offsetX[currentLayer];
+			y = event.offset.y;
+			x = event.offset.x;
 		}
 		drag.style.top = (y-drag.clientHeight).toString()+"px";
         drag.style.left = x.toString()+"px";
@@ -397,7 +473,8 @@ StreamSubscription getMoveListener(DivElement drag)
 	document.body.append(drag);
 	moveListener = document.body.onMouseMove.listen((MouseEvent event)
 	{
-		drag.style.top = (event.page.y-drag.clientHeight).toString()+"px";
+		num height = num.parse(drag.style.height.replaceAll("px", ""));
+		drag.style.top = (event.page.y-height).toString()+"px";
         drag.style.left = (event.page.x+1).toString()+"px";
 	});
 	
@@ -443,6 +520,9 @@ void loadExistingEntities(Map entities)
 void crossOff(Element placed)
 {
 	UListElement missingEntities = querySelector("#MissingEntities");
+	if(missingEntities == null)
+		return;
+	
 	String type = normalizeType(placed);
 	
 	//now check the list for an un-crossed-out instance of type
@@ -461,6 +541,9 @@ void crossOff(Element placed)
 void unCrossOff(Element removed)
 {
 	UListElement missingEntities = querySelector("#MissingEntities");
+	if(missingEntities == null)
+		return;
+	
 	String type = normalizeType(removed);
     int numOfType = 0;
     querySelectorAll(".placedEntity").forEach((Element placedEntity)
@@ -521,7 +604,6 @@ Future loadStreet(Map streetData)
 {
 	Completer c = new Completer();
 	layers.children.clear();
-    //querySelector("#layerList").children.clear();
         	
 	CurrentPlayer.doPhysicsApply = false;
 	currentStreet = new Street(streetData);
@@ -530,6 +612,7 @@ Future loadStreet(Map streetData)
 		width = currentStreet.streetBounds.width;
     	height = currentStreet.streetBounds.height;
     	updateBounds(0,0,width,height);
+    	querySelector("#Location").text = currentStreet.label;
     	c.complete();
    	});
 	return c.future;
@@ -645,4 +728,37 @@ void updateBounds(num left, num top, num width, num height)
 String capitalizeFirstLetter(String string)
 {
     return string[0].toUpperCase() + string.substring(1);
+}
+
+void rotate(Element element, int degrees)
+{
+	int rotation = degrees;
+	if(element.attributes['rotation'] != null)
+		rotation += int.parse(element.attributes['rotation']);
+	
+	element.attributes['rotation'] = rotation.toString();
+	element.style.transform = "rotate(${rotation}deg)";
+	
+	if(element.attributes['flipped'] != null)
+		element.style.transform += " scale(-1,1)";
+}
+
+void flip(Element element)
+{
+	if(element.attributes['flipped'] != null)
+	{
+		element.attributes.remove('flipped');
+		if(element.attributes['rotation'] != null)
+			element.style.transform = "rotate(${element.attributes['rotation']}deg)";
+		else
+			element.style.transform = "scale(1,1)";
+	}
+	else
+	{
+		element.attributes['flipped'] = "true";
+		if(element.attributes['rotation'] != null)
+        	element.style.transform = "rotate(${element.attributes['rotation']}deg) scale(-1,1)";
+        else
+        	element.style.transform = "scale(-1,1)";	
+	}
 }

@@ -6,6 +6,4 @@ homepage: childrenofur.com
 dependencies:
   browser: any
   libld:
-    git:
-      ref: master
-      url: https://github.com/ChildrenOfUr/libld.git
+    path: ../libld

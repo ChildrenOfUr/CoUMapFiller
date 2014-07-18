@@ -122,6 +122,20 @@
 	width: 43.5px; /*87/2*/
 	height: 20px; /*40/2*/
 }
+#MortarBarnacle {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/barnacle__x1_1_x1_2_x1_3_x1_4_png_1354832735.png');
+	background-position: 97px 47px;
+	background-size: 194px 23.5px;
+	width: 48.5px; /*97/2*/
+	height: 23.5px; /*47/2*/
+}
+#Jellasic {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/jellisac_clump__x1_1_x1_2_x1_3_x1_4_png_1354833095.png');
+	background-position: 74px 33px;
+	background-size: 148px 16.5px;
+	width: 37px; /*74/2*/
+	height: 16.5px; /*33/2*/
+}
 #VisitingStone {
 	background-image: url('http://c2.glitch.bz/items/2012-12-06/visiting_stone__x1_1_png_1354840181.png');
 	background-size: 25.25px 38.75px;

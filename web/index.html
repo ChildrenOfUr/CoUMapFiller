@@ -152,6 +152,14 @@
 	    			<div>Firefly</div>
 	    		</div>
 	    		<div class="entity">
+	    			<div id="MortarBarnacle" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
+	    			<div>Mortar Barnacle</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="Jellasic" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
+	    			<div>Jellasic</div>
+	    		</div>
+	    		<div class="entity">
 	    			<div id="VisitingStone" class="centerEntity" rows="1" columns="1" frames="1"></div>
 	    			<div>Visiting Stone</div>
 	    		</div>
@@ -376,15 +384,19 @@
 	    </div>
   	</div>
   	
+  	<template id="PreviewTemplate">
   	<div class="PopWindow" id="PreviewWindow" hidden="true">
 	    <div class="PopWindowHeader handle">
 	      Street Preview (click and drag to move)
 	        <i id="PopupAction" style="float:right" class="fa fa-chevron-down fa-lg red"></i>
 	    </div>
-	    <span id="LoadingPreview">Loading Preview</span>
-	    <img id="Preview"/>
-	    <ul id="MissingEntities"></ul>
+	    <div class="PopupContent">
+		    <span id="LoadingPreview">Loading Preview</span>
+		    <img id="Preview"/>
+		    <ul id="MissingEntities"></ul>
+	    </div>
   	</div>
+  	</template>
   	
   	<div class="PopWindow" id="SaveDialog" hidden="true">
   		<div class="PopWindowHeader">
@@ -392,6 +404,10 @@
   		</div>
   		<div>Would you like to save your changes to the server?</div>
   		<div class="choiceButton" id="SaveYes">Yes</div><div class="choiceButton" id="SaveNo">No</div>
+  	</div>
+  	
+  	<div class="PopWindow" id="Toast">
+  		<div id="ToastMessage">This is a test message.</div>
   	</div>
   	
   	<!--Necessary to get around Cross-Domain stuff-->
@@ -403,6 +419,7 @@
 	</script>
     
     
+    <script type="application/javascript" src="resizer.js"></script>
     <script type="application/dart" src="index.dart"></script>
     <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
     <script src="packages/browser/dart.js"></script>

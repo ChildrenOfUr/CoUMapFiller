@@ -308,13 +308,25 @@ body {
     top:20px;
     right: 20px;
 }
+.PopupContent {
+	display: flex;
+	align-items: flex-start;
+}
+.resizer {
+	width: 10px;
+	height: 10px;
+	background: blue;
+	position:absolute;
+	right: 0; bottom:
+	0;
+	cursor: se-resize;
+}
 #MissingEntities {
 	display: inline-block;
 	text-align: left;
-	max-height: 90%;
 	overflow: auto;
 	margin: 0px;
-	padding: 5px;
+	padding: 0px 5px;
 }
 .ExitLabel {
 	padding: 12px;
@@ -370,11 +382,18 @@ body {
 	top: 50%;
 	left: 50%;
 	-webkit-transform: translateX(-50%) translateY(-50%);
-	-moz-transform: translateX(-50%) translateY(-50%);
-	-ms-transform: translateX(-50%) translateY(-50%);
 	transform: translateX(-50%) translateY(-50%);
 }
 .crossedOff {
 	text-decoration: line-through;
 	color: red;
+}
+#Toast {
+	opacity: 0;
+	top: initial;
+	bottom: 50px;
+	left: 50%;
+	-webkit-transform: translateX(-50%);
+	transform: translateX(-50%);
+	transition: all 1s linear;
 }

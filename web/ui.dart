@@ -4,7 +4,9 @@ UserInterface ui = new UserInterface();
 
 class UserInterface 
 {
-	num gameScreenWidth, gameScreenHeight;
+	num gameScreenWidth, gameScreenHeight, gameScreenTop;
+	DivElement progressIndicator;
+	ImageElement preview;
 	
 	init()
 	{
@@ -17,7 +19,8 @@ class UserInterface
     {
     	Element gameScreen = querySelector('#GameScreen');
     	
-    	ui.gameScreenWidth = gameScreen.clientWidth;
-    	ui.gameScreenHeight = gameScreen.clientHeight;
+    	gameScreenWidth = gameScreen.clientWidth;
+    	gameScreenHeight = gameScreen.clientHeight;
+    	gameScreenTop = gameScreen.getBoundingClientRect().top;
     }
 }

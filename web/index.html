@@ -385,14 +385,17 @@
   	</div>
   	
   	<template id="PreviewTemplate">
-  	<div class="PopWindow" id="PreviewWindow" hidden="true">
+  	<div class="PopWindow" id="PreviewWindow">
 	    <div class="PopWindowHeader handle">
 	      Street Preview (click and drag to move)
 	        <i id="PopupAction" style="float:right" class="fa fa-chevron-down fa-lg red"></i>
 	    </div>
 	    <div class="PopupContent">
 		    <span id="LoadingPreview">Loading Preview</span>
-		    <img id="Preview"/>
+		    <div id="PreviewHolder">
+		    	<img id="Preview"/>
+		    	<div id="ProgressIndicator" class="progress"></div>
+		    </div>
 		    <ul id="MissingEntities"></ul>
 	    </div>
   	</div>

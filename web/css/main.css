@@ -208,6 +208,7 @@ body {
 }
 .dashedBorder {
 	border: 1px dashed black;
+	pointer-events: none;
 }
 .flip {
 	transform: scale(-1,1);
@@ -320,6 +321,12 @@ body {
 	right: 0; bottom:
 	0;
 	cursor: se-resize;
+}
+.progress {
+	width: 10px;
+	height: 10px;
+	background: blue;
+	position:absolute;
 }
 #MissingEntities {
 	display: inline-block;

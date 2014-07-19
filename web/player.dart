@@ -103,6 +103,14 @@ class Player
 	    updateAnimation(dt);
 						
 		updateTransform();
+		
+		if(ui.progressIndicator != null)
+		{
+			num percentX = (posX+width/2)/currentStreet.streetBounds.width;
+			num percentY = (posY+height/2)/currentStreet.streetBounds.height;
+			ui.progressIndicator.style.left = (ui.preview.width*percentX+ui.preview.offset.left-ui.progressIndicator.client.width/2).toString()+"px";
+			ui.progressIndicator.style.top = (ui.preview.height*percentY+ui.preview.offset.top-ui.progressIndicator.client.height/2).toString()+"px";
+		}
 	}
   
 	void render()

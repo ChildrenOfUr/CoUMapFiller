@@ -27,7 +27,7 @@ DivElement gameScreen, layers;
 Rectangle bounds;
 Random rand = new Random();
 StreamSubscription moveListener, clickListener;
-bool madeChanges = false;
+bool madeChanges = false, popupMinimized = false;
 
 // Declare our game_loop
 double lastTime = 0.0;
@@ -149,11 +149,15 @@ void displayPreview(Map streetData)
 	DataMaps map = new DataMaps();
 	Map<String,String> hubInfo = map.data_maps_hubs[hub]();
 	String region = hubInfo['name'];
+	print("region $region");
 	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool" || region == "Kalavana"
-		|| region == "Shimla Mirch")
+		|| region == "Shimla Mirch" || region.contains("Ilmenskie"))
 	{
 		if(region == "Chakra Phool" || region == "Kalavana" || region == "Shimla Mirch")
 			region = "Firebog";
+		
+		if(region.contains("Ilmenskie"))
+			region = "Uralia";
 		
 		querySelector("#NormalShrines").style.display = "none";
 		querySelector("#${region}Shrines").style.display = "block";
@@ -168,17 +172,18 @@ void displayPreview(Map streetData)
 	ImageElement preview = querySelector("#Preview");
 	Element resizeHandle = querySelector("#ResizeHandle");
 	//addResizeListener(popup,resizeHandle);
-	
+	ui.progressIndicator = querySelector("#ProgressIndicator");
+	ui.preview = preview;
+	popup.hidden = false;
 	querySelector("#LoadingPreview").hidden = false;
     	
-	popup.hidden = false;
-	if(initialPopupWidth == null)
-	{
-		initialPopupWidth = (popup.clientWidth+15).toString()+"px";
-    	initialPopupHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
-    	popup.attributes['initialWidth'] = initialPopupWidth;
-    	popup.attributes['initialHeight'] = initialPopupHeight;
-	}
+	if(popupMinimized)
+		popup.style.opacity = "0";
+	
+	initialPopupWidth = (popup.clientWidth+15).toString()+"px";
+	initialPopupHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
+	popup.attributes['initialWidth'] = initialPopupWidth;
+	popup.attributes['initialHeight'] = initialPopupHeight;
 	
 	UListElement missingEntities = querySelector("#MissingEntities");
 	missingEntities.children.clear();
@@ -212,8 +217,6 @@ void displayPreview(Map streetData)
 	
 	Element popupAction = querySelector("#PopupAction");
 	popupAction.onClick.first.then((_) => minimizePopup());
-	popupAction.classes.add("fa-chevron-down");
-    popupAction.classes.remove("fa-chevron-up");
 	
 	preview.src = imageUrl;
 	preview.onLoad.listen((_)
@@ -236,7 +239,7 @@ void displayPreview(Map streetData)
 			preview.width = width;
 			preview.height = height.toInt();
 		}
-		
+				
 		preview.attributes['scaledHeight'] = height.toString();
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
@@ -251,9 +254,6 @@ void displayPreview(Map streetData)
 			num offsetX = event.layer.x;
 			num offsetY = event.layer.y;
 			
-			popup.style.bottom = "initial";
-			popup.style.right = "initial";
-			
 			StreamSubscription move = window.onMouseMove.listen((MouseEvent event)
 			{
 				popup.style.left = (event.client.x - offsetX).toString()+"px";
@@ -261,6 +261,12 @@ void displayPreview(Map streetData)
 			});
 			window.onMouseUp.first.then((_) => move.cancel());
 		});
+		
+		if(popupMinimized)
+		{
+			minimizePopup();
+			popup.style.opacity = "initial";
+		}
 	});
 }
 
@@ -270,11 +276,13 @@ void minimizePopup()
    	ImageElement preview = querySelector("#Preview");
    	Element popupAction = querySelector("#PopupAction");
    	UListElement missing = querySelector("#MissingEntities");
+   	DivElement progress = querySelector("#ProgressIndicator");
    	
-   	popupAction.classes.toggle("fa-chevron-down");
-   	popupAction.classes.toggle("fa-chevron-up");
-   	popupAction.onClick.first.then((_) => maximizePopup());
+   	popupAction.classes.remove("fa-chevron-down");
+    popupAction.classes.add("fa-chevron-up");
+    popupAction.onClick.first.then((_) => maximizePopup());
 	preview.hidden = true;
+	progress.hidden = true;
 	missing.style.display = "none";
 	popup.style.bottom = "0px";
 	popup.style.right = "0px";
@@ -282,6 +290,8 @@ void minimizePopup()
 	popup.style.left = "initial";
 	popup.style.width = popup.attributes['initialWidth'];
 	popup.style.height = popup.attributes['initialHeight'];
+	
+	popupMinimized = true;
 }
 
 void maximizePopup()
@@ -290,14 +300,16 @@ void maximizePopup()
     ImageElement preview = querySelector("#Preview");
     Element popupAction = querySelector("#PopupAction");
     UListElement missing = querySelector("#MissingEntities");
+    DivElement progress = querySelector("#ProgressIndicator");
    	
     num height = num.parse(preview.attributes['scaledHeight']);
     num width = num.parse(preview.attributes['scaledWidth']);
-   	popupAction.classes.toggle("fa-chevron-down");
-   	popupAction.classes.toggle("fa-chevron-up");
-   	popupAction.onClick.first.then((_) => minimizePopup());
+    popupAction.classes.add("fa-chevron-down");
+    popupAction.classes.remove("fa-chevron-up");
+    popupAction.onClick.first.then((_) => minimizePopup());
    	missing.style.display = "inline-block";
     preview.hidden = false;
+    progress.hidden = false;
     preview.height = height;
 	popup.style.width = "initial";
 	popup.style.height = "calc("+height.toString()+"px" + " + 2em)";
@@ -305,6 +317,8 @@ void maximizePopup()
 	popup.style.right = "initial";
 	popup.style.top = "25px";
 	popup.style.left = "0px";
+	
+	popupMinimized = false;
 }
 
 void saveToServer()
@@ -438,6 +452,15 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 	Element layer = querySelector("#$currentLayer");
 	clickListener = layer.onClick.listen((MouseEvent event)
 	{		
+		num percentX = event.page.x/ui.gameScreenWidth;
+		num percentY = (event.page.y-ui.gameScreenTop)/ui.gameScreenHeight;
+		if(percentX > 1)
+			percentX = 1;
+		if(percentY > 1)
+			percentY = 1;
+		num dragX = percentX*drag.client.width-drag.client.width;
+		num dragY = percentY*drag.client.height;
+		
 		num x,y;
 		//if we clicked on another deco inside the target layer
 		if((event.target as Element).id != layer.id)
@@ -451,8 +474,8 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 			y = event.offset.y;
 			x = event.offset.x;
 		}
-		drag.style.top = (y-drag.clientHeight).toString()+"px";
-        drag.style.left = x.toString()+"px";
+		drag.style.top = (y-drag.clientHeight+dragY).toString()+"px";
+        drag.style.left = (x+dragX).toString()+"px";
         drag.classes.add("placedEntity");
         drag.classes.remove("dashedBorder");
         
@@ -473,9 +496,18 @@ StreamSubscription getMoveListener(DivElement drag)
 	document.body.append(drag);
 	moveListener = document.body.onMouseMove.listen((MouseEvent event)
 	{
+		num percentX = event.page.x/ui.gameScreenWidth;
+		num percentY = (event.page.y-ui.gameScreenTop)/ui.gameScreenHeight;
+		if(percentX > 1)
+			percentX = 1;
+		if(percentY > 1)
+			percentY = 1;
+		num dragX = percentX*drag.client.width-drag.client.width;
+		num dragY = percentY*drag.client.height;
+		
 		num height = num.parse(drag.style.height.replaceAll("px", ""));
-		drag.style.top = (event.page.y-height).toString()+"px";
-        drag.style.left = (event.page.x+1).toString()+"px";
+		drag.style.top = (event.page.y-height+dragY).toString()+"px";
+        drag.style.left = (event.page.x+dragX).toString()+"px";
 	});
 	
 	return moveListener;
@@ -529,7 +561,8 @@ void crossOff(Element placed)
 	bool found = false;
 	missingEntities.children.forEach((Element listItem)
 	{
-		if(!found && listItem.text.contains(type) && !listItem.classes.contains("crossedOff"))
+		String listText = listItem.text.replaceAll("Coin", "Quoin").replaceAll("Qurazy", "Quarazy");
+		if(!found && listText.contains(type) && !listItem.classes.contains("crossedOff"))
 		{
 			listItem.classes.add("crossedOff");
 			missingEntities.append(listItem);
@@ -557,7 +590,8 @@ void unCrossOff(Element removed)
     int numOnList = 0;
     missingEntities.children.forEach((Element listItem)
 	{
-		if(listItem.text.contains(type) && listItem.classes.contains("crossedOff"))
+    	String listText = listItem.text.replaceAll("Coin", "Quoin").replaceAll("Qurazy", "Quarazy");
+		if(listText.contains(type) && listItem.classes.contains("crossedOff"))
 		{
 			numOnList++;
 			if(found == null)
@@ -577,7 +611,7 @@ String normalizeType(Element placed)
 {
 	String type = placed.attributes['type'];
 	if(type == "Img" || type == "Mood" || type == "Energy" || type == "Currant"
-    	|| type == "Mystery" || type == "Favor" || type == "Time" || type == "Quarazy")
+    	|| type == "Mystery" || type == "Favor" || type == "Time")
 	{
         	type = "Quoin";
 	}

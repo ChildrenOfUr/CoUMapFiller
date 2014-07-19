@@ -454,8 +454,17 @@ void setupListener(DivElement entityParent)
 
 StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 {
-	drag.style.top = (event.page.y-drag.client.height).toString()+"px";
-	drag.style.left = event.page.x.toString()+"px";
+	num percentX = event.page.x/ui.gameScreenWidth;
+	num percentY = (event.page.y-ui.gameScreenTop)/ui.gameScreenHeight;
+	if(percentX > 1)
+		percentX = 1;
+	if(percentY > 1)
+		percentY = 1;
+	num dragX = percentX*drag.client.width-drag.client.width;
+	num dragY = percentY*drag.client.height;
+	
+	drag.style.top = (event.page.y-drag.client.height+dragY).toString()+"px";
+	drag.style.left = (event.page.x+dragX).toString()+"px";
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
 	clickListener = layer.onClick.listen((MouseEvent event)

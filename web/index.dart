@@ -149,7 +149,6 @@ void displayPreview(Map streetData)
 	DataMaps map = new DataMaps();
 	Map<String,String> hubInfo = map.data_maps_hubs[hub]();
 	String region = hubInfo['name'];
-	print("region $region");
 	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool" || region == "Kalavana"
 		|| region == "Shimla Mirch" || region.contains("Ilmenskie"))
 	{
@@ -243,6 +242,15 @@ void displayPreview(Map streetData)
 		preview.attributes['scaledHeight'] = height.toString();
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
+		
+		preview.onClick.listen((MouseEvent event)
+		{
+			num percentX = event.offset.x/width;
+			num percentY = event.offset.y/height;
+			CurrentPlayer.posX = percentX*currentStreet.streetBounds.width;
+			CurrentPlayer.posY = percentY*currentStreet.streetBounds.height;
+			event.stopPropagation();
+		});
 		
 		missingEntities.style.maxHeight = height.toString()+"px";
 		

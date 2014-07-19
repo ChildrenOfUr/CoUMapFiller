@@ -23,7 +23,7 @@ body {
   
 #GameScreenParent {
 	position: relative;
-	width: calc(100% - 290px - 40px - 18px - 20px);
+	width: calc(100% - 380px - 40px - 18px - 20px);
 	height: calc(100% - 60px);
 	max-height: 900px;
 	top: 25px;
@@ -50,7 +50,7 @@ body {
 	color: #005c73;
 	background-color: #fff;
 	position:absolute;
-	width: 330px;
+	width: 420px;
 	height: calc(100% - 115px);
 	top: 50px;
 	right: 8px;
@@ -175,7 +175,7 @@ body {
 }
 #GenerateParent {
 	text-align: center;
-	width: 330px;
+	width: 420px;
 	right: 13px;
 	position: absolute;
 	bottom: 5px;
@@ -353,7 +353,6 @@ body {
 	pointer-events: none;
 }
 #Preview {
-	pointer-events: none;
 }
 #PlayerHolder {
 	pointer-events: none;

@@ -21,7 +21,7 @@ part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
 String currentLayer = "EntityHolder", tsid, initialPopupWidth, initialPopupHeight;
-String serverAddress = "http://robertmcdermot.com:8080";
+String serverAddress = "http://localhost:8181";
 int width = 3000 , height = 1000;
 DivElement gameScreen, layers;
 Rectangle bounds;
@@ -619,8 +619,11 @@ void unCrossOff(Element removed)
     //only uncross off an item if there are not enough left on screen after removal of this one
     if(numOnList > numOfType - 1)
     {
-    	found.classes.remove("crossedOff");
-        missingEntities.insertBefore(found, missingEntities.children.first);	
+    	if(found != null)
+    	{
+    		found.classes.remove("crossedOff");
+        	missingEntities.insertBefore(found, missingEntities.children.first);	
+     	}
     }
 }
 

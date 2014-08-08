@@ -184,8 +184,8 @@ body {
   position:absolute;
   display: -webkit-inline-flex;
   display: inline-flex;
-  right: 10px;
-  top: -45px;
+  margin-left: 20px;
+  margin-top: 5px;
   color:mediumgrey;
   font-size: 14px;
   white-space: nowrap;

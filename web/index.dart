@@ -17,6 +17,8 @@ part 'input.dart';
 part 'ui.dart';
 part 'divResizer.dart';
 
+part 'preview_window.dart';
+
 part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
@@ -61,23 +63,6 @@ main()
 	{
     	saveToServer();
 		generateButton.classes.add("shadow");
-	});
-    
-    InputElement fileLoad = querySelector("#fileLoad") as InputElement;
-    fileLoad.onChange.listen((_)
-	{
-    	//the user hit cancel
-    	if(fileLoad.files.length == 0)
-    		return;
-    	
-		File file = fileLoad.files.first;
-		FileReader reader = new FileReader();
-		reader.onLoad.listen((_)
-		{
-			loadStreet(JSON.decode(reader.result));
-		});
-		reader.readAsText(file);
-		fileLoad.blur();
 	});
     
     querySelector('#LocationCodeForm').onSubmit.listen((Event e)
@@ -165,8 +150,7 @@ void displayPreview(Map streetData)
 		querySelector("#NormalShrines").style.display = "block";
 		
 	num width,height;
-	TemplateElement t = querySelector('#PreviewTemplate');
-	document.body.append(t.content.clone(true));
+	document.body.append(PreviewWindow.create());
 	DivElement popup = querySelector("#PreviewWindow");
 	ImageElement preview = querySelector("#Preview");
 	Element resizeHandle = querySelector("#ResizeHandle");
@@ -579,7 +563,7 @@ void crossOff(Element placed)
 	missingEntities.children.forEach((Element listItem)
 	{
 		String listText = listItem.text.replaceAll("Coin", "Quoin").replaceAll("Qurazy", "Quarazy");
-		if(!found && listText.contains(type) && !listItem.classes.contains("crossedOff"))
+		if(!found && listText.toLowerCase().contains(type.toLowerCase()) && !listItem.classes.contains("crossedOff"))
 		{
 			listItem.classes.add("crossedOff");
 			missingEntities.append(listItem);
@@ -608,7 +592,7 @@ void unCrossOff(Element removed)
     missingEntities.children.forEach((Element listItem)
 	{
     	String listText = listItem.text.replaceAll("Coin", "Quoin").replaceAll("Qurazy", "Quarazy");
-		if(listText.contains(type) && listItem.classes.contains("crossedOff"))
+		if(listText.toLowerCase().contains(type.toLowerCase()) && listItem.classes.contains("crossedOff"))
 		{
 			numOnList++;
 			if(found == null)

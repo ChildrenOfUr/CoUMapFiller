@@ -203,6 +203,12 @@
 	width: 29.5px; /*59/2*/
 	height: 18.5px; /*37/2*/
 }
+#BundleOfJoy {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_bundle_of_joy__x1_walk_png_1354839563.png');
+	background-size: 416px 29.5px;
+	width: 52px; /*104/2*/
+	height: 29.5px; /*59/2*/
+}
 #Img {
 	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
 	width: 40px;

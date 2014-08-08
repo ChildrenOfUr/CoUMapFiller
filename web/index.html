@@ -16,22 +16,19 @@
  
   <body>
   	<div id="MainScreen">
-	  	<form style="display: inline;">
-	  		<input id="fileLoad" type="file">
-	  	</form>
-	  	<form style="display: inline;" id="LocationCodeForm">
+	  	<form style="display: inline;margin-left: 200px;" id="LocationCodeForm">
 	  		<input type="text" id="LocationCodeInput" placeholder="enter location code to load">
 	  		<input type="button" id="LocationCodeButton" value="Load">
 	  	</form>
+	  	<div id="CurrentLocation">
+        	<img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
+          		<div>
+            		Current Location:
+            		<div id="Location">
+            		</div>
+          		</div>
+        </div>
   		<div id="GameScreenParent">
-		  	<div id="CurrentLocation">
-	        	<img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
-	          		<div>
-	            		Current Location:
-	            		<div id="Location">
-	            		</div>
-	          		</div>
-	        </div>
 	  		<div id="GameScreen"></div>
 	  	</div>
 	    <div id="ToolBox" class="shadow">
@@ -205,6 +202,10 @@
 	    		<div class="entity">
 	    			<div id="Salmon" class="centerEntity" scale = 2 rows="2" columns="11" frames="22"></div>
 	    			<div>Salmon</div>
+	    		</div>
+	    		<div class="entity">
+	    			<div id="BundleOfJoy" class="centerEntity" scale = 2 rows="1" columns="8" frames="8"></div>
+	    			<div>Bundle of Joy</div>
 	    		</div>
 	    	</div>
 	    	<hr>
@@ -419,23 +420,6 @@
 	    </div>
   	</div>
   	
-  	<template id="PreviewTemplate">
-  	<div class="PopWindow" id="PreviewWindow">
-	    <div class="PopWindowHeader handle">
-	      Street Preview (click and drag to move)
-	        <i id="PopupAction" style="float:right" class="fa fa-chevron-down fa-lg red"></i>
-	    </div>
-	    <div class="PopupContent">
-		    <span id="LoadingPreview">Loading Preview</span>
-		    <div id="PreviewHolder">
-		    	<img id="Preview"/>
-		    	<div id="ProgressIndicator" class="progress"></div>
-		    </div>
-		    <ul id="MissingEntities"></ul>
-	    </div>
-  	</div>
-  	</template>
-  	
   	<div class="PopWindow" id="SaveDialog" hidden="true">
   		<div class="PopWindowHeader">
   			Save Dialog
@@ -457,7 +441,6 @@
 	</script>
     
     
-    <script type="application/javascript" src="resizer.js"></script>
     <script type="application/dart" src="index.dart"></script>
     <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
     <script src="packages/browser/dart.js"></script>

@@ -75,6 +75,7 @@ main()
     
     window.onMessage.listen((MessageEvent event)
 	{
+    	showToast("Loading...",untilCanceled:true, immediate:true);
     	if(madeChanges && tsid != null)
     	{
     		showSaveWindow(()
@@ -86,7 +87,7 @@ main()
         			if(tsid.startsWith("G"))
         				tsid = tsid.replaceFirst("G", "L");
         			
-                    displayPreview(JSON.decode(event.data));
+                    displayPreview(JSON.decode(event.data)).then((_) => cancelToast());
         		});
 			});
     	}
@@ -99,7 +100,7 @@ main()
     			if(tsid.startsWith("G"))
     				tsid = tsid.replaceFirst("G", "L");
     			
-                displayPreview(JSON.decode(event.data));
+                displayPreview(JSON.decode(event.data)).then((_) => cancelToast());;
     		});
     	}
 	});
@@ -121,8 +122,10 @@ main()
     });
 }
 
-void displayPreview(Map streetData)
+Future displayPreview(Map streetData)
 {
+	Completer c = new Completer();
+	
 	Element existingPreview = querySelector("#PreviewWindow");
 	if(existingPreview != null)
 		existingPreview.remove();
@@ -259,7 +262,11 @@ void displayPreview(Map streetData)
 			minimizePopup();
 			popup.style.opacity = "initial";
 		}
+		
+		c.complete();
 	});
+	
+	return c.future;
 }
 
 void minimizePopup()
@@ -313,20 +320,35 @@ void maximizePopup()
 	popupMinimized = false;
 }
 
-void saveToServer()
+void showToast(String message, {bool untilCanceled: false, bool immediate: false})
 {
 	Element toastMessage = querySelector("#ToastMessage");
     Element toast = querySelector("#Toast");
+    if(immediate)
+    	toast.style.transition = "none";
+    toastMessage.text = message;
+    toast.style.opacity = "initial";
     
+    if(!untilCanceled)
+    	new Timer(new Duration(seconds:2), () => cancelToast());
+}
+
+void cancelToast()
+{
+	Element toast = querySelector("#Toast");
+	toast.style.transition = "all 1s linear";
+	toast.style.opacity = "0";
+}
+
+void saveToServer()
+{    
 	if(!madeChanges || tsid == null)
 	{
 		if(!madeChanges)
-			toastMessage.text = "No changes to save.";
+			showToast("No changes to save.");
 		if(tsid == null)
-			toastMessage.text = "No street loaded.";
+			showToast("No street loaded.");
 		
-		toast.style.opacity = "initial";
-        new Timer(new Duration(seconds:2), () => toast.style.opacity = "0");
 		return;
 	}
 	
@@ -355,14 +377,11 @@ void saveToServer()
 	{
 		if(request.response == "OK")
 		{
-			toastMessage.text = "Entities Saved";
+			showToast("Entities Saved");
 			madeChanges = false;
 		}
 		else
-			toastMessage.text = "There was a problem, try again later.";
-		
-		toast.style.opacity = "initial";
-		new Timer(new Duration(seconds:2), () => toast.style.opacity = "0");
+			showToast("There was a problem, try again later.");
 	});
 }
 

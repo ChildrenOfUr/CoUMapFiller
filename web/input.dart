@@ -49,17 +49,7 @@ class Input
 			}
 		});
 		
-		Element tutorial = querySelector('#tutorial');
-		tutorial.onMouseDown.listen((_)
-    	{
-    		tutorial.classes.remove("shadow");
-    	});
-        tutorial.onMouseUp.listen((_)
-    	{
-        	querySelector("#motdWindow").hidden = false;
-    		tutorial.classes.add("shadow");
-    	});
-                    
+		querySelector('#tutorial').onClick.listen((_) => querySelector("#motdWindow").hidden = false);
 		querySelector("#motdWindow .close").onClick.listen((_) => querySelector("#motdWindow").hidden = true);
 		
 		CheckboxInputElement collisions = querySelector("#collisionLines") as CheckboxInputElement;

@@ -427,7 +427,7 @@ void loadLocationJson()
 void setupListener(DivElement entityParent)
 {	
 	DivElement entity = entityParent.querySelector(".centerEntity");
-	entityParent.onClick.listen((MouseEvent event)
+	entityParent.onMouseDown.listen((MouseEvent event)
 	{
 		Element alreadyPickedUp = querySelector(".dashedBorder");
     	if(alreadyPickedUp != null)
@@ -501,7 +501,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 	drag.style.left = (event.page.x+dragX).toString()+"px";
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
-	clickListener = layer.onClick.listen((MouseEvent event)
+	clickListener = layer.onMouseUp.listen((MouseEvent event)
 	{		
 		num percentX = event.page.x/ui.gameScreenWidth;
 		num percentY = (event.page.y-ui.gameScreenTop)/ui.gameScreenHeight;

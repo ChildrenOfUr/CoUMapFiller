@@ -376,11 +376,70 @@ class Street
 			
 			//make sure to redraw the screen (in case of street switching)
 			camera.dirty = true;
+			showLineCanvas();
 			c.complete(this);
 		});
         // Done initializing street.
 		return c.future;
 	}
+	
+	void showLineCanvas()
+    {	
+		CheckboxInputElement collisions = querySelector("#collisionLines");
+		if(!collisions.checked)
+		{
+			Element lineCanvas = querySelector("#lineCanvas");
+			if(lineCanvas != null)
+				lineCanvas.remove();
+			return;
+		}
+		
+    	CanvasElement lineCanvas = new CanvasElement()
+    		..classes.add("streetcanvas")
+    		..style.position = "absolute"
+    		..style.width = currentStreet.streetBounds.width.toString()+"px"
+    		..style.height = currentStreet.streetBounds.height.toString()+"px"
+    		..width = currentStreet.streetBounds.width
+    		..height = currentStreet.streetBounds.height
+    		..attributes["ground_y"] = currentStreet._data['dynamic']['ground_y'].toString()
+    		..id = "lineCanvas";
+    	layers.append(lineCanvas);
+    	
+    	camera.dirty = true; //force a recalculation of any offset
+    	
+    	repaint(lineCanvas);
+    }
+	
+	void repaint(CanvasElement lineCanvas, [Platform temporary])
+    {
+    	CanvasRenderingContext2D context = lineCanvas.context2D;
+    	context.clearRect(0, 0, lineCanvas.width, lineCanvas.height);
+    	context.lineWidth = 3;
+    	context.strokeStyle = "#ffff00";
+    	context.beginPath();
+    	for(Platform platform in currentStreet.platforms)
+    	{
+    		context.moveTo(platform.start.x, platform.start.y-1.5);
+    		context.lineTo(platform.end.x, platform.end.y-1.5);
+    	}
+    	context.stroke();
+    	context.beginPath();
+    	context.strokeStyle = "#ff0000";
+    	for(Platform platform in currentStreet.platforms)
+    	{
+    		context.moveTo(platform.start.x, platform.start.y+1.5);
+    		context.lineTo(platform.end.x, platform.end.y+1.5);
+    	}    	
+    	context.stroke();
+    	context.beginPath();
+    	context.strokeStyle = "#000000";
+    	for(Platform platform in currentStreet.platforms)
+    	{
+    		context.moveTo(platform.end.x, platform.end.y+5);
+    		context.lineTo(platform.end.x, platform.end.y-5);
+    	}
+    	context.stroke();
+    }
 	
 	void resizeImage(ImageElement img, int newWidth, int newHeight) 
 	{
@@ -414,7 +473,7 @@ class Street
 			
 			//modify left and top for parallaxing
 			Map<String,DivElement> transforms = new Map();
-			for(DivElement canvas in gameScreen.querySelectorAll('.streetcanvas'))
+			for(Element canvas in gameScreen.querySelectorAll('.streetcanvas'))
 			{
 				int canvasWidth = num.parse(canvas.style.width.replaceAll('px', '')).toInt();
 				int canvasHeight = num.parse(canvas.style.height.replaceAll('px', '')).toInt();
@@ -428,7 +487,7 @@ class Street
 				transforms[canvas.id+"translateZ(0) translateX("+(-offsetX).toString()+"px) translateY("+(-offsetY).toString()+"px)"] = canvas;
 			}
 			//try to bundle DOM writes together for performance.
-			transforms.forEach((String transform, DivElement canvas)
+			transforms.forEach((String transform, Element canvas)
 			{
 				transform = transform.replaceAll(canvas.id, '');
 				canvas.style.transform = transform;

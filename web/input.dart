@@ -40,11 +40,17 @@ class Input
 			}
 			if(target.className == "placedEntity")
 			{
+				querySelector("#$currentLayer").style.cursor = "move";
+                querySelector("#ToolBox").style.cursor = "move";
 				unCrossOff(target);
+				stopListener = querySelector("#ToolBox").onClick.listen((_) => stop(target));
 				clickListener = getClickListener(target,event);
 				moveListener = getMoveListener(target);
 			}
 		});
+		
+		CheckboxInputElement collisions = querySelector("#collisionLines") as CheckboxInputElement;
+		collisions.onChange.listen((Event event) => currentStreet.showLineCanvas());
 		
 		//Handle player input
 	    //KeyUp and KeyDown are neccesary for preventing weird movement glitches

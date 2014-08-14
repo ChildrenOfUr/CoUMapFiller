@@ -23,12 +23,12 @@ part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
 String currentLayer = "EntityHolder", tsid, initialPopupWidth, initialPopupHeight;
-String serverAddress = "http://localhost:8181";
+String serverAddress = "http://robertmcdermot.com:8080";
 int width = 3000 , height = 1000;
 DivElement gameScreen, layers;
 Rectangle bounds;
 Random rand = new Random();
-StreamSubscription moveListener, clickListener;
+StreamSubscription moveListener, clickListener, stopListener;
 bool madeChanges = false, popupMinimized = false;
 
 // Declare our game_loop
@@ -406,10 +406,26 @@ void loadLocationJson()
 }
 
 void setupListener(DivElement entityParent)
-{
+{	
 	DivElement entity = entityParent.querySelector(".centerEntity");
 	entityParent.onClick.listen((MouseEvent event)
 	{
+		Element alreadyPickedUp = querySelector(".dashedBorder");
+    	if(alreadyPickedUp != null)
+    	{
+    		if(alreadyPickedUp.classes.contains("placedEntity"))
+    		{
+    			stop(alreadyPickedUp);
+    			return;
+    		}
+    		
+    		alreadyPickedUp.remove();
+    		if(clickListener != null)
+    			clickListener.cancel();
+    		if(moveListener != null)
+    			moveListener.cancel();
+    	}
+        	
 		DivElement drag = new DivElement();
 		CssStyleDeclaration style = entity.getComputedStyle();
 		int scale = 4;
@@ -431,9 +447,24 @@ void setupListener(DivElement entityParent)
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
 		
+		querySelector("#$currentLayer").style.cursor = "move";
+		querySelector("#ToolBox").style.cursor = "move";
+		
 		clickListener = getClickListener(drag,event);
 		moveListener = getMoveListener(drag);
+		
+		event.stopPropagation();
 	});
+}
+
+void stop(Element drag)
+{
+	querySelector("#$currentLayer").style.cursor = "";
+    querySelector("#ToolBox").style.cursor = "";
+	drag.remove();
+	moveListener.cancel();
+	clickListener.cancel();
+	stopListener.cancel();
 }
 
 StreamSubscription getClickListener(DivElement drag, MouseEvent event)
@@ -481,6 +512,8 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         drag.classes.remove("dashedBorder");
         
         layer.append(drag);
+        layer.style.cursor = "";
+        querySelector("#ToolBox").style.cursor = "";
         madeChanges = true;
         crossOff(drag);
 

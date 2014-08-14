@@ -190,7 +190,7 @@ class Input
 			..onClick.listen((_) => delete(element));
 		
 		hoverParent..append(flipButton)..append(deleteButton)
-				   ..append(rotateRightButton)..append(rotateLeftButton);
+				   ..append(rotateLeftButton)..append(rotateRightButton);
 		
 		element.append(hoverParent);
 	}

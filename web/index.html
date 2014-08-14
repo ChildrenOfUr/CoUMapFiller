@@ -38,23 +38,19 @@
  		<div id="top">
  			<h1 id="topTitle">Children of Ur Map Filler</h1> 
  			<i id="tutorial" class="fa fa-question-circle" title="Show Tutorial"></i>
- 			<div id="CurrentLocation">
- 				<img src="./assets/system/map_icon.svg" id="MapGlyph">
- 				<div>
- 					Current Location:
- 					<div id="Location">
+ 			<div id="RightParent">
+ 				<div id="CurrentLocation">
+ 					<img src="./assets/system/map_icon.svg" id="MapGlyph">
+ 					<div>
+ 						Current Location:
+ 						<div id="Location"></div>
  					</div>
  				</div>
- 			</div>
- 			<div id="RightParent">
  				<div id="RandomStreet" class="button shadow">Random Street</div>
  				<div id="Generate" class="button shadow">Save Entities</div>
- 				<form id="LocationCodeForm">
+ 			<form id="LocationCodeForm">
  				<input type="text" id="LocationCodeInput" placeholder="Enter TSID to Open">
- 				<input type="button" id="LocationCodeButton" value="Load">
- 				<br>
- 				<input type="checkbox" id="collisionLines">
- 				<label for="collisionLines">Show Collision Lines</label>
+ 				<input type="button" class="button shadow" id="LocationCodeButton" value="Load">
  			</form>
  			</div>
  		</div>
@@ -448,6 +444,10 @@
  					<div>Helga</div>
  				</div>
  			</div>
+ 		</div>
+ 		<div id="collisionOptionHolder">
+ 			<input type="checkbox" id="collisionLines">
+ 			<label for="collisionLines">Show Collision Lines</label>
  		</div>
  	</div>
 

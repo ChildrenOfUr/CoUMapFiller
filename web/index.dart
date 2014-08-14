@@ -359,8 +359,10 @@ void saveToServer()
 	}
 	
 	List<Map> entities = [];
+	int complete = 0;
 	querySelectorAll(".placedEntity").forEach((Element element)
 	{
+		complete++;
 		Map entity = {};
 		String url = element.getComputedStyle().backgroundImage.replaceAll("url(", "");
 		url = url.substring(0,url.length-1);
@@ -378,7 +380,8 @@ void saveToServer()
 		entities.add(entity);
 	});
 	
-	Map data = {'tsid':tsid,'entities':JSON.encode(entities)};
+	int required = querySelector("#MissingEntities").children.length;
+	Map data = {'tsid':tsid,'entities':JSON.encode(entities),'required':required,'complete':complete};
 	HttpRequest.postFormData("$serverAddress/entityUpload",data).then((HttpRequest request)
 	{
 		if(request.response == "OK")

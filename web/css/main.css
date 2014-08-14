@@ -473,7 +473,6 @@ body {
 }
 
 #windowHolder .window header {
-  cursor:move;
   position: absolute;
   top: 7px;
   left: 50px;

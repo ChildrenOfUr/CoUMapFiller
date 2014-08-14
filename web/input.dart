@@ -28,7 +28,7 @@ class Input
 			ignoreKeys = false;
 		});
 		
-		document.onClick.listen((MouseEvent event)
+		document.onMouseDown.listen((MouseEvent event)
 		{
 			Element target = event.target;
 			if(target.className == "ExitLabel")

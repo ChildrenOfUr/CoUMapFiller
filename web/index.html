@@ -11,18 +11,28 @@
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="stylesheet" href="./css/entities.css">
 </head>
- <!--
- 	<h3>Welcome to the Children of Ur Map Filler!</h3>
- 	<p>The Children of Ur Map Filler is a tool to place entities (things that you can interact with in the game) onto streets. All of the items in the lists to your right are entities that can be placed onto the map.</p>
- 	<p>To choose a location to edit, go to the <a href="http://www.glitchthegame.com/locations/" target="_blank">Glitch Locations page</a> and type in the location you want to get to. Copy the code from the URL (it's the last part, between the last and second-to-last slashes) and paste it into the box at the top right labeled "Enter TSID to Open" (the code is a TSID), then click the Load button. Now you can place any of the items to the right onto the street.</p>
- 	<p>But first, you need to move your player's camera. Somewhere on the screen, you'll find a window titled "Street Preview" with a picture of the street and a list of entities. Every entity in the list needs to be placed on the street. Entities listed multiple times need to be placed one per listing. See the blue square on the street picture? That's you. Click anywhere on the picture to go there. You can also walk just like you would in the game with the arrow keys, but gravity doesn't apply. Walk up and down too! If you want the window out of your way, click and drag on the title to move it, or click the arrow to banish it to the bottom right of your screen. Don't worry, it's temporary banishment, you can bring it back the same way.</p>
- 	<p>Once you see in the picture that you are near where something should be, click on it in the entities panel to pick it up. Then just click on the street (not the window) where you want to put it. You can always move it later. We suggest you check the "Show Collision Lines" at the top right. This will show you where players walk, so you will know where to place things on the ground. A tiny bit above the line works best to have the player walk in front of it. Use the arrows that appear under it to flip, rotate, or delete it. You can also delete any item with a dotted border (even one that's picked up) by pressing the Delete key. When you've placed an item from the entities list in the window, you'll notice that it gets crossed off and turned red. That's to keep track of what's already been taken care of.</p>
- 	<p>When you're done placing entities, or just want to take a break, click the blue "Save Entities" button at the top right. That will save your changes to the server, so you, or anyone else, can load them with the street.</p>
- -->
  <body>
+ <div id="windowHolder">
+ 	<div id="motdWindow" class="window">
+          <i class="fa-li fa fa-times close"></i>
+          <header>
+            <i class="fa-li fa fa-gears"></i>
+            Quick Hints
+          </header>
+          <article>
+          	<h3>Welcome to the Children of Ur Map Filler!</h3>
+		 	<p>The Children of Ur Map Filler is a tool to place entities (things that you can interact with in the game) onto streets. All of the items in the lists to your right are entities that can be placed onto the map.</p>
+		 	<p>To choose a location to edit, go to the <a href="http://www.glitchthegame.com/locations/" target="_blank">Glitch Locations page</a> and type in the location you want to get to. Copy the code from the URL (it's the last part, between the last and second-to-last slashes) and paste it into the box at the top right labeled "Enter TSID to Open" (the code is a TSID), then click the Load button. Now you can place any of the items to the right onto the street.</p>
+		 	<p>But first, you need to move your player's camera. Somewhere on the screen, you'll find a window titled "Street Preview" with a picture of the street and a list of entities. Every entity in the list needs to be placed on the street. Entities listed multiple times need to be placed one per listing. See the blue square on the street picture? That's you. Click anywhere on the picture to go there. You can also walk just like you would in the game with the arrow keys, but gravity doesn't apply. Walk up and down too! If you want the window out of your way, click and drag on the title to move it, or click the arrow to banish it to the bottom right of your screen. Don't worry, it's temporary banishment, you can bring it back the same way.</p>
+		 	<p>Once you see in the picture that you are near where something should be, click on it in the entities panel to pick it up. Then just click on the street (not the window) where you want to put it. You can always move it later. We suggest you check the "Show Collision Lines" at the top right. This will show you where players walk, so you will know where to place things on the ground. A tiny bit above the line works best to have the player walk in front of it. Use the arrows that appear under it to flip, rotate, or delete it. You can also delete any item with a dotted border (even one that's picked up) by pressing the Delete key. When you've placed an item from the entities list in the window, you'll notice that it gets crossed off and turned red. That's to keep track of what's already been taken care of.</p>
+		 	<p>When you're done placing entities, or just want to take a break, click the blue "Save Entities" button at the top right. That will save your changes to the server, so you, or anyone else, can load them with the street.</p>
+		 </article>
+        </div>
+    </div>
  	<div id="MainScreen">
  		<div id="top">
  			<h1 id="topTitle">Children of Ur Map Filler</h1>
+ 			<div id="tutorial" class="shadow">Show Tutorial</div>
  			<form id="LocationCodeForm">
  				<input type="text" id="LocationCodeInput" placeholder="Enter TSID to Open">
  				<input type="button" id="LocationCodeButton" value="Load"><br><input type="checkbox" id="collisionLines"><label for="collisionLines">Show Collision Lines</label>

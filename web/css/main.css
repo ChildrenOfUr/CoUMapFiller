@@ -455,3 +455,75 @@ body {
  .playerName {
  	display: none;
  }
+ #windowHolder .window{
+  position: absolute;
+  top: calc(40% - 170px);
+  left: calc(50% - 285px);
+  padding: 21px;
+  width: 550px;
+  height: 350px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background-color: #eee;
+  -webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+  z-index: 2;
+}
+
+#windowHolder .window header {
+  cursor:move;
+  position: absolute;
+  top: 7px;
+  left: 50px;
+  right:40px;
+  font-size: 24px;
+}
+.window article {
+  font-family: 'Tahoma', 'Geneva', 'sans-serif';
+  color: #000;
+  font-size: 12px;
+  padding: 5px;
+  position: absolute;
+  top: 45px;
+  bottom:10px;
+  left: 10px;
+  right:10px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color:rgba(0,0,0,0.1);
+  border-radius:9px;
+  border-top:1px solid rgba(0,0,0,0.1);
+}
+.window iframe {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: -6px;
+}
+
+.window .fa-times.close {
+  color: #ba381a;
+  position: absolute;
+  top: 10px;
+  left: 545px;
+  font-size: 24px;
+  cursor: pointer;
+}
+#motdFrame {
+  border: none;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+#tutorial {
+	color: white;
+	background: #0495B9;
+	display: inline-block;
+	font-size: larger;
+	margin-left: 30px;
+	border-radius: 10px;
+	padding: 10px;
+}

@@ -40,8 +40,14 @@ class Input
 			}
 			if(target.className == "placedEntity")
 			{
-				querySelector("#$currentLayer").style.cursor = "move";
-                querySelector("#ToolBox").style.cursor = "move";
+				removeHoverButtons();
+                				
+				Element layer = querySelector("#$currentLayer");
+        		Element toolbox = querySelector("#ToolBox");
+        		layer.classes.add("moveCursor");
+        		toolbox.classes.add("moveCursor");
+        		layer.classes.remove("stillCursor");
+        		toolbox.classes.remove("stillCursor");
 				unCrossOff(target);
 				stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(target));
 				clickListener = getClickListener(target,event);
@@ -51,33 +57,37 @@ class Input
 		
 		document.onMouseOver.listen((MouseEvent event)
 		{
-			if(event.target is! Element)
+			if(event.target is! Element || querySelector('.dashedBorder') != null)
 				return;
 			
 			Element target = event.target;
 			if(target.className == 'placedEntity')
 				addHoverButtons(target);
-			else if(target.className == 'hoverButtonParent')
+			else if(target.classes.contains('hoverButtonParent'))
 				addHoverButtons(target.parent);
 			else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
 				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton'))
 				addHoverButtons(target.parent.parent);
 			else
 			{
-				Element hoverButtons = querySelector('.hoverButtonParent');
-				if(hoverButtons != null)
-					removeHoverButtons(hoverButtons.parent);
+				removeHoverButtons();
 			}
 		});
 		
-		querySelector('#tutorial').onClick.listen((_) => querySelector("#motdWindow").hidden = false);
+		CheckboxInputElement doNotShow = querySelector("#doNotShow") as CheckboxInputElement;
+		doNotShow.onChange.listen((Event event) => window.localStorage['showTut'] = (!doNotShow.checked).toString());
+       	querySelector('#tutorial').onClick.listen((_)
+		{
+			if(window.localStorage['showTut'] == "false")
+				doNotShow.checked = false;
+			else
+				doNotShow.checked = true;
+			querySelector("#motdWindow").hidden = false;
+		});
 		querySelector("#motdWindow .close").onClick.listen((_) => querySelector("#motdWindow").hidden = true);
 		
 		CheckboxInputElement collisions = querySelector("#collisionLines") as CheckboxInputElement;
 		collisions.onChange.listen((Event event) => currentStreet.showLineCanvas());
-		
-		CheckboxInputElement doNotShow = querySelector("#doNotShow") as CheckboxInputElement;
-        doNotShow.onChange.listen((Event event) => window.localStorage['showTut'] = (!doNotShow.checked).toString());
 		
         //Handle player input
 	    //KeyUp and KeyDown are neccesary for preventing weird movement glitches
@@ -149,12 +159,18 @@ class Input
 	
 	void addHoverButtons(Element element)
 	{
+		removeHoverButtons(except:element);
 		Element h = element.querySelector('.hoverButtonParent');
 		if(h != null)
 			return;
 		
 		DivElement hoverParent = new DivElement();
 		hoverParent.className = "hoverButtonParent";
+		
+		num elementBottom = element.getBoundingClientRect().bottom+60;
+		num screenBottom = gameScreen.getBoundingClientRect().bottom;
+		if(elementBottom > screenBottom)
+        	hoverParent.classes.add("hoverButtonTopModifier");
 		
 		DivElement flipButton = new DivElement()
 			..className = 'hoverButton flipButton fa fa-arrows-h'
@@ -169,16 +185,18 @@ class Input
 			..className = 'hoverButton deleteButton fa fa-times'
 			..onClick.listen((_) => delete(element));
 		
-		hoverParent..append(flipButton)..append(rotateLeftButton)
-				   ..append(rotateRightButton)..append(deleteButton);
+		hoverParent..append(flipButton)..append(deleteButton)
+				   ..append(rotateRightButton)..append(rotateLeftButton);
 		
 		element.append(hoverParent);
 	}
 	
-	void removeHoverButtons(Element element)
+	void removeHoverButtons({Element except : null})
 	{
-		Element hoverParent = element.querySelector('.hoverButtonParent');
-		if(hoverParent != null)
-			hoverParent.remove();
+		querySelectorAll('.hoverButtonParent').forEach((Element e)
+		{
+			if(e.parent != except)
+				e.remove();
+		});
 	}
 }

@@ -477,8 +477,12 @@ void setupListener(DivElement entityParent)
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
 		
-		querySelector("#$currentLayer").style.cursor = "move";
-		querySelector("#ToolBox").style.cursor = "move";
+		Element layer = querySelector("#$currentLayer");
+		Element toolbox = querySelector("#ToolBox");
+		layer.classes.add("moveCursor");
+		toolbox.classes.add("moveCursor");
+		layer.classes.remove("stillCursor");
+		toolbox.classes.remove("stillCursor");
 		
 		stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(drag));
 		clickListener = getClickListener(drag,event);
@@ -490,8 +494,12 @@ void setupListener(DivElement entityParent)
 
 void stop(Element drag)
 {
-	querySelector("#$currentLayer").style.cursor = "";
-    querySelector("#ToolBox").style.cursor = "";
+	Element layer = querySelector("#$currentLayer");
+	Element toolbox = querySelector("#ToolBox");
+	layer.classes.remove("moveCursor");
+	toolbox.classes.remove("moveCursor");
+	layer.classes.add("stillCursor");
+	toolbox.classes.add("stillCursor");
 	drag.remove();
 	moveListener.cancel();
 	clickListener.cancel();
@@ -543,8 +551,11 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         drag.classes.remove("dashedBorder");
         
         layer.append(drag);
-        layer.style.cursor = "";
-        querySelector("#ToolBox").style.cursor = "";
+		Element toolbox = querySelector("#ToolBox");
+		layer.classes.remove("moveCursor");
+		toolbox.classes.remove("moveCursor");
+		layer.classes.add("stillCursor");
+		toolbox.classes.add("stillCursor");
         madeChanges = true;
         crossOff(drag);
 

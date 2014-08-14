@@ -2,9 +2,13 @@
 	display: inline-block;
 	text-align: center;
 }
+.placedEntity {
+	cursor: crosshair;
+	cursor: -webkit-grab;
+}
 .centerEntity {
 	display: inline-block;
-	cursor: move;
+	cursor: crosshair;
 	cursor: -webkit-grab;
 }
 #BeanTree {

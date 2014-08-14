@@ -47,7 +47,7 @@ body {
  	overflow: hidden;
  }
  #ToolBox {
- 	color: #005c73;
+ 	color: #4b2e4c;
  	background-color: #fff;
  	position:absolute;
  	width: 420px;
@@ -165,7 +165,7 @@ body {
  }
  #Generate {
  	color: white;
- 	background: #0495B9;
+ 	background: #4b2e4c;
  	display: inline-block;
  	font-size: larger;
  	left: 30%;
@@ -180,7 +180,6 @@ body {
  	display: inline;
  	right: 8px;
  	position: relative;
- 	bottom: 38px;
  }
  #CurrentLocation{
  	position:absolute;
@@ -420,7 +419,6 @@ body {
  form#LocationCodeForm {
  	display: inline;
  	float: right;
- 	margin-top: -38px;
  }
  img#MapGlyph {
  	width: 38;

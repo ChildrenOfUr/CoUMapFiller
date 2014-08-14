@@ -46,6 +46,12 @@ gameLoop(num delta)
 
 main()
 {
+	if(window.localStorage['showTut'] != "false")
+	{
+		querySelector("#motdWindow").hidden = false;
+		(querySelector("#doNotShow") as CheckboxInputElement).checked = false;
+	}
+		
 	gameScreen = querySelector("#GameScreen");
 	
 	layers = new DivElement()
@@ -414,12 +420,14 @@ void loadLocationJson()
 	String location = locationInput.value;
 	if(location != "")
 	{
+		String loc = location;
 		locationInput.blur();
 		if(location.startsWith("L"))
 			location = location.replaceFirst("L", "G");
 		String url = "http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$location.callback.json";
 		ScriptElement loadStreet = new ScriptElement();
 		loadStreet.src = url;
+		loadStreet.onError.first.then((Event e) => showToast("Failed to load $loc"));
         document.body.append(loadStreet);
 	}
 }

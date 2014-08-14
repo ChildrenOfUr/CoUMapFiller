@@ -11,11 +11,11 @@
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="stylesheet" href="./css/entities.css">
 	
-	<link rel="icon" href="favicon.ico">
+	<link rel="icon" href="./assets/system/favicon.ico">
 </head>
  <body>
  <div id="windowHolder">
- 	<div id="motdWindow" class="window">
+ 	<div id="motdWindow" class="window" hidden>
           <i class="fa-li fa fa-times close"></i>
           <header>
             <i class="fa-li fa fa-gears"></i>
@@ -28,6 +28,10 @@
 		 	<p>Once you see in the picture that you are near where something should be, click on it in the entities panel to pick it up. Then just click on the street (not the window) where you want to put it. You can always move it later. We suggest you check the "Show Collision Lines" at the top right. This will show you where players walk, so you will know where to place things on the ground. A tiny bit above the line works best to have the player walk in front of it. Use the arrows that appear under it to flip, rotate, or delete it. You can also delete any item with a dotted border (even one that's picked up) by pressing the Delete key. When you've placed an item from the entities list in the window, you'll notice that it gets crossed off and turned red. That's to keep track of what's already been taken care of.</p>
 		 	<p>When you're done placing entities, or just want to take a break, click the blue "Save Entities" button at the top right. That will save your changes to the server, so you, or anyone else, can load them with the street.</p>
 		 </article>
+		 <div id="checkParent">
+  		 	<input type="checkbox" id="doNotShow">
+      		<label for="doNotShow">Do not show again</label>
+      	 </div>
         </div>
     </div>
  	<div id="MainScreen">

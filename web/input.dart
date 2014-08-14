@@ -55,7 +55,10 @@ class Input
 		CheckboxInputElement collisions = querySelector("#collisionLines") as CheckboxInputElement;
 		collisions.onChange.listen((Event event) => currentStreet.showLineCanvas());
 		
-		//Handle player input
+		CheckboxInputElement doNotShow = querySelector("#doNotShow") as CheckboxInputElement;
+        doNotShow.onChange.listen((Event event) => window.localStorage['showTut'] = (!doNotShow.checked).toString());
+		
+        //Handle player input
 	    //KeyUp and KeyDown are neccesary for preventing weird movement glitches
 	    //keyCode's could be configurable in the future
 	    document.onKeyDown.listen((KeyboardEvent k)

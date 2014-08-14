@@ -78,6 +78,14 @@ main()
     });
     
     querySelector("#LocationCodeButton").onClick.listen((_) => loadLocationJson());
+    querySelector("#RandomStreet").onClick.listen((_)
+	{
+    	HttpRequest.getString("$serverAddress/getRandomStreet").then((String response)
+    	{
+    		(querySelector("#LocationCodeInput") as InputElement).value = response;
+    		loadLocationJson();
+    	});
+	});
     
     window.onMessage.listen((MessageEvent event)
 	{
@@ -414,7 +422,7 @@ void showSaveWindow(Function onResponse)
 	return;
 }
 
-void loadLocationJson()
+loadLocationJson()
 {
 	if(madeChanges && tsid != null)
 		showSaveWindow(loadLocationJson);

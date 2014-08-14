@@ -529,3 +529,17 @@ body {
 	right: 10px;
 	text-align: right;
 }
+.hoverButtonParent {
+	width: 100px;
+	position: absolute;
+	top: 99%;
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+.hoverButton {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 2px;
+	margin: 2px;
+}

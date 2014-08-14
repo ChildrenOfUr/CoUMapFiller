@@ -480,6 +480,7 @@ void setupListener(DivElement entityParent)
 		querySelector("#$currentLayer").style.cursor = "move";
 		querySelector("#ToolBox").style.cursor = "move";
 		
+		stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(drag));
 		clickListener = getClickListener(drag,event);
 		moveListener = getMoveListener(drag);
 		
@@ -547,6 +548,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         madeChanges = true;
         crossOff(drag);
 
+        stopListener.cancel();
         moveListener.cancel();
         clickListener.cancel();
 	});
@@ -862,4 +864,19 @@ void flip(Element element)
         else
         	element.style.transform = "scale(-1,1)";	
 	}
+}
+
+void delete([Element element])
+{
+	if(element != null)
+		element.classes.add("dashedBorder");
+	
+	clickListener.cancel();
+	moveListener.cancel();
+	querySelectorAll(".dashedBorder").forEach((Element element)
+	{
+		unCrossOff(element);
+		element.remove();
+		madeChanges = true;
+	});
 }

@@ -43,9 +43,30 @@ class Input
 				querySelector("#$currentLayer").style.cursor = "move";
                 querySelector("#ToolBox").style.cursor = "move";
 				unCrossOff(target);
-				stopListener = querySelector("#ToolBox").onClick.listen((_) => stop(target));
+				stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(target));
 				clickListener = getClickListener(target,event);
 				moveListener = getMoveListener(target);
+			}
+		});
+		
+		document.onMouseOver.listen((MouseEvent event)
+		{
+			if(event.target is! Element)
+				return;
+			
+			Element target = event.target;
+			if(target.className == 'placedEntity')
+				addHoverButtons(target);
+			else if(target.className == 'hoverButtonParent')
+				addHoverButtons(target.parent);
+			else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
+				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton'))
+				addHoverButtons(target.parent.parent);
+			else
+			{
+				Element hoverButtons = querySelector('.hoverButtonParent');
+				if(hoverButtons != null)
+					removeHoverButtons(hoverButtons.parent);
 			}
 		});
 		
@@ -65,16 +86,7 @@ class Input
 		{
 	    	//check for delete key
 	    	if(k.keyCode == 46)
-	    	{
-	    		clickListener.cancel();
-	    		moveListener.cancel();
-	    		querySelectorAll(".dashedBorder").forEach((Element element)
-	    		{
-	    			unCrossOff(element);
-	    			element.remove();
-	    			madeChanges = true;
-	    		});
-	    	}
+	    		delete();
 	    	
 	    	if ((k.keyCode == keys["UpBindingPrimary"] || k.keyCode == keys["UpBindingAlt"]) && !ignoreKeys) //up arrow or w and not typing
 	    	{
@@ -133,5 +145,40 @@ class Input
 			if ((k.keyCode == keys["JumpBindingPrimary"] || k.keyCode == keys["JumpBindingAlt"]) && !ignoreKeys) //spacebar and not typing
 				jumpKey = false;
 	    });
+	}
+	
+	void addHoverButtons(Element element)
+	{
+		Element h = element.querySelector('.hoverButtonParent');
+		if(h != null)
+			return;
+		
+		DivElement hoverParent = new DivElement();
+		hoverParent.className = "hoverButtonParent";
+		
+		DivElement flipButton = new DivElement()
+			..className = 'hoverButton flipButton fa fa-arrows-h'
+			..onClick.listen((_) => flip(element));
+		DivElement rotateLeftButton = new DivElement()
+			..className = 'hoverButton rotateLeftButton fa fa-rotate-left'
+			..onClick.listen((_) => rotate(element,-90));
+		DivElement rotateRightButton = new DivElement()
+			..className = 'hoverButton rotateRightButton fa fa-rotate-right'
+			..onClick.listen((_) => rotate(element,90));
+		DivElement deleteButton = new DivElement()
+			..className = 'hoverButton deleteButton fa fa-times'
+			..onClick.listen((_) => delete(element));
+		
+		hoverParent..append(flipButton)..append(rotateLeftButton)
+				   ..append(rotateRightButton)..append(deleteButton);
+		
+		element.append(hoverParent);
+	}
+	
+	void removeHoverButtons(Element element)
+	{
+		Element hoverParent = element.querySelector('.hoverButtonParent');
+		if(hoverParent != null)
+			hoverParent.remove();
 	}
 }

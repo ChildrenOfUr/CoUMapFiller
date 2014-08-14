@@ -452,3 +452,6 @@ body {
  	background-color:#4b2e4c;
  	color:#eee;
  }
+ .playerName {
+ 	display: none;
+ }

@@ -174,15 +174,19 @@ class Input
 		
 		DivElement flipButton = new DivElement()
 			..className = 'hoverButton flipButton fa fa-arrows-h'
+			..title = 'Flip Horizontally'
 			..onClick.listen((_) => flip(element));
 		DivElement rotateLeftButton = new DivElement()
 			..className = 'hoverButton rotateLeftButton fa fa-rotate-left'
+			..title = 'Rotate Left'
 			..onClick.listen((_) => rotate(element,-90));
 		DivElement rotateRightButton = new DivElement()
 			..className = 'hoverButton rotateRightButton fa fa-rotate-right'
+			..title = 'Rotate Right'
 			..onClick.listen((_) => rotate(element,90));
 		DivElement deleteButton = new DivElement()
 			..className = 'hoverButton deleteButton fa fa-times'
+			..title = 'Delete'
 			..onClick.listen((_) => delete(element));
 		
 		hoverParent..append(flipButton)..append(deleteButton)

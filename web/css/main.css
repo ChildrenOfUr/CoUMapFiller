@@ -552,3 +552,11 @@ body {
  	cursor: pointer;
  	display: inline-block;
  }
+ a {
+ 	color: #4b2e4c;
+ 	text-decoration: none;
+ }
+ a:hover {
+ 	color: #4b2e4c;
+ 	text-decoration: underline;
+ }

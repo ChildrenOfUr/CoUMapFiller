@@ -59,6 +59,9 @@ body {
  	padding:5px;
  	overflow-y: auto;
  }
+ #ToolBox hr {
+ 	opacity: 0.2;
+ }
  #StatsBox td {
  	padding-right: 7px
  }
@@ -158,15 +161,7 @@ body {
  	margin-left: 4px;
  }
  #Generate {
- 	color: white;
- 	background: #4b2e4c;
  	display: inline-block;
- 	font-size: larger;
- 	left: 30%;
- 	right: 30%;
- 	border-radius: 10px;
- 	padding: 10px;
- 	cursor: pointer;
  }
  #GenerateParent {
  	text-align: center;
@@ -195,11 +190,11 @@ body {
  }
 
  .shadow {		
- 	-webkit-box-shadow: -1px 1px 3px 0px #4d8c8b;
- 	-moz-box-shadow: -1px 1px 3px 0px #4d8c8b;
- 	-o-box-shadow: -1px 1px 3px 0px #4d8c8b;
- 	-khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
- 	box-shadow: -1px 1px 3px 0px #4d8c8b;
+ 	-webkit-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-moz-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-o-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-khtml-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	box-shadow: -1px 1px 3px 0px #4e2b4c;
  }
  .dashedBorder {
  	border: 1px dashed black;
@@ -555,3 +550,11 @@ body {
 .stillCursor {
 	cursor: initial;
 }
+ .button {
+ 	color: white;
+ 	background: #4b2e4c;
+ 	font-size: larger;
+ 	border-radius: 8px;
+ 	padding: 10px;
+ 	cursor: pointer;
+ }

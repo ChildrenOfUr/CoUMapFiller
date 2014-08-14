@@ -459,4 +459,5 @@ body {
  #motdWindow > article {
  	font-size: 14px;
  	overflow: scroll;
+ 	padding: 0 10px 0 10px;
  }

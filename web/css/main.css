@@ -456,3 +456,7 @@ body {
  .playerName {
  	display: none;
  }
+ #motdWindow > article {
+ 	font-size: 14px;
+ 	overflow: scroll;
+ }

@@ -161,17 +161,19 @@ body {
  	margin-left: 4px;
  }
  #CurrentLocation{
- 	position: relative;
+ 	position:absolute;
  	display: inline-flex;
+ 	color:mediumgrey;
  	font-size: 14px;
  	white-space: nowrap;
- 	margin-right: 10px;
+ 	right: 0px;
+	transform: translateY(-100%);
  }
  #RightParent {
 	text-align: right;
 	position: absolute;
 	right: 10px;
-	top: 10px;
+	top: 5px;
  }
  #Location{
  	color:#005c73;
@@ -387,12 +389,12 @@ body {
  	transition: all 1s linear;
  }
  #top {
- 	margin: 10px;
- 	margin-bottom: -3px;
+ 	margin-bottom: 7px;
  }
  h1#topTitle {
  	display: inline;
  	color: #4b2e4c;
+ 	margin-left: 10px;
  }
  h1#topTitle > span#subTitle {
  	font-size: 0.4em;
@@ -400,9 +402,6 @@ body {
  }
  form#LocationCodeForm {
  	display: inline;
- }
- #LocationCodeButton {
- 	border: none;
  }
  img#MapGlyph {
  	width: 38;
@@ -496,11 +495,9 @@ body {
 }
 #tutorial {
 	display: inline;
-	color: #4b2e4c;
 	position: relative;
 	top: -3px;
 	left: 10px;
-	cursor: pointer;
 }
  #motdWindow > article {
  	font-size: 14px;
@@ -546,23 +543,26 @@ body {
 	cursor: initial;
 }
  .button {
- 	color: white;
- 	background: #4b2e4c;
- 	font-size: larger;
- 	border-radius: 8px;
- 	padding: 10px;
- 	cursor: pointer;
- 	display: inline-block;
- 	font-family: 'RockoFLFBold', sans-serif;
+ 	background: rgb(221, 221, 221);
+ 	color: #4b2e4c;
+	padding: 3px;
+	border: 1px solid #4b2e4c;
+	border-radius: 5px;
+	display: inline-block;
+	cursor: pointer;
+	-webkit-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-moz-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-o-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	-khtml-box-shadow: -1px 1px 3px 0px #4e2b4c;
+ 	box-shadow: -1px 1px 3px 0px #4e2b4c;
+}
+.button:hover {
+	background: #4b234c;
+	color: white;
  }
- .button:hover {
- 	color: #eee;
- }
- .button:active {
- 	opacity: 0.8;
- }
- .button:focus {
- 	outline:none;
+ #collisionOptionHolder {
+ 	position: absolute;
+ 	transform: translateY(-100%);
  }
  a {
  	color: #4b2e4c;
@@ -572,8 +572,3 @@ body {
  	color: #4b2e4c;
  	text-decoration: underline;
  }
-#collisionOptionHolder {
-	position: relative;
-	left: calc(100vw - 440px);
-	bottom: 18px;
-}

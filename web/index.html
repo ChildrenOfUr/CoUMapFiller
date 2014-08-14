@@ -37,17 +37,10 @@
  	<div id="MainScreen">
  		<div id="top">
  			<h1 id="topTitle">Children of Ur Map Filler</h1> 
- 			<i id="tutorial" class="fa fa-question-circle" title="Show Tutorial"></i>
+ 			<i id="tutorial" class="button fa fa-question-circle" title="Show Tutorial">Help</i>
  			<div id="RightParent">
- 				<div id="CurrentLocation">
- 					<img src="./assets/system/map_icon.svg" id="MapGlyph">
- 					<div>
- 						Current Location:
- 						<div id="Location"></div>
- 					</div>
- 				</div>
- 				<div id="RandomStreet" class="button shadow">Random Street</div>
- 				<div id="Generate" class="button shadow">Save Entities</div>
+ 				<div id="Generate" class="button fa fa-save">Save Entities</div>
+ 				<div id="RandomStreet" class="button fa fa-random">Random Street</div>
  			<form id="LocationCodeForm">
  				<input type="text" id="LocationCodeInput" placeholder="Enter TSID to Open">
  				<input type="button" class="button shadow" id="LocationCodeButton" value="Load">
@@ -55,6 +48,17 @@
  			</div>
  		</div>
  		<div id="GameScreenParent">
+ 			<div id="collisionOptionHolder">
+	 			<input type="checkbox" id="collisionLines">
+	 			<label for="collisionLines">Show Collision Lines</label>
+ 			</div>
+ 			<div id="CurrentLocation">
+				<img src="./assets/system/map_icon.svg" id="MapGlyph">
+				<div>
+					Current Location:
+					<div id="Location"></div>
+				</div>
+			</div>
  			<div id="GameScreen"></div>
  		</div>
  		<div id="ToolBox" class="shadow">
@@ -444,10 +448,6 @@
  					<div>Helga</div>
  				</div>
  			</div>
- 		</div>
- 		<div id="collisionOptionHolder">
- 			<input type="checkbox" id="collisionLines">
- 			<label for="collisionLines">Show Collision Lines</label>
  		</div>
  	</div>
 

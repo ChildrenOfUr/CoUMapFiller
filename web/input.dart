@@ -41,13 +41,7 @@ class Input
 			if(target.className == "placedEntity")
 			{
 				removeHoverButtons();
-                				
-				Element layer = querySelector("#$currentLayer");
-        		Element toolbox = querySelector("#ToolBox");
-        		layer.classes.add("moveCursor");
-        		toolbox.classes.add("moveCursor");
-        		layer.classes.remove("stillCursor");
-        		toolbox.classes.remove("stillCursor");
+				setCursorMove();
 				unCrossOff(target);
 				stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(target));
 				clickListener = getClickListener(target,event);

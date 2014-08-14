@@ -485,12 +485,7 @@ void setupListener(DivElement entityParent)
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
 		
-		Element layer = querySelector("#$currentLayer");
-		Element toolbox = querySelector("#ToolBox");
-		layer.classes.add("moveCursor");
-		toolbox.classes.add("moveCursor");
-		layer.classes.remove("stillCursor");
-		toolbox.classes.remove("stillCursor");
+		setCursorMove();
 		
 		stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(drag));
 		clickListener = getClickListener(drag,event);
@@ -502,12 +497,7 @@ void setupListener(DivElement entityParent)
 
 void stop(Element drag)
 {
-	Element layer = querySelector("#$currentLayer");
-	Element toolbox = querySelector("#ToolBox");
-	layer.classes.remove("moveCursor");
-	toolbox.classes.remove("moveCursor");
-	layer.classes.add("stillCursor");
-	toolbox.classes.add("stillCursor");
+	setCursorStill();
 	drag.remove();
 	moveListener.cancel();
 	clickListener.cancel();
@@ -559,11 +549,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         drag.classes.remove("dashedBorder");
         
         layer.append(drag);
-		Element toolbox = querySelector("#ToolBox");
-		layer.classes.remove("moveCursor");
-		toolbox.classes.remove("moveCursor");
-		layer.classes.add("stillCursor");
-		toolbox.classes.add("stillCursor");
+		setCursorStill();
         madeChanges = true;
         crossOff(drag);
 
@@ -898,4 +884,26 @@ void delete([Element element])
 		element.remove();
 		madeChanges = true;
 	});
+	
+	setCursorStill();
+}
+
+void setCursorMove()
+{
+	Element layer = querySelector("#$currentLayer");
+    Element toolbox = querySelector("#ToolBox");
+	layer.classes.add("moveCursor");
+	toolbox.classes.add("moveCursor");
+	layer.classes.remove("stillCursor");
+	toolbox.classes.remove("stillCursor");
+}
+
+void setCursorStill()
+{
+	Element layer = querySelector("#$currentLayer");
+    Element toolbox = querySelector("#ToolBox");
+	layer.classes.remove("moveCursor");
+	toolbox.classes.remove("moveCursor");
+	layer.classes.add("stillCursor");
+	toolbox.classes.add("stillCursor");
 }

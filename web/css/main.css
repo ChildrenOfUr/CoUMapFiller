@@ -1,15 +1,15 @@
 @font-face{font-family:'RockoFLFBold';src:url('../assets/font/rockoflf-bold-webfont.eot');src:url('../assets/font/rockoflf-bold-webfont.eot?#iefix') format('embedded-opentype'),url('../assets/font/rockoflf-bold-webfont.woff') format('woff'),url('../assets/font/rockoflf-bold-webfont.ttf') format('truetype'),url('../assets/font/rockoflf-bold-webfont.svg#RockoFLFBold') format('svg');font-weight:normal;font-style:normal}
 *:not(input){
-   font-family: 'RockoFLFBold', sans-serif;
-   cursor: default;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+	font-family: 'RockoFLFBold', sans-serif;
+	cursor: default;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
-  
+
 body {
 	overflow:hidden;
 	background-color: #e9f0f0;
@@ -20,386 +20,436 @@ body {
 	height:100%;
 	z-index:-99;
 } 
-  
+
 #GameScreenParent {
 	position: relative;
 	width: calc(100% - 380px - 40px - 18px - 20px);
-	height: calc(100% - 60px);
+	height: calc(100% - 80px);
 	max-height: 900px;
 	top: 25px;
 	left: 10px;
 }
 #GameScreen {
 	background-color:#fff;
-    background-color: #fff;
+	background-color: #fff;
 	position: absolute;
 	width: 100%;
 	height: 100%;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 	z-index:0; 
-    overflow: hidden;
+	overflow: hidden;
      /* this fixes the overflow:hidden in Chrome not clipping it's contents to the border-radius
      more information here: http://stackoverflow.com/questions/5736503/how-to-make-css3-rounded-corners-hide-overflow-in-chrome-opera*/
-	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-}
-#MainScreen {
-	height: 100%;
-}
-#ToolBox {
-	color: #005c73;
-	background-color: #fff;
-	position:absolute;
-	width: 420px;
-	height: calc(100% - 115px);
-	top: 50px;
-	right: 8px;
-	-moz-border-radius: 7px;
-	border-radius: 7px;
-	padding:5px;
-	overflow-y: auto;
-}
-#StatsBox td {
-	padding-right: 7px
-}
-#StatsBox input {
-	width: 60px;
-}
-#Palette {
-	position: absolute;
-	bottom: 0px;
-	left: 10px;
-	height: 205px;
-	width: calc(100% - 290px - 40px - 18px - 20px);
-}
-#PaletteFilter {
-	display: inline-block;
-	width: 260px;
-}
-#DecoShelf {
-	height: 100%;
-	overflow-y: auto;
-}
-#SpritesheetShelf {
-	height: 100%;
-	overflow-y: auto;
-}
-#exitList {
-	border: 1px solid black;
-	max-height: 150px;
-	min-height: 1em;
-	padding: 5px;
-	margin: 3px;
-	overflow-y: auto;
-}
-#exitList input {
-	width: 120px;
-	margin-right: 5px;
-}
-.deleteButton {
-	height: 1em;
-	margin-right: 5px;
-	position: relative;
-	top: 3px;
-}
-#layerList {
-	border: 1px solid black;
-	max-height: 150px;
-	min-height: 1em;
-	padding: 5px;
-	margin: 3px;
-	overflow-y: auto;
-}
-#layerList .dnd-placeholder {
-	border: 1px dashed #CCC;
-	background: none;
-}
+     -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+ }
+ #MainScreen {
+ 	height: 100%;
+ 	overflow: hidden;
+ }
+ #ToolBox {
+ 	color: #005c73;
+ 	background-color: #fff;
+ 	position:absolute;
+ 	width: 420px;
+ 	height: calc(100% - 142px);
+ 	top: 69px;
+ 	right: 8px;
+ 	-moz-border-radius: 7px;
+ 	border-radius: 7px;
+ 	padding:5px;
+ 	overflow-y: auto;
+ }
+ #StatsBox td {
+ 	padding-right: 7px
+ }
+ #StatsBox input {
+ 	width: 60px;
+ }
+ #Palette {
+ 	position: absolute;
+ 	bottom: 0px;
+ 	left: 10px;
+ 	height: 205px;
+ 	width: calc(100% - 290px - 40px - 18px - 20px);
+ }
+ #PaletteFilter {
+ 	display: inline-block;
+ 	width: 260px;
+ }
+ #DecoShelf {
+ 	height: 100%;
+ 	overflow-y: auto;
+ }
+ #SpritesheetShelf {
+ 	height: 100%;
+ 	overflow-y: auto;
+ }
+ #exitList {
+ 	border: 1px solid black;
+ 	max-height: 150px;
+ 	min-height: 1em;
+ 	padding: 5px;
+ 	margin: 3px;
+ 	overflow-y: auto;
+ }
+ #exitList input {
+ 	width: 120px;
+ 	margin-right: 5px;
+ }
+ .deleteButton {
+ 	height: 1em;
+ 	margin-right: 5px;
+ 	position: relative;
+ 	top: 3px;
+ }
+ #layerList {
+ 	border: 1px solid black;
+ 	max-height: 150px;
+ 	min-height: 1em;
+ 	padding: 5px;
+ 	margin: 3px;
+ 	overflow-y: auto;
+ }
+ #layerList .dnd-placeholder {
+ 	border: 1px dashed #CCC;
+ 	background: none;
+ }
 
-#layerList span {
-	cursor: move;
-}
-#layerList li {
-	list-style: none;
-}
-.layerTitle {
-	display: inline-block;
-	margin-left: 25px;
-}
-.checkbox_wrapper{
-	display: inline;
-    position: relative;
-    height: 16px;
-    width: 17px;
-}
+ #layerList span {
+ 	cursor: move;
+ }
+ #layerList li {
+ 	list-style: none;
+ }
+ .layerTitle {
+ 	display: inline-block;
+ 	margin-left: 25px;
+ }
+ .checkbox_wrapper{
+ 	display: inline;
+ 	position: relative;
+ 	height: 16px;
+ 	width: 17px;
+ }
 
-.eye {
-    opacity:0;
-    height: 16px;
-    width: 17px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-}
+ .eye {
+ 	opacity:0;
+ 	height: 16px;
+ 	width: 17px;
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	z-index: 2;
+ }
 
-.eye + label{
-    background:url('../assets/images/layer_off.png') no-repeat;
-    height: 16px;
-    width: 17px;
-    display:inline-block;
-	margin-top: 3px;
-	margin-left: 4px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
+ .eye + label{
+ 	background:url('../assets/images/layer_off.png') no-repeat;
+ 	height: 16px;
+ 	width: 17px;
+ 	display:inline-block;
+ 	margin-top: 3px;
+ 	margin-left: 4px;
+ 	position: absolute;
+ 	top: 0;
+ 	left: 0;
+ 	z-index: 1;
+ }
 
-.eye:checked + label{
-    background:url('../assets/images/layer_on.png') no-repeat;
-    height: 16px;
-    width: 17px;
-    display:inline-block;
-	margin-top: 3px;
-	margin-left: 4px;
-}
-#Generate {
-	color: white;
-	background: #0495B9;
-	display: inline-block;
-	font-size: larger;
-	left: 30%;
-	right: 30%;
-	border-radius: 10px;
-	padding: 10px;
-}
-#GenerateParent {
-	text-align: center;
-	width: 420px;
-	right: 13px;
-	position: absolute;
-	bottom: 5px;
-}
-#CurrentLocation{
-  position:absolute;
-  display: -webkit-inline-flex;
-  display: inline-flex;
-  margin-left: 20px;
-  margin-top: 5px;
-  color:mediumgrey;
-  font-size: 14px;
-  white-space: nowrap;
-}
-#Location{
-  color:#005c73;
-  font-size: 18px;
-}
-#MapGlyph {
-  float:left;
-  padding-right:10px;
-}
+ .eye:checked + label{
+ 	background:url('../assets/images/layer_on.png') no-repeat;
+ 	height: 16px;
+ 	width: 17px;
+ 	display:inline-block;
+ 	margin-top: 3px;
+ 	margin-left: 4px;
+ }
+ #Generate {
+ 	color: white;
+ 	background: #0495B9;
+ 	display: inline-block;
+ 	font-size: larger;
+ 	left: 30%;
+ 	right: 30%;
+ 	border-radius: 10px;
+ 	padding: 10px;
+ }
+ #GenerateParent {
+ 	text-align: center;
+ 	float: right;
+ 	display: inline;
+ 	right: 8px;
+ 	position: relative;
+ 	bottom: 38px;
+ }
+ #CurrentLocation{
+ 	position:absolute;
+ 	display: -webkit-inline-flex;
+ 	display: inline-flex;
+ 	margin-top: -38px;
+ 	color:mediumgrey;
+ 	font-size: 14px;
+ 	white-space: nowrap;
+ 	right: 390px;
+ }
+ #Location{
+ 	color:#005c73;
+ 	font-size: 18px;
+ }
+ #MapGlyph {
+ 	float:left;
+ 	padding-right:10px;
+ }
 
-.shadow {		
-	-webkit-box-shadow: -1px 1px 3px 0px #4d8c8b;
-	-moz-box-shadow: -1px 1px 3px 0px #4d8c8b;
-	-o-box-shadow: -1px 1px 3px 0px #4d8c8b;
-	-khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
-	box-shadow: -1px 1px 3px 0px #4d8c8b;
-}
-.dashedBorder {
-	border: 1px dashed black;
-	pointer-events: none;
-}
-.flip {
-	transform: scale(-1,1);
-	-ms-transform: scale(-1,1); /* IE 9 */
-	-webkit-transform: scale(-1,1); /* Opera, Chrome, and Safari */
-}
-#DeleteDeco {
-	background: #0495B9;
-	color: white;
-	display: inline;
-	padding: 5px;
-	border-radius: 10px;
-}
-.LoadingBar{
-   background-color: #c5dc81;
-   width:0%;
-   border: 1px solid #fff;
-   -moz-border-radius: 5px;
-   border-radius: 5px;
-    transition-property: width;
-    transition-duration: 0.2s;
-    transition-timing-function: linear;
-    transition-delay: 0.5s;
-    -webkit-transition-property:width;
-    -webkit-transition-duration:0.2s;
-    -webkit-transition-timing-function:linear;
-    -webkit-transition-delay:0.5s;
-}
-.LoadingGroove {
-	display: inline-block;
-	width: 300px;
-}
-#DecoLoadingStatus {
-	white-space: nowrap;
-}
-.tabs {
-  position: relative;
-  height: calc(100% - 2em);
-}
-.tab {
-  float: left;
-  cursor: pointer;
-}
-.tab label {
-	background: #eee; 
-	padding: 4px; 
-	border: 1px solid #ccc; 
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	margin-left: -1px;
-	position: relative;
-	left: 1px;
-	top: 5px;
-}
-.tab [type=radio] {
-  display: none;   
-}
-.content {
-  position: absolute;
-  height: calc(100% - 2em);
-  top: 28px;
-  left: 0;
-  right: 0;
-  display: none;
-}
-[type=radio]:checked ~ label {
-  background: white;
-  border-bottom: 1px solid white;
-  z-index: 2;
-}
-[type=radio]:checked ~ label ~ .content {
-  z-index: 1;
-  display: block;
-}
-.PopWindow {
-	z-index: 5;
-	text-align: center;
-  position: absolute; 
-  top: 25px;
-  left: 0px;
-  padding: 5px;
-  -moz-border-radius: 6px;
-  border-radius: 6px;
-  background-color: #fff;
-  -webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
-  -moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-  -o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
-  -khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
-  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
-}
-.PopWindowHeader {
-   opacity:0.8;
-   font-size:22px;   
-}
-.PopCloseEmblem {
-    cursor: pointer;
-    position:absolute;
-    top:20px;
-    right: 20px;
-}
-.PopupContent {
-	display: flex;
-	align-items: flex-start;
-}
-.resizer {
-	width: 10px;
-	height: 10px;
-	background: blue;
-	position:absolute;
-	right: 0; bottom:
-	0;
-	cursor: se-resize;
-}
-.progress {
-	width: 10px;
-	height: 10px;
-	background: blue;
-	position:absolute;
-}
-#MissingEntities {
-	display: inline-block;
-	text-align: left;
-	overflow: auto;
-	margin: 0px;
-	padding: 0px 5px;
-}
-.ExitLabel {
-	padding: 12px;
-	color: rgb(243, 243, 243);
-	cursor: pointer;
-	background-image: url("http://childrenofur.com/locodarto/scenery/exit_sign.png");
-	background-size: 100% 5em;
-	background-position-y: center;
-}
-.ExitLabel:hover {
-	-webkit-filter: drop-shadow(0px 0px 5px rgba(0,0,220,1));
-    filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='0' dy='0' result='offsetblur'/><feFlood flood-color='rgba(0,0,220,1)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
-    -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
-    filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
-}
-.streetcanvas {
-	pointer-events: none;
-}
-#Preview {
-}
-#PlayerHolder {
-	pointer-events: none;
-}
-.playerParent {
-	text-align: center;
-	display: inline-block;
-	pointer-events: none;
-}
-.playerName {
-	text-shadow: #ffffff 0 0 0.4em, #ffffff 0 0 0.4em,
-				 #ffffff 0 0 0.4em, #ffffff 0 0 0.4em;
-	color: #282827;
-	font-size: 12px;
-	letter-spacing: 0.5px;
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
-	top: -34px;
-}
-.choiceButton {
-	display: inline-block;
-	margin: 10px 10px 10px 5px;
-	padding: 5px 10px;
-	border: 3px solid #0495B9;
-	color: white;
-	background: #0495B9;
-	border-radius: 8px;
-}
-#SaveDialog {
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-}
-.crossedOff {
-	text-decoration: line-through;
-	color: red;
-}
-#Toast {
-	opacity: 0;
-	top: initial;
-	bottom: 50px;
-	left: 50%;
-	-webkit-transform: translateX(-50%);
-	transform: translateX(-50%);
-	transition: all 1s linear;
-}
+ .shadow {		
+ 	-webkit-box-shadow: -1px 1px 3px 0px #4d8c8b;
+ 	-moz-box-shadow: -1px 1px 3px 0px #4d8c8b;
+ 	-o-box-shadow: -1px 1px 3px 0px #4d8c8b;
+ 	-khtml-box-shadow: -1px 1px 3px 0px #4d8c8b;
+ 	box-shadow: -1px 1px 3px 0px #4d8c8b;
+ }
+ .dashedBorder {
+ 	border: 1px dashed black;
+ 	pointer-events: none;
+ }
+ .flip {
+ 	transform: scale(-1,1);
+ 	-ms-transform: scale(-1,1); /* IE 9 */
+ 	-webkit-transform: scale(-1,1); /* Opera, Chrome, and Safari */
+ }
+ #DeleteDeco {
+ 	background: #0495B9;
+ 	color: white;
+ 	display: inline;
+ 	padding: 5px;
+ 	border-radius: 10px;
+ }
+ .LoadingBar{
+ 	background-color: #c5dc81;
+ 	width:0%;
+ 	border: 1px solid #fff;
+ 	-moz-border-radius: 5px;
+ 	border-radius: 5px;
+ 	transition-property: width;
+ 	transition-duration: 0.2s;
+ 	transition-timing-function: linear;
+ 	transition-delay: 0.5s;
+ 	-webkit-transition-property:width;
+ 	-webkit-transition-duration:0.2s;
+ 	-webkit-transition-timing-function:linear;
+ 	-webkit-transition-delay:0.5s;
+ }
+ .LoadingGroove {
+ 	display: inline-block;
+ 	width: 300px;
+ }
+ #DecoLoadingStatus {
+ 	white-space: nowrap;
+ }
+ .tabs {
+ 	position: relative;
+ 	height: calc(100% - 2em);
+ }
+ .tab {
+ 	float: left;
+ 	cursor: pointer;
+ }
+ .tab label {
+ 	background: #eee; 
+ 	padding: 4px; 
+ 	border: 1px solid #ccc; 
+ 	border-top-left-radius: 5px;
+ 	border-top-right-radius: 5px;
+ 	margin-left: -1px;
+ 	position: relative;
+ 	left: 1px;
+ 	top: 5px;
+ }
+ .tab [type=radio] {
+ 	display: none;   
+ }
+ .content {
+ 	position: absolute;
+ 	height: calc(100% - 2em);
+ 	top: 28px;
+ 	left: 0;
+ 	right: 0;
+ 	display: none;
+ }
+ [type=radio]:checked ~ label {
+ 	background: white;
+ 	border-bottom: 1px solid white;
+ 	z-index: 2;
+ }
+ [type=radio]:checked ~ label ~ .content {
+ 	z-index: 1;
+ 	display: block;
+ }
+ .PopWindow {
+ 	z-index: 5;
+ 	text-align: center;
+ 	position: absolute; 
+ 	top: 25px;
+ 	left: 0px;
+ 	padding: 5px;
+ 	-moz-border-radius: 6px;
+ 	border-radius: 6px;
+ 	background-color: #fff;
+ 	-webkit-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1),  0px 0px 0px 2px rgba(0,0,0,0.3);
+ 	-moz-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+ 	-o-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3); 
+ 	-khtml-box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+ 	box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.1), 0px 0px 0px 2px rgba(0,0,0,0.3);
+ }
+ .PopWindowHeader {
+ 	opacity:0.8;
+ 	font-size:22px;   
+ }
+ .PopCloseEmblem {
+ 	cursor: pointer;
+ 	position:absolute;
+ 	top:20px;
+ 	right: 20px;
+ }
+ .PopupContent {
+ 	display: flex;
+ 	align-items: flex-start;
+ }
+ .resizer {
+ 	width: 10px;
+ 	height: 10px;
+ 	background: blue;
+ 	position:absolute;
+ 	right: 0; bottom:
+ 	0;
+ 	cursor: se-resize;
+ }
+ .progress {
+ 	width: 10px;
+ 	height: 10px;
+ 	background: blue;
+ 	position:absolute;
+ }
+ #MissingEntities {
+ 	display: inline-block;
+ 	text-align: left;
+ 	overflow: auto;
+ 	margin: 0px;
+ 	padding: 0px 5px;
+ }
+ .ExitLabel {
+ 	padding: 12px;
+ 	color: rgb(243, 243, 243);
+ 	cursor: pointer;
+ 	background-image: url("http://childrenofur.com/locodarto/scenery/exit_sign.png");
+ 	background-size: 100% 5em;
+ 	background-position-y: center;
+ }
+ .ExitLabel:hover {
+ 	-webkit-filter: drop-shadow(0px 0px 5px rgba(0,0,220,1));
+ 	filter: url("data:image/svg+xml;utf8,<svg height='0' xmlns='http://www.w3.org/2000/svg'><filter id='drop-shadow'><feGaussianBlur in='SourceAlpha' stdDeviation='4'/><feOffset dx='0' dy='0' result='offsetblur'/><feFlood flood-color='rgba(0,0,220,1)'/><feComposite in2='offsetblur' operator='in'/><feMerge><feMergeNode/><feMergeNode in='SourceGraphic'/></feMerge></filter></svg>#drop-shadow");
+ 	-ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
+ 	filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=0, OffY=0, Color='#dc')";
+ }
+ .streetcanvas {
+ 	pointer-events: none;
+ }
+ #Preview {
+ }
+ #PlayerHolder {
+ 	pointer-events: none;
+ }
+ .playerParent {
+ 	text-align: center;
+ 	display: inline-block;
+ 	pointer-events: none;
+ }
+ .playerName {
+ 	text-shadow: #ffffff 0 0 0.4em, #ffffff 0 0 0.4em,
+ 	#ffffff 0 0 0.4em, #ffffff 0 0 0.4em;
+ 	color: #282827;
+ 	font-size: 12px;
+ 	letter-spacing: 0.5px;
+ 	position: relative;
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	left: 0;
+ 	right: 0;
+ 	top: -34px;
+ }
+ .choiceButton {
+ 	display: inline-block;
+ 	margin: 10px 10px 10px 5px;
+ 	padding: 5px 10px;
+ 	border: 3px solid #0495B9;
+ 	color: white;
+ 	background: #0495B9;
+ 	border-radius: 8px;
+ }
+ #SaveDialog {
+ 	top: 50%;
+ 	left: 50%;
+ 	-webkit-transform: translateX(-50%) translateY(-50%);
+ 	transform: translateX(-50%) translateY(-50%);
+ }
+ .crossedOff {
+ 	text-decoration: line-through;
+ 	color: red;
+ }
+ #Toast {
+ 	opacity: 0;
+ 	top: initial;
+ 	bottom: 50px;
+ 	left: 50%;
+ 	-webkit-transform: translateX(-50%);
+ 	transform: translateX(-50%);
+ 	transition: all 1s linear;
+ }
+ #top {
+ 	margin: 10px;
+ 	margin-bottom: -3px;
+ }
+ h1#topTitle {
+ 	display: inline;
+ 	color: #4b2e4c;
+ }
+ h1#topTitle > span#subTitle {
+ 	font-size: 0.4em;
+ 	vertical-align: middle;
+ }
+ form#LocationCodeForm {
+ 	display: inline;
+ 	float: right;
+ 	margin-top: -38px;
+ }
+ img#MapGlyph {
+ 	width: 38;
+ 	height: 38;
+ }
+ div#toolsTitle {
+ 	text-align: center;
+ 	font-size: 1.5em;
+ }
+ div#NormalShrines {
+ 	display: block;
+ }
+ ::-webkit-scrollbar {
+ 	width:8px;
+ }
+ ::-webkit-scrollbar-track {
+ 	background:rgb(238, 238, 238);
+ 	border:none;
+ 	box-shadow:0px 0px 3px #dfdfdf inset;
+ }
+ ::-webkit-scrollbar-thumb {
+ 	background-color:#4b2e4c;
+ 	border-radius:8px;
+ }
+
+ ::-webkit-scrollbar-thumb:hover {
+ 	background-color:#7b4c7c;
+ }
+ ::selection {
+ 	background-color:#4b2e4c;
+ 	color:#eee;
+ }

@@ -1,448 +1,456 @@
 <!DOCTYPE html>
 
 <html>
-  <head>
-  	<meta charset="utf-8">
-  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CoUMapFiller</title>
-    
-    <!-- Import Stylesheets -->
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>CoUMapFiller</title>
+
+	<!-- Import Stylesheets -->
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="stylesheet" href="./css/entities.css">
-	<!--Import Stylesheets -->
+</head>
+ <!--
+ 	<h3>Welcome to the Children of Ur Map Filler!</h3>
+ 	<p>The Children of Ur Map Filler is a tool to place entities (things that you can interact with in the game) onto streets. All of the items in the lists to your right are entities that can be placed onto the map.</p>
+ 	<p>To choose a location to edit, go to the <a href="http://www.glitchthegame.com/locations/" target="_blank">Glitch Locations page</a> and type in the location you want to get to. Copy the code from the URL (it's the last part, between the last and second-to-last slashes) and paste it into the box at the top right labeled "Enter TSID to Open" (the code is a TSID), then click the Load button. Now you can place any of the items to the right onto the street.</p>
+ 	<p>But first, you need to move your player's camera. Somewhere on the screen, you'll find a window titled "Street Preview" with a picture of the street and a list of entities. Every entity in the list needs to be placed on the street. Entities listed multiple times need to be placed one per listing. See the blue square on the street picture? That's you. Click anywhere on the picture to go there. You can also walk just like you would in the game with the arrow keys, but gravity doesn't apply. Walk up and down too! If you want the window out of your way, click and drag on the title to move it, or click the arrow to banish it to the bottom right of your screen. Don't worry, it's temporary banishment, you can bring it back the same way.</p>
+ 	<p>Once you see in the picture that you are near where something should be, click on it in the entities panel to pick it up. Then just click on the street (not the window) where you want to put it. You can always move it later. We suggest you check the "Show Collision Lines" at the top right. This will show you where players walk, so you will know where to place things on the ground. A tiny bit above the line works best to have the player walk in front of it. Use the arrows that appear under it to flip, rotate, or delete it. You can also delete any item with a dotted border (even one that's picked up) by pressing the Delete key. When you've placed an item from the entities list in the window, you'll notice that it gets crossed off and turned red. That's to keep track of what's already been taken care of.</p>
+ 	<p>When you're done placing entities, or just want to take a break, click the blue "Save Entities" button at the top right. That will save your changes to the server, so you, or anyone else, can load them with the street.</p>
+ -->
+ <body>
+ 	<div id="MainScreen">
+ 		<div id="top">
+ 			<h1 id="topTitle">CoU Map Filler<span id="subTitle"> By Robert McDermot</span></h1>
+ 			<form id="LocationCodeForm">
+ 				<input type="text" id="LocationCodeInput" placeholder="Enter TSID to Open">
+ 				<input type="button" id="LocationCodeButton" value="Load"><br><input type="checkbox" id="collisionLines"><label for="collisionLines">Show Collision Lines</label>
+ 			</form>
+ 			<div id="CurrentLocation">
+ 				<img src="./assets/system/map_icon.svg" id="MapGlyph">
+ 				<div>
+ 					Current Location:
+ 					<div id="Location">
+ 					</div>
+ 				</div>
+ 			</div>
+ 			<div id="GenerateParent">
+ 				<div id="Generate" class="shadow">Save Entities</div>
+ 			</div>
+ 		</div>
+ 		<div id="GameScreenParent">
+ 			<div id="GameScreen"></div>
+ 		</div>
+ 		<div id="ToolBox" class="shadow">
+ 			<div id="toolsTitle">Entities</div>
+ 			<hr>
+ 			<div id="Trees">
+ 				<div class="entity">
+ 					<div id="BeanTree" class="centerEntity" rows="14" columns="5" frames="68"></div>
+ 					<div>Bean Tree</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="BubbleTree" class="centerEntity" rows="4" columns="19" frames="76"></div>
+ 					<div>Bubble Tree</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="EggPlant" class="centerEntity" rows="5" columns="11" frames="55"></div>
+ 					<div>Egg Plant</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="FruitTree" class="centerEntity" rows="4" columns="15" frames="60"></div>
+ 					<div>Fruit Tree</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="GasPlant" class="centerEntity" rows="4" columns="14" frames="53"></div>
+ 					<div>Gas Plant</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="PaperTree" class="centerEntity" rows="6" columns="4" frames="22"></div>
+ 					<div>Paper Tree</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="SpicePlant" class="centerEntity" rows="6" columns="11" frames="66"></div>
+ 					<div>Spice Plant</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="WoodTree" class="centerEntity" rows="1" columns="6" frames="6"></div>
+ 					<div>Wood Tree</div>
+ 				</div>
+ 			</div>
+ 			<hr>
+ 			<div id="Rocks">
+ 				<div class="entity">
+ 					<div id="BerylRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
+ 					<div>Beryl Rock</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="DulliteRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
+ 					<div>Dullite Rock</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="MetalRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
+ 					<div>Metal Rock</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="SparklyRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
+ 					<div>Sparkly Rock</div>
+ 				</div>
+ 			</div>
+ 			<hr>
+ 			<div id="Quoins">
+ 				<div class="entity">
+ 					<div id="Img" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Img</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Mood" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Mood</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Energy" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Energy</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Currant" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Currant</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Mystery" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Mystery</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Favor" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Favor</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Time" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Time</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Quarazy" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
+ 					<div>Quarazy</div>
+ 				</div>
+ 			</div>
+ 			<hr>
+ 			<div id="Misc">
+ 				<div class="entity">
+ 					<div id="Garden" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
+ 					<div>Garden</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Patch" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
+ 					<div>Patch</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="DarkPatch" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
+ 					<div>Dark Patch</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="DirtPile" class="centerEntity" rows="3" columns="4" frames="11"></div>
+ 					<div>Dirt Pile</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="PeatBog" class="centerEntity" rows="2" columns="3" frames="5"></div>
+ 					<div>Peat Bog</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Firefly" class="centerEntity" scale = 2 rows="9" columns="10" frames="89"></div>
+ 					<div>Firefly</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="MortarBarnacle" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
+ 					<div>Mortar Barnacle</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Jellasic" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
+ 					<div>Jellasic</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="IceKnob" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
+ 					<div>Ice Knob</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="VisitingStone" class="centerEntity" rows="1" columns="1" frames="1"></div>
+ 					<div>Visiting Stone</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="DustTrap" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
+ 					<div>Dust Trap</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Mailbox" class="centerEntity" rows="1" columns="1" frames="1"></div>
+ 					<div>Mailbox</div>
+ 				</div>
+ 			</div>
+ 			<hr>
+ 			<div id="NPCs">
+ 				<div class="entity">
+ 					<div id="Batterfly" class="centerEntity" rows="5" columns="8" frames="40"></div>
+ 					<div>Batterfly</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Butterfly" class="centerEntity" scale = 2 rows="6" columns="14" frames="84"></div>
+ 					<div>Butterfly</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Chicken" class="centerEntity" rows="4" columns="6" frames="24"></div>
+ 					<div>Chicken</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Crab" class="centerEntity" rows="4" columns="6" frames="24"></div>
+ 					<div>Crab</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Fox" class="centerEntity" rows="4" columns="6" frames="24"></div>
+ 					<div>Fox</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Piggy" class="centerEntity" scale = 2 rows="3" columns="8" frames="24"></div>
+ 					<div>Piggy</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="Salmon" class="centerEntity" scale = 2 rows="2" columns="11" frames="22"></div>
+ 					<div>Salmon</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="BundleOfJoy" class="centerEntity" scale = 2 rows="1" columns="8" frames="8"></div>
+ 					<div>Bundle of Joy</div>
+ 				</div>
+ 			</div>
+ 			<hr>
+ 			<div id="Shrines">
+ 				<div id="NormalShrines">
+ 					<div class="entity">
+ 						<div id="Alph" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Alph</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Cosma" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Cosma</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Friendly" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Friendly</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Grendaline" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Grendaline</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Humbaba" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Humbaba</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Lem" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Lem</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Mab" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Mab</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Pot" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Pot</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Spriggan" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Spriggan</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Tii" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Tii</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="Zille" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Zille</div>
+ 					</div>
+ 				</div>
+ 				<div id="FirebogShrines">
+ 					<div class="entity">
+ 						<div id="AlphFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Alph</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="CosmaFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Cosma</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="FriendlyFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Friendly</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="GrendalineFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Grendaline</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="HumbabaFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Humbaba</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="LemFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Lem</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="MabFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Mab</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="PotFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Pot</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="SprigganFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Spriggan</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="TiiFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Tii</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="ZilleFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Zille</div>
+ 					</div>
+ 				</div>
+ 				<div id="IxShrines">
+ 					<div class="entity">
+ 						<div id="AlphIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Alph</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="CosmaIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Cosma</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="FriendlyIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Friendly</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="GrendalineIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Grendaline</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="HumbabaIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Humbaba</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="LemIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Lem</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="MabIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Mab</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="PotIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Pot</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="SprigganIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Spriggan</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="TiiIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Tii</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="ZilleIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
+ 						<div>Zille</div>
+ 					</div>
+ 				</div> 
+ 				<div id="UraliaShrines">
+ 					<div class="entity">
+ 						<div id="AlphUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Alph</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="CosmaUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Cosma</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="FriendlyUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Friendly</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="GrendalineUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Grendaline</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="HumbabaUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Humbaba</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="LemUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Lem</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="MabUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Mab</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="PotUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Pot</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="SprigganUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Spriggan</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="TiiUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Tii</div>
+ 					</div>
+ 					<div class="entity">
+ 						<div id="ZilleUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
+ 						<div>Zille</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 			<hr>
+ 			<div id="Street Spirits">
+ 				<div class="entity">
+ 					<div id="StreetSpiritGroddle" class="centerEntity" rows="2" columns="10" frames="19"></div>
+ 					<div>Street Spirit</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="StreetSpiritFirebog" class="centerEntity" rows="3" columns="8" frames="24"></div>
+ 					<div>Street Spirit</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="StreetSpiritZutto" class="centerEntity" rows="4" columns="6" frames="23"></div>
+ 					<div>Street Spirit</div>
+ 				</div>
+ 				<div class="entity">
+ 					<div id="ToolVendor" class="centerEntity" rows="2" columns="5" frames="10"></div>
+ 					<div>Tool Vendor</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
 
-  </head>
- 
-  <body>
-  	<div id="MainScreen">
-	  	<form style="display: inline;margin-left: 200px;" id="LocationCodeForm">
-	  		<input type="text" id="LocationCodeInput" placeholder="enter location code to load">
-	  		<input type="button" id="LocationCodeButton" value="Load">
-	  	</form>
-	  	<div id="CurrentLocation">
-        	<img src="./assets/system/map_icon.svg" id="MapGlyph" width="38" height="38">
-          		<div>
-            		Current Location:
-            		<div id="Location">
-            		</div>
-          		</div>
-        </div>
-  		<div id="GameScreenParent">
-	  		<div id="GameScreen"></div>
-	  	</div>
-	    <div id="ToolBox" class="shadow">
-	    	<div style="text-align: center;">Entities</div>
-	    	<hr>
-	    	<div id="Trees">
-	    		<div class="entity">
-	    			<div id="BeanTree" class="centerEntity" rows="14" columns="5" frames="68"></div>
-	    			<div>Bean Tree</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="BubbleTree" class="centerEntity" rows="4" columns="19" frames="76"></div>
-	    			<div>Bubble Tree</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="EggPlant" class="centerEntity" rows="5" columns="11" frames="55"></div>
-	    			<div>Egg Plant</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="FruitTree" class="centerEntity" rows="4" columns="15" frames="60"></div>
-	    			<div>Fruit Tree</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="GasPlant" class="centerEntity" rows="4" columns="14" frames="53"></div>
-	    			<div>Gas Plant</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="PaperTree" class="centerEntity" rows="6" columns="4" frames="22"></div>
-	    			<div>Paper Tree</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="SpicePlant" class="centerEntity" rows="6" columns="11" frames="66"></div>
-	    			<div>Spice Plant</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="WoodTree" class="centerEntity" rows="1" columns="6" frames="6"></div>
-	    			<div>Wood Tree</div>
-	    		</div>
-	    	</div>
-	    	<hr>
-	    	<div id="Rocks">
-	    		<div class="entity">
-	    			<div id="BerylRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
-	    			<div>Beryl Rock</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="DulliteRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
-	    			<div>Dullite Rock</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="MetalRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
-	    			<div>Metal Rock</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="SparklyRock" class="centerEntity" rows="1" columns="5" frames="5"></div>
-	    			<div>Sparkly Rock</div>
-	    		</div>
-	    	</div>
-	    	<hr>
-	    	<div id="Quoins">
-	    		<div class="entity">
-	    			<div id="Img" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Img</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Mood" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Mood</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Energy" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Energy</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Currant" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Currant</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Mystery" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Mystery</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Favor" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Favor</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Time" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Time</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Quarazy" class="centerEntity" scale = 1 rows="8" columns="24" frames="192"></div>
-	    			<div>Quarazy</div>
-	    		</div>
-	    	</div>
-	    	<hr>
-	    	<div id="Misc">
-	    		<div class="entity">
-	    			<div id="Garden" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
-	    			<div>Garden</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Patch" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
-	    			<div>Patch</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="DarkPatch" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
-	    			<div>Dark Patch</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="DirtPile" class="centerEntity" rows="3" columns="4" frames="11"></div>
-	    			<div>Dirt Pile</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="PeatBog" class="centerEntity" rows="2" columns="3" frames="5"></div>
-	    			<div>Peat Bog</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Firefly" class="centerEntity" scale = 2 rows="9" columns="10" frames="89"></div>
-	    			<div>Firefly</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="MortarBarnacle" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
-	    			<div>Mortar Barnacle</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Jellasic" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
-	    			<div>Jellasic</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="IceKnob" class="centerEntity" scale = 2 rows="1" columns="4" frames="4"></div>
-	    			<div>Ice Knob</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="VisitingStone" class="centerEntity" rows="1" columns="1" frames="1"></div>
-	    			<div>Visiting Stone</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="DustTrap" class="centerEntity" scale = 2 rows="1" columns="1" frames="1"></div>
-	    			<div>Dust Trap</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Mailbox" class="centerEntity" rows="1" columns="1" frames="1"></div>
-	    			<div>Mailbox</div>
-	    		</div>
-	    	</div>
-	    	<hr>
-	    	<div id="NPCs">
-	    		<div class="entity">
-	    			<div id="Batterfly" class="centerEntity" rows="5" columns="8" frames="40"></div>
-	    			<div>Batterfly</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Butterfly" class="centerEntity" scale = 2 rows="6" columns="14" frames="84"></div>
-	    			<div>Butterfly</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Chicken" class="centerEntity" rows="4" columns="6" frames="24"></div>
-	    			<div>Chicken</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Crab" class="centerEntity" rows="4" columns="6" frames="24"></div>
-	    			<div>Crab</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Fox" class="centerEntity" rows="4" columns="6" frames="24"></div>
-	    			<div>Fox</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Piggy" class="centerEntity" scale = 2 rows="3" columns="8" frames="24"></div>
-	    			<div>Piggy</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="Salmon" class="centerEntity" scale = 2 rows="2" columns="11" frames="22"></div>
-	    			<div>Salmon</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="BundleOfJoy" class="centerEntity" scale = 2 rows="1" columns="8" frames="8"></div>
-	    			<div>Bundle of Joy</div>
-	    		</div>
-	    	</div>
-	    	<hr>
-	    	<div id="Shrines">
-				<div id="NormalShrines">
-	     			<div class="entity">
-		    			<div id="Alph" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Alph</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Cosma" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Cosma</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Friendly" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Friendly</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Grendaline" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Grendaline</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Humbaba" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Humbaba</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Lem" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Lem</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Mab" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Mab</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Pot" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Pot</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Spriggan" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Spriggan</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Tii" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Tii</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="Zille" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Zille</div>
-		    		</div>
-		    	</div>
-	       		<div id="FirebogShrines">
-      				<div class="entity">
-		    			<div id="AlphFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Alph</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="CosmaFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Cosma</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="FriendlyFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Friendly</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="GrendalineFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Grendaline</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="HumbabaFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Humbaba</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="LemFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Lem</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="MabFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Mab</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="PotFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Pot</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="SprigganFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Spriggan</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="TiiFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Tii</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="ZilleFirebog" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Zille</div>
-		    		</div>
-	       		</div>
-			   	<div id="IxShrines">
-      				<div class="entity">
-		    			<div id="AlphIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Alph</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="CosmaIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Cosma</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="FriendlyIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Friendly</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="GrendalineIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Grendaline</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="HumbabaIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Humbaba</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="LemIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Lem</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="MabIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Mab</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="PotIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Pot</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="SprigganIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Spriggan</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="TiiIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Tii</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="ZilleIx" class="centerEntity" rows="5" columns="5" frames="24"></div>
-		    			<div>Zille</div>
-		    		</div>
-	       		</div> 
-			   	<div id="UraliaShrines">
-      				<div class="entity">
-		    			<div id="AlphUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Alph</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="CosmaUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Cosma</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="FriendlyUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Friendly</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="GrendalineUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Grendaline</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="HumbabaUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Humbaba</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="LemUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Lem</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="MabUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Mab</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="PotUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Pot</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="SprigganUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Spriggan</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="TiiUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Tii</div>
-		    		</div>
-		    		<div class="entity">
-		    			<div id="ZilleUralia" class="centerEntity" rows="4" columns="6" frames="22"></div>
-		    			<div>Zille</div>
-		    		</div>
-		    	</div>
-	    	</div>
-	    	<hr>
-	    	<div id="Street Spirits">
-	    		<div class="entity">
-	    			<div id="StreetSpiritGroddle" class="centerEntity" rows="2" columns="10" frames="19"></div>
-	    			<div>Street Spirit</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="StreetSpiritFirebog" class="centerEntity" rows="3" columns="8" frames="24"></div>
-	    			<div>Street Spirit</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="StreetSpiritZutto" class="centerEntity" rows="4" columns="6" frames="23"></div>
-	    			<div>Street Spirit</div>
-	    		</div>
-	    		<div class="entity">
-	    			<div id="ToolVendor" class="centerEntity" rows="2" columns="5" frames="10"></div>
-	    			<div>Tool Vendor</div>
-	    		</div>
-	    	</div>
-	    </div>
-	    <div id="GenerateParent">
-	    	<div id="Generate" class="shadow">Save Entities</div>
-	    </div>
-  	</div>
-  	
-  	<div class="PopWindow" id="SaveDialog" hidden="true">
-  		<div class="PopWindowHeader">
-  			Save Dialog
-  		</div>
-  		<div>Would you like to save your changes to the server?</div>
-  		<div class="choiceButton" id="SaveYes">Yes</div><div class="choiceButton" id="SaveNo">No</div>
-  	</div>
-  	
-  	<div class="PopWindow" id="Toast">
-  		<div id="ToastMessage">This is a test message.</div>
-  	</div>
-  	
-  	<!--Necessary to get around Cross-Domain stuff-->
-	<script type="text/javascript">
-	function getRoom(dataJSON)
-	{
-		window.postMessage(JSON.stringify(dataJSON), '*');
-	}
-	</script>
-    
-    
-    <script type="application/dart" src="index.dart"></script>
-    <!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
-    <script src="packages/browser/dart.js"></script>
-  </body>
-</html>
+ 	<div class="PopWindow" id="SaveDialog" hidden="true">
+ 		<div class="PopWindowHeader">
+ 			Save Dialog
+ 		</div>
+ 		<div>Would you like to save your changes to the server?</div>
+ 		<div class="choiceButton" id="SaveYes">Yes</div><div class="choiceButton" id="SaveNo">No</div>
+ 	</div>
+
+ 	<div class="PopWindow" id="Toast">
+ 		<div id="ToastMessage">This is a test message.</div>
+ 	</div>
+
+ 	<!--Necessary to get around Cross-Domain stuff-->
+ 	<script type="text/javascript">
+ 		function getRoom(dataJSON)
+ 		{
+ 			window.postMessage(JSON.stringify(dataJSON), '*');
+ 		}
+ 	</script>
+
+
+ 	<script type="application/dart" src="index.dart"></script>
+ 	<!-- for this next line to work, your pubspec.yaml file must have a dependency on 'browser' -->
+ 	<script src="packages/browser/dart.js"></script>
+ </body>
+ </html>

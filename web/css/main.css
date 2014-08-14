@@ -160,25 +160,19 @@ body {
  	margin-top: 3px;
  	margin-left: 4px;
  }
- #Generate {
- 	display: inline-block;
- }
- #GenerateParent {
- 	text-align: center;
- 	float: right;
- 	display: inline;
- 	right: 8px;
- 	position: relative;
- }
  #CurrentLocation{
  	position:absolute;
- 	display: -webkit-inline-flex;
  	display: inline-flex;
- 	margin-top: -38px;
  	color:mediumgrey;
  	font-size: 14px;
  	white-space: nowrap;
  	right: 390px;
+ }
+ #RightParent {
+	text-align: right;
+	position: absolute;
+	right: 10px;
+	top: 5px;
  }
  #Location{
  	color:#005c73;
@@ -407,7 +401,6 @@ body {
  }
  form#LocationCodeForm {
  	display: inline;
- 	float: right;
  }
  img#MapGlyph {
  	width: 38;
@@ -557,4 +550,5 @@ body {
  	border-radius: 8px;
  	padding: 10px;
  	cursor: pointer;
+ 	display: inline-block;
  }

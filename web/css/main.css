@@ -161,18 +161,17 @@ body {
  	margin-left: 4px;
  }
  #CurrentLocation{
- 	position:absolute;
+ 	position: relative;
  	display: inline-flex;
- 	color:mediumgrey;
  	font-size: 14px;
  	white-space: nowrap;
- 	right: 390px;
+ 	margin-right: 10px;
  }
  #RightParent {
 	text-align: right;
 	position: absolute;
 	right: 10px;
-	top: 5px;
+	top: 10px;
  }
  #Location{
  	color:#005c73;
@@ -402,6 +401,9 @@ body {
  form#LocationCodeForm {
  	display: inline;
  }
+ #LocationCodeButton {
+ 	border: none;
+ }
  img#MapGlyph {
  	width: 38;
  	height: 38;
@@ -551,6 +553,16 @@ body {
  	padding: 10px;
  	cursor: pointer;
  	display: inline-block;
+ 	font-family: 'RockoFLFBold', sans-serif;
+ }
+ .button:hover {
+ 	color: #eee;
+ }
+ .button:active {
+ 	opacity: 0.8;
+ }
+ .button:focus {
+ 	outline:none;
  }
  a {
  	color: #4b2e4c;
@@ -560,3 +572,8 @@ body {
  	color: #4b2e4c;
  	text-decoration: underline;
  }
+#collisionOptionHolder {
+	position: relative;
+	left: calc(100vw - 440px);
+	bottom: 18px;
+}

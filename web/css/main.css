@@ -496,7 +496,7 @@ body {
 #tutorial {
 	display: inline;
 	position: relative;
-	top: -3px;
+	top: -5px;
 	left: 10px;
 }
  #motdWindow > article {
@@ -562,7 +562,7 @@ body {
  }
  #collisionOptionHolder {
  	position: absolute;
- 	transform: translateY(-100%);
+ 	right: 10px;
  }
  a {
  	color: #4b2e4c;
@@ -572,3 +572,11 @@ body {
  	color: #4b2e4c;
  	text-decoration: underline;
  }
+#LocationCodeInput {
+	border: 2px solid #4a2e4c;
+	border-radius: 5px;
+	padding: 4px;
+	background: rgb(221, 221, 221);
+	color: #4a2e4c;
+	font-family: 'RockoFLFBold', sans-serif;
+}

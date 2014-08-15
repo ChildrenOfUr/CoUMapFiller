@@ -257,6 +257,7 @@ Future displayPreview(Map streetData)
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
 		
+		preview.onDoubleClick.listen((_) => window.open("http://www.glitchthegame.com/locations/${tsid.replaceFirst('G', 'L')}/", "Location"));
 		preview.onMouseDown.listen((MouseEvent event)
 		{
 			num percentX = event.offset.x/width;

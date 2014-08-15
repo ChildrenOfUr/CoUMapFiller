@@ -858,38 +858,21 @@ void rotate(Element element, int degrees)
 
 void flip(Element element)
 {
-	Element hoverButtons = element.querySelector('.hoverButtonParent');
 	if(element.attributes['flipped'] != null)
 	{
 		element.attributes.remove('flipped');
 		if(element.attributes['rotation'] != null)
-		{
 			element.style.transform = "rotate(${element.attributes['rotation']}deg)";
-			if(hoverButtons != null) 
-            	hoverButtons.style.transform = "scale(1,1)";
-		}
 		else
-		{
 			element.style.transform = "scale(1,1)";
-			if(hoverButtons != null) 
-            	hoverButtons.style.transform = "scale(1,1)";
-		}
 	}
 	else
 	{
 		element.attributes['flipped'] = "true";
 		if(element.attributes['rotation'] != null)
-		{
 			element.style.transform = "rotate(${element.attributes['rotation']}deg) scale(-1,1)";
-			if(hoverButtons != null) 
-            	hoverButtons.style.transform = "scale(-1,1)";
-		}
-        else
-        {
+		else
         	element.style.transform = "scale(-1,1)";
-        	if(hoverButtons != null) 
-            	hoverButtons.style.transform = "scale(-1,1)";
-        }
 	}
 }
 

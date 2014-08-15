@@ -527,9 +527,7 @@ body {
 	top: 90%;
 	left: calc(50% - 35px);
 	margin: auto;
-}
-.hoverButtonTopModifier {
-	top: -65px;
+	pointer-events: auto;
 }
 .hoverButton {
 	border: 1px solid rgba(0,0,0,0.5);

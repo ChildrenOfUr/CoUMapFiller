@@ -131,6 +131,17 @@ class Street
 				..style.position = 'absolute'
 				..attributes['ground_y'] = "0";
 			
+			DivElement buttonCanvas = new DivElement()
+				..classes.add('streetcanvas')
+				..style.pointerEvents = "auto"
+				..id = "ButtonCanvas"
+				..style.width = streetBounds.width.toString() + "px"
+				..style.height = streetBounds.height.toString() + "px"
+				..style.position = 'absolute'
+				..style.pointerEvents = "none"
+				..style.zIndex = "5"
+				..attributes['ground_y'] = "0";
+			
 			/* //// Gradient Canvas //// */
 			DivElement gradientCanvas = new DivElement();
 			gradientCanvas.classes.add('streetcanvas');
@@ -370,8 +381,8 @@ class Street
 				
 				// Append the canvas to the screen
 				layers.append(decoCanvas);
-				
 				layers.append(interactionCanvas);
+				layers.append(buttonCanvas);
 			}
 			
 			//make sure to redraw the screen (in case of street switching)

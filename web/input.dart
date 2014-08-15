@@ -162,15 +162,17 @@ class Input
 			return;
 		
 		DivElement hoverParent = new DivElement();
-		hoverParent.className = "hoverButtonParent";
-		
-		if(element.attributes['flipped'] == "true")
-			hoverParent.style.transform = "scale(-1,1)";
-		
+		num left = num.parse(element.style.left.replaceAll('px', ''))+(num.parse(element.style.width.replaceAll('px', ''))/2-35);
+		num top = num.parse(element.style.top.replaceAll('px', ''))+(num.parse(element.style.height.replaceAll('px', ''))-10);
 		num elementBottom = element.getBoundingClientRect().bottom+60;
 		num screenBottom = gameScreen.getBoundingClientRect().bottom;
 		if(elementBottom > screenBottom)
-        	hoverParent.classes.add("hoverButtonTopModifier");
+        	top = num.parse(element.style.top.replaceAll('px', ''))-65;
+		
+		hoverParent
+			..className = "hoverButtonParent"
+			..style.top = top.toString()+'px'
+			..style.left = left.toString()+'px';
 		
 		DivElement flipButton = new DivElement()
 			..className = 'hoverButton flipButton fa fa-arrows-h'
@@ -192,7 +194,7 @@ class Input
 		hoverParent..append(flipButton)..append(deleteButton)
 				   ..append(rotateLeftButton)..append(rotateRightButton);
 		
-		element.append(hoverParent);
+		querySelector("#ButtonCanvas").append(hoverParent);
 	}
 	
 	void removeHoverButtons({Element except : null})

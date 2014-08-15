@@ -370,10 +370,17 @@ body {
  	border-radius: 8px;
  }
  #SaveDialog {
+ 	color: #4b2e4c;
  	top: 50%;
  	left: 50%;
  	-webkit-transform: translateX(-50%) translateY(-50%);
  	transform: translateX(-50%) translateY(-50%);
+ }
+ #SaveDialog .button {
+ 	margin: 0 10px;
+ }
+ #SaveText {
+ 	margin-bottom: 10px;
  }
  .crossedOff {
  	text-decoration: line-through;

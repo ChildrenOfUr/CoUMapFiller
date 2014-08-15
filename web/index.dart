@@ -441,7 +441,10 @@ void showSaveWindow(Function onResponse)
 loadLocationJson()
 {
 	if(madeChanges && tsid != null)
+	{
 		showSaveWindow(loadLocationJson);
+		return;
+	}
 		
 	TextInputElement locationInput = querySelector("#LocationCodeInput");
 	String location = locationInput.value;

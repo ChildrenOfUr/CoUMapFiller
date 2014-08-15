@@ -858,21 +858,38 @@ void rotate(Element element, int degrees)
 
 void flip(Element element)
 {
+	Element hoverButtons = element.querySelector('.hoverButtonParent');
 	if(element.attributes['flipped'] != null)
 	{
 		element.attributes.remove('flipped');
 		if(element.attributes['rotation'] != null)
+		{
 			element.style.transform = "rotate(${element.attributes['rotation']}deg)";
+			if(hoverButtons != null) 
+            	hoverButtons.style.transform = "scale(1,1)";
+		}
 		else
+		{
 			element.style.transform = "scale(1,1)";
+			if(hoverButtons != null) 
+            	hoverButtons.style.transform = "scale(1,1)";
+		}
 	}
 	else
 	{
 		element.attributes['flipped'] = "true";
 		if(element.attributes['rotation'] != null)
-        	element.style.transform = "rotate(${element.attributes['rotation']}deg) scale(-1,1)";
+		{
+			element.style.transform = "rotate(${element.attributes['rotation']}deg) scale(-1,1)";
+			if(hoverButtons != null) 
+            	hoverButtons.style.transform = "scale(-1,1)";
+		}
         else
-        	element.style.transform = "scale(-1,1)";	
+        {
+        	element.style.transform = "scale(-1,1)";
+        	if(hoverButtons != null) 
+            	hoverButtons.style.transform = "scale(-1,1)";
+        }
 	}
 }
 
@@ -900,10 +917,13 @@ void setCursorMove()
     Element handle = querySelector(".handle");
 	layer.classes.add("moveCursor");
 	toolbox.classes.add("moveCursor");
-	handle.classes.add("moveCursor");
 	layer.classes.remove("stillCursor");
 	toolbox.classes.remove("stillCursor");
-	handle.classes.remove("grabCursor");
+	if(handle != null)
+	{
+		handle.classes.add("moveCursor");
+        handle.classes.remove("grabCursor");
+	}
 }
 
 void setCursorStill()
@@ -913,8 +933,11 @@ void setCursorStill()
     Element handle = querySelector(".handle");
 	layer.classes.remove("moveCursor");
 	toolbox.classes.remove("moveCursor");
-	handle.classes.remove("moveCursor");
 	layer.classes.add("stillCursor");
 	toolbox.classes.add("stillCursor");
-	handle.classes.add("grabCursor");
+	if(handle != null)
+    {
+		handle.classes.remove("moveCursor");
+    	handle.classes.add("grabCursor");
+    }
 }

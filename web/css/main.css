@@ -25,7 +25,7 @@ body {
 	width: calc(100% - 380px - 40px - 18px - 20px);
 	height: calc(100% - 80px);
 	max-height: 900px;
-	top: 25px;
+	top: 8px;
 	left: 10px;
 }
 #GameScreen {
@@ -51,8 +51,8 @@ body {
  	background-color: #fff;
  	position:absolute;
  	width: 420px;
- 	height: calc(100% - 142px);
- 	top: 69px;
+ 	height: calc(100% - 118px);
+ 	top: 59px;
  	right: 8px;
  	-moz-border-radius: 7px;
  	border-radius: 7px;
@@ -161,13 +161,13 @@ body {
  	margin-left: 4px;
  }
  #CurrentLocation{
- 	position:absolute;
  	display: inline-flex;
- 	color:mediumgrey;
- 	font-size: 14px;
- 	white-space: nowrap;
- 	right: 0px;
-	transform: translateY(-100%);
+	font-size: 14px;
+	white-space: nowrap;
+	right: 0px;
+	left: 24px;
+	top: 8px;
+	position: relative;
  }
  #RightParent {
 	text-align: right;
@@ -578,6 +578,7 @@ body {
  #collisionOptionHolder {
  	position: absolute;
  	right: 10px;
+ 	top: 36px;
  }
  a {
  	color: #4b2e4c;

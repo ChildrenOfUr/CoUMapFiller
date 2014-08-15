@@ -63,9 +63,7 @@ class Input
 				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton'))
 				addHoverButtons(target.parent.parent);
 			else
-			{
 				removeHoverButtons();
-			}
 		});
 		
 		CheckboxInputElement doNotShow = querySelector("#doNotShow") as CheckboxInputElement;
@@ -88,6 +86,11 @@ class Input
 	    //keyCode's could be configurable in the future
 	    document.onKeyDown.listen((KeyboardEvent k)
 		{
+			// space and arrow keys
+			if(k.keyCode == 32 || k.keyCode == 37 || k.keyCode == 38 
+				|| k.keyCode == 39 || k.keyCode == 40)
+            	k.preventDefault();
+			
 	    	//check for delete key
 	    	if(k.keyCode == 46)
 	    		delete();
@@ -160,6 +163,9 @@ class Input
 		
 		DivElement hoverParent = new DivElement();
 		hoverParent.className = "hoverButtonParent";
+		
+		if(element.attributes['flipped'] == "true")
+			hoverParent.style.transform = "scale(-1,1)";
 		
 		num elementBottom = element.getBoundingClientRect().bottom+60;
 		num screenBottom = gameScreen.getBoundingClientRect().bottom;

@@ -317,6 +317,12 @@ body {
  	background: blue;
  	position:absolute;
  }
+ .tutProgress {
+ 	width: 10px;
+ 	height: 10px;
+ 	background: blue;
+ 	display: inline-block;
+ }
  #MissingEntities {
  	display: inline-block;
  	text-align: left;
@@ -554,6 +560,14 @@ body {
 }
 .stillCursor {
 	cursor: initial;
+}
+.tutButton {
+	background: rgb(221, 221, 221);
+ 	color: #4b2e4c;
+	padding: 3px;
+	border: 1px solid #4b2e4c;
+	border-radius: 5px;
+	display: inline-block;
 }
  .button {
  	background: rgb(221, 221, 221);

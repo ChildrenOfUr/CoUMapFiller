@@ -46,11 +46,13 @@ gameLoop(num delta)
 
 main()
 {
-	if(window.localStorage['showTut'] != "false")
+	if(window.localStorage['showTut'] == "false")
 	{
-		querySelector("#motdWindow").hidden = false;
-		(querySelector("#doNotShow") as CheckboxInputElement).checked = false;
+		querySelector("#motdWindow").hidden = true;
+		querySelector("#doNotShow").attributes['checked'] = "true";
 	}
+	else
+		querySelector("#motdWindow").hidden = false;
 		
 	gameScreen = querySelector("#GameScreen");
 	
@@ -389,7 +391,7 @@ void saveToServer()
 	});
 	
 	int required = querySelector("#MissingEntities").children.length;
-	Map data = {'tsid':tsid,'entities':JSON.encode(entities),'required':required,'complete':complete};
+	Map data = {'tsid':tsid,'entities':JSON.encode(entities),'required':required.toString(),'complete':complete.toString()};
 	HttpRequest.postFormData("$serverAddress/entityUpload",data).then((HttpRequest request)
 	{
 		if(request.response == "OK")

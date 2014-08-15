@@ -72,11 +72,11 @@ class Input
 		doNotShow.onChange.listen((Event event) => window.localStorage['showTut'] = (!doNotShow.checked).toString());
        	querySelector('#tutorial').onClick.listen((_)
 		{
-			if(window.localStorage['showTut'] == "false")
-				doNotShow.checked = false;
+			Element motdWindow = querySelector("#motdWindow");
+			if(motdWindow.hidden)
+				motdWindow.hidden = false;
 			else
-				doNotShow.checked = true;
-			querySelector("#motdWindow").hidden = false;
+				motdWindow.hidden = true;
 		});
 		querySelector("#motdWindow .close").onClick.listen((_) => querySelector("#motdWindow").hidden = true);
 		

@@ -176,7 +176,7 @@ body {
 	top: 5px;
  }
  #Location{
- 	color:#005c73;
+ 	color:#4b2e4c;
  	font-size: 18px;
  }
  #MapGlyph {
@@ -496,7 +496,7 @@ body {
 #tutorial {
 	display: inline;
 	position: relative;
-	top: -5px;
+	top: -4px;
 	left: 10px;
 }
  #motdWindow > article {

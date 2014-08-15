@@ -246,7 +246,7 @@ Future displayPreview(Map streetData)
 		preview.attributes['scaledWidth'] = width.toString();
 		querySelector("#LoadingPreview").hidden = true;
 		
-		preview.onClick.listen((MouseEvent event)
+		preview.onMouseDown.listen((MouseEvent event)
 		{
 			num percentX = event.offset.x/width;
 			num percentY = event.offset.y/height;
@@ -254,6 +254,7 @@ Future displayPreview(Map streetData)
 			CurrentPlayer.posY = percentY*currentStreet.streetBounds.height;
 			event.stopPropagation();
 		});
+		preview.onMouseMove.listen((MouseEvent event) => event.preventDefault());
 		
 		missingEntities.style.maxHeight = height.toString()+"px";
 		
@@ -261,6 +262,8 @@ Future displayPreview(Map streetData)
 		{
 			if(event.button != 0)
 				return;
+			
+			setCursorMove();
 			
 			num offsetX = event.layer.x;
 			num offsetY = event.layer.y;
@@ -270,7 +273,7 @@ Future displayPreview(Map streetData)
 				popup.style.left = (event.client.x - offsetX).toString()+"px";
 				popup.style.top = (event.client.y - offsetY).toString()+"px";
 			});
-			window.onMouseUp.first.then((_) => move.cancel());
+			window.onMouseUp.first.then((_) {setCursorStill();move.cancel();});
 		});
 		
 		if(popupMinimized)
@@ -894,18 +897,24 @@ void setCursorMove()
 {
 	Element layer = querySelector("#$currentLayer");
     Element toolbox = querySelector("#ToolBox");
+    Element handle = querySelector(".handle");
 	layer.classes.add("moveCursor");
 	toolbox.classes.add("moveCursor");
+	handle.classes.add("moveCursor");
 	layer.classes.remove("stillCursor");
 	toolbox.classes.remove("stillCursor");
+	handle.classes.remove("grabCursor");
 }
 
 void setCursorStill()
 {
 	Element layer = querySelector("#$currentLayer");
     Element toolbox = querySelector("#ToolBox");
+    Element handle = querySelector(".handle");
 	layer.classes.remove("moveCursor");
 	toolbox.classes.remove("moveCursor");
+	handle.classes.remove("moveCursor");
 	layer.classes.add("stillCursor");
 	toolbox.classes.add("stillCursor");
+	handle.classes.add("grabCursor");
 }

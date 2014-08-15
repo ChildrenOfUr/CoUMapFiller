@@ -288,6 +288,10 @@ body {
  	opacity:0.8;
  	font-size:22px;   
  }
+ .handle {
+ 	cursor: crosshair;
+	cursor: -webkit-grab;
+ }
  .PopCloseEmblem {
  	cursor: pointer;
  	position:absolute;
@@ -545,6 +549,10 @@ body {
 .moveCursor {
 	cursor: move;
 	cursor: -webkit-grabbing;
+}
+.grabCursor {
+	cursor: crosshair;
+	cursor: -webkit-grab;
 }
 .stillCursor {
 	cursor: initial;

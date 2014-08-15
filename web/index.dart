@@ -132,6 +132,17 @@ main()
     currentStreet = new Street(generate());
     currentStreet.load().then((_)
     {
+    	DivElement buttonCanvas = new DivElement()
+    		..classes.add('streetcanvas')
+    		..style.pointerEvents = "auto"
+    		..id = "ButtonCanvas"
+    		..style.width = currentStreet.streetBounds.width.toString() + "px"
+    		..style.height = currentStreet.streetBounds.height.toString() + "px"
+    		..style.position = 'absolute'
+    		..style.pointerEvents = "none"
+    		..style.zIndex = "5"
+    		..attributes['ground_y'] = "0";
+    	layers.append(buttonCanvas);
     	CurrentPlayer = new Player();
     	CurrentPlayer.doPhysicsApply = false;
 		CurrentPlayer.loadAnimations().then((_) => gameLoop(0.0));

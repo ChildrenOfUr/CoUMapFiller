@@ -130,19 +130,17 @@
 }
 #MortarBarnacle {
 	background-image: url('http://c2.glitch.bz/items/2012-12-06/barnacle__x1_1_x1_2_x1_3_x1_4_png_1354832735.png');
-	background-position: 97px 47px;
 	background-size: 194px 23.5px;
 	width: 48.5px; /*97/2*/
 	height: 23.5px; /*47/2*/
 }
 #Jellisac {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/jellisac_clump__x1_1_x1_2_x1_3_x1_4_png_1354833095.png');
-	background-position: 74px 33px;
-	background-size: 148px 16.5px;
-	width: 37px; /*74/2*/
-	height: 16.5px; /*33/2*/
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/jellisac_clump__x1_iconic_png_1354833095.png');
+	background-size: 19.5px 22.5px;
+	width: 19.5px; /*39/2*/
+	height: 22.5px; /*45/2*/
 }
-#IceKnob {
+#IceNubbin {
 	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/ice_knob/ice_knob_knob_knob1_x1_empty_x1_small_x1_big_x1_ready_png_1354840521.png');
 	background-position: 45px 69px;
 	background-size: 90px 34.5px;

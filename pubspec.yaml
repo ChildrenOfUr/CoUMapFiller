@@ -1,9 +1,11 @@
 name: CoUMapFiller
-version: 0.0.1
+version: 1.0.4
 author: CoU Development Team
 description: 'A map entity builder for the online game: Children of Ur'
 homepage: childrenofur.com
 dependencies:
   browser: any
   libld:
-    path: ../libld
+    git:
+      ref: master
+      url: https://github.com/ChildrenOfUr/libld

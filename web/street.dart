@@ -97,10 +97,13 @@ class Street
 		List decosToLoad = [];
 		for (Map layer in _data['dynamic']['layers'].values)
 		{
-			for (Map deco in layer['decos'])
+			if(layer['decos'] != null)
 			{
-				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
-                        decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
+				for (Map deco in layer['decos'])
+    			{
+    				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
+                            decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
+    			}
 			}
 		}
     
@@ -120,7 +123,9 @@ class Street
 			// set the street.
 			currentStreet = this;
 			
-			groundY = -(_data['dynamic']['ground_y'] as num).abs();
+			groundY = 0;
+			if(_data['dynamic']['ground_y'] != null)
+				groundY = -(_data['dynamic']['ground_y'] as num).abs();
 		      
 			DivElement interactionCanvas = new DivElement()
 				..classes.add('streetcanvas')
@@ -170,6 +175,10 @@ class Street
 			{
 				DivElement decoCanvas = new DivElement()
 					..classes.add('streetcanvas');
+				
+				if(layer['name'] == null)
+                	continue;
+                				
 				decoCanvas.id = layer['name'];
 				
 				decoCanvas.style.zIndex = layer['z'].toString();
@@ -324,8 +333,14 @@ class Street
 				
 				for (Map signpost in layer['signposts'])
 				{
+					int h = 200, w = 100;
+					if(signpost['h'] != null)
+						h = signpost['h'];
+					if(signpost['w'] != null)
+						w = signpost['w'];
+					print("x: ${signpost['x']}, y: ${signpost['y']}, w: ${signpost['w']}, h: ${signpost['h']}");
 					int x = signpost['x'];
-					int y = signpost['y'] - signpost['h'] + groundY;
+					int y = signpost['y'] - h + groundY;
 					if(layer['name'] == 'middleground')
 					{
 						//middleground has different layout needs
@@ -336,8 +351,8 @@ class Street
 					DivElement pole = new DivElement()
 						..style.backgroundImage = "url('http://childrenofur.com/locodarto/scenery/sign_pole.png')"
 						..style.backgroundRepeat = "no-repeat"
-						..style.width = signpost['w'].toString() + "px"
-						..style.height = signpost['h'].toString() + "px"
+						..style.width = w.toString() + "px"
+						..style.height = h.toString() + "px"
 						..style.position = "absolute"
 						..style.top = (y-groundY).toString() + "px"
 						..style.left = (x-48).toString() + "px";

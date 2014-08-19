@@ -135,7 +135,7 @@
 	width: 48.5px; /*97/2*/
 	height: 23.5px; /*47/2*/
 }
-#Jellasic {
+#Jellisac {
 	background-image: url('http://c2.glitch.bz/items/2012-12-06/jellisac_clump__x1_1_x1_2_x1_3_x1_4_png_1354833095.png');
 	background-position: 74px 33px;
 	background-size: 148px 16.5px;
@@ -561,6 +561,30 @@
 	background-size: 219px 388px; /*876 / 4, 1552 / 4*/
 	width: 109.5px; /*438 / 4*/
 	height: 48.5px; /*194 / 4 */
+}
+#Woodworker {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/woodworker__x1_active_png_1354839735.png');
+	background-size: 219px 619.5px; /*876 / 4, 2478 / 4*/
+	width: 36.5px; /*146 / 4*/
+	height: 88.5px; /*354 / 4*/
+}
+#Fuelmaker {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/fuelmaker__x1_active_png_1354833208.png');
+	background-size: 231px 582.75px; /*924 / 4, 2331 / 4*/
+	width: 38.5px; /*154 / 4*/
+	height: 83.25px; /*333 / 4*/
+}
+#MetalMachine {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/metalmaker__x1_active_png_1354836843.png');
+	background-size: 227.5px 635.25px; /*910 / 4, 2541 / 4*/
+	width: 32.5px; /*130 / 4*/
+	height: 90.75px; /*363 / 4*/
+}
+#Blockmaker {
+	background-image: url('http://c2.glitch.bz/items/2012-12-06/blockmaker__x1_active_png_1354833151.png');
+	background-size: 223.5px 460.25px; /*894 / 4, 1841 / 4*/
+	width: 37.25px; /*149 / 4*/
+	height: 65.75px; /*263 / 4*/
 }
 #NormalShrines {
 	display: block;

@@ -80,51 +80,25 @@ main()
     });
     
     querySelector("#LocationCodeButton").onClick.listen((_) => loadLocationJson());
-    querySelector("#RandomStreet").onClick.listen((_)
-	{
-    	HttpRequest.getString("$serverAddress/getRandomStreet").then((String response)
-    	{
-    		(querySelector("#LocationCodeInput") as InputElement).value = response;
-    		loadLocationJson();
-    	});
-	});
+    querySelector("#RandomStreet").onClick.listen((_) => loadRandomStreet());
     
     window.onMessage.listen((MessageEvent event)
 	{
-    	showToast("Loading...",untilCanceled:true, immediate:true);
-    	if(madeChanges && tsid != null)
+    	try
     	{
-    		showSaveWindow(()
-			{
-    			loadStreet(JSON.decode(event.data)).then((_)
-        		{
-        			//load a preview image of the street
-        			tsid = JSON.decode(event.data)['tsid'];
-        			if(tsid.startsWith("G"))
-        				tsid = tsid.replaceFirst("G", "L");
-        			
-                    displayPreview(JSON.decode(event.data)).then((_) => cancelToast());
-        		});
-			});
-    	}
-    	else
+	    	showToast("Loading...",untilCanceled:true, immediate:true);
+	    	if(madeChanges && tsid != null)
+	    		showSaveWindow(() => loadPreview(event));
+	    	else
+	    		loadPreview(event);
+	    }
+    	catch(e)
     	{
-    		loadStreet(JSON.decode(event.data)).then((_)
-    		{
-    			//load a preview image of the street
-    			tsid = JSON.decode(event.data)['tsid'];
-    			if(tsid.startsWith("G"))
-    				tsid = tsid.replaceFirst("G", "L");
-    			
-                displayPreview(JSON.decode(event.data)).then((_) => cancelToast());;
-    		});
+    		print("Error loading the preview: $e");
     	}
 	});
     
-    querySelectorAll(".entity").forEach((Element treeDiv)
-	{
-		setupListener(treeDiv);
-	});
+    querySelectorAll(".entity").forEach((Element treeDiv) => setupListener(treeDiv));
           
     ui.init();
     playerInput = new Input();
@@ -149,6 +123,28 @@ main()
     });
 }
 
+void loadRandomStreet()
+{
+	HttpRequest.getString("$serverAddress/getRandomStreet").then((String response)
+	{
+		(querySelector("#LocationCodeInput") as InputElement).value = response;
+		loadLocationJson();
+	});
+}
+
+void loadPreview(MessageEvent event)
+{
+	loadStreet(JSON.decode(event.data)).then((_)
+	{
+		//load a preview image of the street
+		tsid = JSON.decode(event.data)['tsid'];
+		if(tsid.startsWith("G"))
+			tsid = tsid.replaceFirst("G", "L");
+		
+        displayPreview(JSON.decode(event.data)).then((_) => cancelToast());
+	});
+}
+
 Future displayPreview(Map streetData)
 {
 	Completer c = new Completer();
@@ -156,7 +152,7 @@ Future displayPreview(Map streetData)
 	Element existingPreview = querySelector("#PreviewWindow");
 	if(existingPreview != null)
 		existingPreview.remove();
-	
+
 	String imageUrl = streetData['main_image']['url'];
 	String hub = streetData['hub_id'];
 	String tsid = streetData['tsid'];
@@ -231,71 +227,74 @@ Future displayPreview(Map streetData)
 	Element popupAction = querySelector("#PopupAction");
 	popupAction.onClick.first.then((_) => minimizePopup());
 	
-	preview.src = imageUrl;
-	preview.onLoad.listen((_)
+	try
 	{
-		preview.hidden = false;
-		height = preview.naturalHeight;
-		width = preview.naturalWidth;
-		num widthToHeight = width/height;
-		if(height > width && height > window.innerHeight - 100)
+		preview.src = imageUrl;
+		preview.onLoad.listen((_)
 		{
-			height = window.innerHeight - 100;
-			width = widthToHeight*height;
-			preview.height = height;
-			preview.width = width.toInt();
-		}
-		else if(width > height && width > window.innerWidth - 100)
-		{
-			width = window.innerWidth - 100;
-			height = width/widthToHeight;
-			preview.width = width;
-			preview.height = height.toInt();
-		}
-				
-		preview.attributes['scaledHeight'] = height.toString();
-		preview.attributes['scaledWidth'] = width.toString();
-		querySelector("#LoadingPreview").hidden = true;
-		
-		preview.onDoubleClick.listen((_) => window.open("http://www.glitchthegame.com/locations/${tsid.replaceFirst('G', 'L')}/", "Location"));
-		preview.onMouseDown.listen((MouseEvent event)
-		{
-			num percentX = event.offset.x/width;
-			num percentY = event.offset.y/height;
-			CurrentPlayer.posX = percentX*currentStreet.streetBounds.width;
-			CurrentPlayer.posY = percentY*currentStreet.streetBounds.height;
-			event.stopPropagation();
-		});
-		preview.onMouseMove.listen((MouseEvent event) => event.preventDefault());
-		
-		missingEntities.style.maxHeight = height.toString()+"px";
-		
-		popup.onMouseDown.listen((MouseEvent event)
-		{
-			if(event.button != 0)
-				return;
-			
-			setCursorMove();
-			
-			num offsetX = event.layer.x;
-			num offsetY = event.layer.y;
-			
-			StreamSubscription move = window.onMouseMove.listen((MouseEvent event)
+			preview.hidden = false;
+			height = preview.naturalHeight;
+			width = preview.naturalWidth;
+			num widthToHeight = width/height;
+			if(height > width && height > window.innerHeight - 100)
 			{
-				popup.style.left = (event.client.x - offsetX).toString()+"px";
-				popup.style.top = (event.client.y - offsetY).toString()+"px";
+				height = window.innerHeight - 100;
+				width = widthToHeight*height;
+				preview.height = height;
+				preview.width = width.toInt();
+			}
+			else if(width > height && width > window.innerWidth - 100)
+			{
+				width = window.innerWidth - 100;
+				height = width/widthToHeight;
+				preview.width = width;
+				preview.height = height.toInt();
+			}
+					
+			preview.attributes['scaledHeight'] = height.toString();
+			preview.attributes['scaledWidth'] = width.toString();
+			querySelector("#LoadingPreview").hidden = true;
+			
+			preview.onDoubleClick.listen((_) => window.open("http://www.glitchthegame.com/locations/${tsid.replaceFirst('G', 'L')}/", "Location"));
+			preview.onMouseDown.listen((MouseEvent event)
+			{
+				num percentX = event.offset.x/width;
+				num percentY = event.offset.y/height;
+				CurrentPlayer.posX = percentX*currentStreet.streetBounds.width;
+				CurrentPlayer.posY = percentY*currentStreet.streetBounds.height;
+				event.stopPropagation();
 			});
-			window.onMouseUp.first.then((_) {setCursorStill();move.cancel();});
+			preview.onMouseMove.listen((MouseEvent event) => event.preventDefault());
+			
+			missingEntities.style.maxHeight = height.toString()+"px";
+			
+			popup.onMouseDown.listen((MouseEvent event)
+			{
+				if(event.button != 0)
+					return;
+				
+				setCursorMove();
+				
+				num offsetX = event.layer.x;
+				num offsetY = event.layer.y;
+				
+				StreamSubscription move = window.onMouseMove.listen((MouseEvent event)
+				{
+					popup.style.left = (event.client.x - offsetX).toString()+"px";
+					popup.style.top = (event.client.y - offsetY).toString()+"px";
+				});
+				window.onMouseUp.first.then((_) {setCursorStill();move.cancel();});
+			});
+			
+			if(popupMinimized)
+			{
+				minimizePopup();
+				popup.style.opacity = "initial";
+			}
 		});
-		
-		if(popupMinimized)
-		{
-			minimizePopup();
-			popup.style.opacity = "initial";
-		}
-		
-		c.complete();
-	});
+	}
+	catch(e,st){print("Problem loading preview: $e\n$streetData");}
+	finally{c.complete();}
 	
 	return c.future;
 }
@@ -735,14 +734,18 @@ Future loadStreet(Map streetData)
         	
 	CurrentPlayer.doPhysicsApply = false;
 	currentStreet = new Street(streetData);
-	currentStreet.load().then((_)
+	try
 	{
-		width = currentStreet.streetBounds.width;
-    	height = currentStreet.streetBounds.height;
-    	updateBounds(0,0,width,height);
-    	querySelector("#Location").text = currentStreet.label;
-    	c.complete();
-   	});
+		currentStreet.load().then((_)
+    	{
+    		width = currentStreet.streetBounds.width;
+        	height = currentStreet.streetBounds.height;
+        	updateBounds(0,0,width,height);
+        	querySelector("#Location").text = currentStreet.label;
+       	});
+	}
+	catch(e,st){print("problem loading street: $e\n$st");}
+	finally{c.complete();}
 	return c.future;
 }
 

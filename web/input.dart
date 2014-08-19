@@ -47,6 +47,19 @@ class Input
 				clickListener = getClickListener(target,event);
 				moveListener = getMoveListener(target);
 			}
+			if(target.id == "StreetBroken")
+			{
+				HttpRequest.getString("$serverAddress/reportBrokenStreet?tsid=$tsid").then((String response)
+            	{
+					if(response == "OK")
+					{
+						showToast("Thanks for the report");
+						new Timer(new Duration(milliseconds:1500), () => loadRandomStreet());
+					}
+					else
+						showToast("Problem sending report");
+            	});
+			}
 		});
 		
 		document.onMouseOver.listen((MouseEvent event)

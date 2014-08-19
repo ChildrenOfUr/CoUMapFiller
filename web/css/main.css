@@ -23,7 +23,7 @@ body {
 #GameScreenParent {
 	position: relative;
 	width: calc(100% - 380px - 40px - 18px - 20px);
-	height: calc(100% - 80px);
+	height: calc(100% - 100px);
 	max-height: 900px;
 	top: 8px;
 	left: 10px;
@@ -607,4 +607,10 @@ body {
 	background: rgb(221, 221, 221);
 	color: #4a2e4c;
 	font-family: 'RockoFLFBold', sans-serif;
+}
+#StreetBroken
+{
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
 }

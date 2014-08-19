@@ -161,9 +161,10 @@ Future displayPreview(Map streetData)
 	Map<String,String> hubInfo = map.data_maps_hubs[hub]();
 	String region = hubInfo['name'];
 	if(region == "Ix" || region == "Uralia" || region == "Chakra Phool" || region == "Kalavana"
-		|| region == "Shimla Mirch" || region.contains("Ilmenskie"))
+		|| region == "Shimla Mirch" || region.contains("Ilmenskie") || region == "Jethimadh")
 	{
-		if(region == "Chakra Phool" || region == "Kalavana" || region == "Shimla Mirch")
+		if(region == "Chakra Phool" || region == "Kalavana" || region == "Shimla Mirch"
+				|| region == "Jethimadh")
 			region = "Firebog";
 		
 		if(region.contains("Ilmenskie"))
@@ -173,7 +174,12 @@ Future displayPreview(Map streetData)
 		querySelector("#${region}Shrines").style.display = "block";
 	}
 	else
+	{
+		querySelector("#FirebogShrines").style.display = "none";
+		querySelector("#IxShrines").style.display = "none";
+		querySelector("#UraliaShrines").style.display = "none";
 		querySelector("#NormalShrines").style.display = "block";
+	}
 		
 	num width,height;
 	document.body.append(PreviewWindow.create());

@@ -30,7 +30,13 @@ class ReportWindow
 		LabelElement vandalizedLabel = new LabelElement()
         	..text="Street has been vandalized"..attributes['for']="VandalizedRadio";
 		vandalizedParent..append(vandalized)..append(vandalizedLabel);
-		form..append(brokenParent)..append(vandalizedParent);
+		DivElement finishedParent = new DivElement();
+		RadioButtonInputElement finished = new RadioButtonInputElement()
+        	..id="FinishedRadio"..name="reason"..attributes['reason']="Finished";
+		LabelElement finishedLabel = new LabelElement()
+        	..text="No more entites to be/can be placed"..attributes['for']="FinishedRadio";
+		finishedParent..append(finished)..append(finishedLabel);
+		form..append(brokenParent)..append(vandalizedParent)..append(finishedParent);
 		
 		TextAreaElement detailsBox = new TextAreaElement()
 			..id="ReportDetails"..placeholder="Please describe the problem";
@@ -60,7 +66,11 @@ class ReportWindow
 				return;
 			}
 			
-			String reason = broken.checked?"Broken":"Vandalized";
+			String reason = "Broken";
+			if(vandalized.checked)
+				reason = "Vandalized";
+			if(finished.checked)
+				reason = "Finished";
 			String details = detailsBox.value;
 			String address = "$serverAddress/reportStreet?tsid=$tsid&reason=$reason&details=$details";
 			HttpRequest.getString(address).then((String response)

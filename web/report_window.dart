@@ -53,6 +53,13 @@ class ReportWindow
 		close.onClick.first.then((_) => destroy());
 		submit.onClick.listen((_)
 		{
+			if(tsid == null)
+			{
+				destroy();
+				showToast("No street loaded");
+				return;
+			}
+			
 			String reason = broken.checked?"Broken":"Vandalized";
 			String details = detailsBox.value;
 			String address = "$serverAddress/reportStreet?tsid=$tsid&reason=$reason&details=$details";

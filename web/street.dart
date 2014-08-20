@@ -338,7 +338,6 @@ class Street
 						h = signpost['h'];
 					if(signpost['w'] != null)
 						w = signpost['w'];
-					print("x: ${signpost['x']}, y: ${signpost['y']}, w: ${signpost['w']}, h: ${signpost['h']}");
 					int x = signpost['x'];
 					int y = signpost['y'] - h + groundY;
 					if(layer['name'] == 'middleground')

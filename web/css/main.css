@@ -608,9 +608,40 @@ body {
 	color: #4a2e4c;
 	font-family: 'RockoFLFBold', sans-serif;
 }
-#StreetBroken
-{
+#Report {
 	position: absolute;
 	bottom: 10px;
 	left: 10px;
+}
+#ReportWindow {
+	color: #4b2e4c;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 400px;
+	height: 270px;
+	margin: auto;
+}
+.red {color: #ba381a;}
+#ReportWindow .PopCloseEmblem {
+	top: 5px;
+	right: 10px;
+}
+#ReportWindow .handle {
+	cursor: auto;
+}
+#ReportTitle {
+	margin-bottom: 10px;
+}
+#ReportText {
+	margin-bottom: 10px;
+}
+#ReportDetails {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	display: block;
+	width: 98%;
+	height: 100px;
+	resize: none;
 }

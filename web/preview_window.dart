@@ -7,7 +7,7 @@ class PreviewWindow
 		DivElement previewWindow = new DivElement()..id="PreviewWindow"..className="PopWindow";
 		
 		DivElement header = new DivElement()..className="PopWindowHeader handle"..text="Street Preview (click and drag to move)";
-		SpanElement action = new SpanElement()..id="PopupAction"..className="fa fa-chevron-down fa-lg red"..attributes['style']="float:right";
+		SpanElement action = new SpanElement()..id="PopupAction"..className="fa fa-chevron-down fa-lg"..attributes['style']="float:right";
 		header.append(action);
 		
 		DivElement content = new DivElement()..className="PopupContent";

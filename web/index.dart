@@ -18,12 +18,13 @@ part 'ui.dart';
 part 'divResizer.dart';
 
 part 'preview_window.dart';
+part 'report_window.dart';
 
 part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
 String currentLayer = "EntityHolder", tsid, initialPopupWidth, initialPopupHeight;
-String serverAddress = "http://robertmcdermot.com:8080";
+String serverAddress = "http://localhost:8181";
 int width = 3000 , height = 1000;
 DivElement gameScreen, layers;
 Rectangle bounds;
@@ -147,7 +148,6 @@ void loadPreview(MessageEvent event)
 
 Future displayPreview(Map streetData)
 {
-	print("displaying preview");
 	Completer c = new Completer();
 	
 	Element existingPreview = querySelector("#PreviewWindow");
@@ -227,7 +227,6 @@ Future displayPreview(Map streetData)
 	HttpRequest.getString("$serverAddress/getEntities?tsid=$tsid").then((String response)
 	{
 		Map entities = JSON.decode(response);
-		print("got response: $entities");
 		if(entities['entities'] != null)
 			loadExistingEntities(entities);
 	});
@@ -643,6 +642,11 @@ void loadExistingEntities(Map entities)
 		drag.classes.add("placedEntity");
 		querySelector("#$currentLayer").append(drag);
 		
+		if(ent['rotation'] != null)
+			rotate(drag,ent['rotation']);
+		if(ent['hflip'] == "true")
+			flip(drag);
+						
 		crossOff(drag);
 	});
 }
@@ -880,6 +884,8 @@ void rotate(Element element, int degrees)
 	
 	if(element.attributes['flipped'] != null)
 		element.style.transform += " scale(-1,1)";
+	
+	madeChanges = true;
 }
 
 void flip(Element element)
@@ -900,6 +906,8 @@ void flip(Element element)
 		else
         	element.style.transform = "scale(-1,1)";
 	}
+	
+	madeChanges = true;
 }
 
 void delete([Element element])
@@ -907,8 +915,10 @@ void delete([Element element])
 	if(element != null)
 		element.classes.add("dashedBorder");
 	
-	clickListener.cancel();
-	moveListener.cancel();
+	if(clickListener != null)
+		clickListener.cancel();
+	if(moveListener != null)
+		moveListener.cancel();
 	querySelectorAll(".dashedBorder").forEach((Element element)
 	{
 		unCrossOff(element);
@@ -917,6 +927,7 @@ void delete([Element element])
 	});
 	
 	setCursorStill();
+	playerInput.removeHoverButtons();
 }
 
 void setCursorMove()

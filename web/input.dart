@@ -47,18 +47,9 @@ class Input
 				clickListener = getClickListener(target,event);
 				moveListener = getMoveListener(target);
 			}
-			if(target.id == "StreetBroken")
+			if(target.id == "Report")
 			{
-				HttpRequest.getString("$serverAddress/reportBrokenStreet?tsid=$tsid").then((String response)
-            	{
-					if(response == "OK")
-					{
-						showToast("Thanks for the report");
-						new Timer(new Duration(milliseconds:1500), () => loadRandomStreet());
-					}
-					else
-						showToast("Problem sending report");
-            	});
+				document.body.append(ReportWindow.create());
 			}
 		});
 		
@@ -100,8 +91,8 @@ class Input
 	    document.onKeyDown.listen((KeyboardEvent k)
 		{
 			// space and arrow keys
-			if(k.keyCode == 32 || k.keyCode == 37 || k.keyCode == 38 
-				|| k.keyCode == 39 || k.keyCode == 40)
+			if(!ignoreKeys && (k.keyCode == 32 || k.keyCode == 37 || k.keyCode == 38 
+				|| k.keyCode == 39 || k.keyCode == 40))
             	k.preventDefault();
 			
 	    	//check for delete key

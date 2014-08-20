@@ -147,6 +147,7 @@ void loadPreview(MessageEvent event)
 
 Future displayPreview(Map streetData)
 {
+	print("displaying preview");
 	Completer c = new Completer();
 	
 	Element existingPreview = querySelector("#PreviewWindow");
@@ -226,6 +227,7 @@ Future displayPreview(Map streetData)
 	HttpRequest.getString("$serverAddress/getEntities?tsid=$tsid").then((String response)
 	{
 		Map entities = JSON.decode(response);
+		print("got response: $entities");
 		if(entities['entities'] != null)
 			loadExistingEntities(entities);
 	});
@@ -748,10 +750,10 @@ Future loadStreet(Map streetData)
         	height = currentStreet.streetBounds.height;
         	updateBounds(0,0,width,height);
         	querySelector("#Location").text = currentStreet.label;
+        	c.complete();
        	});
 	}
-	catch(e,st){print("problem loading street: $e\n$st");}
-	finally{c.complete();}
+	catch(e,st){print("problem loading street: $e\n$st");c.complete();}
 	return c.future;
 }
 

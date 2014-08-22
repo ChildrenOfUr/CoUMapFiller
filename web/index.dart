@@ -414,7 +414,8 @@ void saveToServer()
 	
 	int required = querySelector("#MissingEntities").children.length;
 	Map data = {'tsid':tsid,'entities':JSON.encode(entities),'required':required.toString(),'complete':complete.toString()};
-	HttpRequest.postFormData("$serverAddress/entityUpload",data).then((HttpRequest request)
+	HttpRequest.request("$serverAddress/entityUpload", method: "POST", 
+			requestHeaders: {"content-type": "application/json"}, sendData:JSON.encode(data)).then((HttpRequest request)
 	{
 		if(request.response == "OK")
 		{

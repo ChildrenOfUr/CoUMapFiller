@@ -596,3 +596,9 @@
 #UraliaShrines {
 	display: none;
 }
+#ShoppeDoor {
+	background-image: url('http://childrenofur.com/assets/game/doors/shoppe_door_ext.png');
+	background-size: 182px 166px;
+	width: 182px;
+	height: 166px;
+}

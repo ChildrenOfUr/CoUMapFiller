@@ -24,7 +24,7 @@ part 'shrines_and_vendors.dart';
 part 'maps_data.dart';
 
 String currentLayer = "EntityHolder", tsid, initialPopupWidth, initialPopupHeight;
-String serverAddress = "http://robertmcdermot.com:8181";
+String serverAddress = "http://localhost:8181";
 int width = 3000 , height = 1000;
 DivElement gameScreen, layers;
 Rectangle bounds;

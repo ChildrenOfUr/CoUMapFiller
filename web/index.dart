@@ -54,15 +54,15 @@ main()
 	}
 	else
 		querySelector("#motdWindow").hidden = false;
-		
+
 	gameScreen = querySelector("#GameScreen");
-	
+
 	layers = new DivElement()
 		..id = "layers"
 		..style.position = "absolute";
-	
+
 	gameScreen.append(layers);
-	    
+
     DivElement generateButton = querySelector("#Generate");
     generateButton.onMouseDown.listen((_)
 	{
@@ -73,16 +73,16 @@ main()
     	saveToServer();
 		generateButton.classes.add("shadow");
 	});
-    
+
     querySelector('#LocationCodeForm').onSubmit.listen((Event e)
     {
     	e.preventDefault();
     	loadLocationJson();
     });
-    
+
     querySelector("#LocationCodeButton").onClick.listen((_) => loadLocationJson());
     querySelector("#RandomStreet").onClick.listen((_) => loadRandomStreet());
-    
+
     window.onMessage.listen((MessageEvent event)
 	{
     	try
@@ -98,9 +98,9 @@ main()
     		print("Error loading the preview: $e");
     	}
 	});
-    
+
     querySelectorAll(".entity").forEach((Element treeDiv) => setupListener(treeDiv));
-          
+
     ui.init();
     playerInput = new Input();
     playerInput.init();
@@ -141,7 +141,7 @@ void loadPreview(MessageEvent event)
 		tsid = JSON.decode(event.data)['tsid'];
 		if(tsid.startsWith("G"))
 			tsid = tsid.replaceFirst("G", "L");
-		
+
         displayPreview(JSON.decode(event.data)).then((_) => cancelToast());
 	});
 }
@@ -149,7 +149,7 @@ void loadPreview(MessageEvent event)
 Future displayPreview(Map streetData)
 {
 	Completer c = new Completer();
-	
+
 	Element existingPreview = querySelector("#PreviewWindow");
 	if(existingPreview != null)
 		existingPreview.remove();
@@ -157,7 +157,7 @@ Future displayPreview(Map streetData)
 	String imageUrl = streetData['main_image']['url'];
 	String hub = streetData['hub_id'];
 	String tsid = streetData['tsid'];
-	
+
 	DataMaps map = new DataMaps();
 	Map<String,String> hubInfo = map.data_maps_hubs[hub]();
 	String region = hubInfo['name'];
@@ -167,10 +167,10 @@ Future displayPreview(Map streetData)
 		if(region == "Chakra Phool" || region == "Kalavana" || region == "Shimla Mirch"
 				|| region == "Jethimadh")
 			region = "Firebog";
-		
+
 		if(region.contains("Ilmenskie"))
 			region = "Uralia";
-		
+
 		querySelector("#NormalShrines").style.display = "none";
 		querySelector("#${region}Shrines").style.display = "block";
 	}
@@ -181,7 +181,7 @@ Future displayPreview(Map streetData)
 		querySelector("#UraliaShrines").style.display = "none";
 		querySelector("#NormalShrines").style.display = "block";
 	}
-		
+
 	num width,height;
 	document.body.append(PreviewWindow.create());
 	DivElement popup = querySelector("#PreviewWindow");
@@ -192,15 +192,15 @@ Future displayPreview(Map streetData)
 	ui.preview = preview;
 	popup.hidden = false;
 	querySelector("#LoadingPreview").hidden = false;
-    	
+
 	if(popupMinimized)
 		popup.style.opacity = "0";
-	
+
 	initialPopupWidth = (popup.clientWidth+15).toString()+"px";
 	initialPopupHeight = "calc("+popup.clientHeight.toString()+"px"+" - 2em)";
 	popup.attributes['initialWidth'] = initialPopupWidth;
 	popup.attributes['initialHeight'] = initialPopupHeight;
-	
+
 	UListElement missingEntities = querySelector("#MissingEntities");
 	missingEntities.children.clear();
 	List<Map<String,String>> objrefs = streetData['objrefs'];
@@ -222,19 +222,20 @@ Future displayPreview(Map streetData)
 		missing.text = "${vendors[tsid]} Vendor";
 		missingEntities.append(missing);
 	}
-	
+
 	//and cross off (and display) ones that already exist
 	HttpRequest.getString("$serverAddress/getEntities?tsid=$tsid").then((String response)
 	{
 		Map entities = JSON.decode(response);
+		print('got entities: $entities');
 		if(entities['entities'] != null)
 			loadExistingEntities(entities);
 	});
-	
+
 	missingEntities.onMouseDown.listen((MouseEvent event) => event.stopPropagation());
 	Element popupAction = querySelector("#PopupAction");
 	popupAction.onClick.first.then((_) => minimizePopup());
-	
+
 	try
 	{
 		preview.src = imageUrl;
@@ -258,11 +259,11 @@ Future displayPreview(Map streetData)
 				preview.width = width;
 				preview.height = height.toInt();
 			}
-					
+
 			preview.attributes['scaledHeight'] = height.toString();
 			preview.attributes['scaledWidth'] = width.toString();
 			querySelector("#LoadingPreview").hidden = true;
-			
+
 			preview.onDoubleClick.listen((_) => window.open("http://www.glitchthegame.com/locations/${tsid.replaceFirst('G', 'L')}/", "Location"));
 			preview.onMouseDown.listen((MouseEvent event)
 			{
@@ -273,19 +274,19 @@ Future displayPreview(Map streetData)
 				event.stopPropagation();
 			});
 			preview.onMouseMove.listen((MouseEvent event) => event.preventDefault());
-			
+
 			missingEntities.style.maxHeight = height.toString()+"px";
-			
+
 			popup.onMouseDown.listen((MouseEvent event)
 			{
 				if(event.button != 0)
 					return;
-				
+
 				setCursorMove();
-				
+
 				num offsetX = event.layer.x;
 				num offsetY = event.layer.y;
-				
+
 				StreamSubscription move = window.onMouseMove.listen((MouseEvent event)
 				{
 					popup.style.left = (event.client.x - offsetX).toString()+"px";
@@ -293,7 +294,7 @@ Future displayPreview(Map streetData)
 				});
 				window.onMouseUp.first.then((_) {setCursorStill();move.cancel();});
 			});
-			
+
 			if(popupMinimized)
 			{
 				minimizePopup();
@@ -303,7 +304,7 @@ Future displayPreview(Map streetData)
 	}
 	catch(e,st){print("Problem loading preview: $e\n$streetData");}
 	finally{c.complete();}
-	
+
 	return c.future;
 }
 
@@ -314,7 +315,7 @@ void minimizePopup()
    	Element popupAction = querySelector("#PopupAction");
    	UListElement missing = querySelector("#MissingEntities");
    	DivElement progress = querySelector("#ProgressIndicator");
-   	
+
    	popupAction.classes.remove("fa-chevron-down");
     popupAction.classes.add("fa-chevron-up");
     popupAction.onClick.first.then((_) => maximizePopup());
@@ -327,7 +328,7 @@ void minimizePopup()
 	popup.style.left = "initial";
 	popup.style.width = popup.attributes['initialWidth'];
 	popup.style.height = popup.attributes['initialHeight'];
-	
+
 	popupMinimized = true;
 }
 
@@ -338,7 +339,7 @@ void maximizePopup()
     Element popupAction = querySelector("#PopupAction");
     UListElement missing = querySelector("#MissingEntities");
     DivElement progress = querySelector("#ProgressIndicator");
-   	
+
     num height = num.parse(preview.attributes['scaledHeight']);
     num width = num.parse(preview.attributes['scaledWidth']);
     popupAction.classes.add("fa-chevron-down");
@@ -354,7 +355,7 @@ void maximizePopup()
 	popup.style.right = "initial";
 	popup.style.top = "25px";
 	popup.style.left = "0px";
-	
+
 	popupMinimized = false;
 }
 
@@ -366,7 +367,7 @@ void showToast(String message, {bool untilCanceled: false, bool immediate: false
     	toast.style.transition = "none";
     toastMessage.text = message;
     toast.style.opacity = "initial";
-    
+
     if(!untilCanceled)
     	new Timer(new Duration(seconds:2), () => cancelToast());
 }
@@ -379,17 +380,17 @@ void cancelToast()
 }
 
 void saveToServer()
-{    
+{
 	if(!madeChanges || tsid == null)
 	{
 		if(!madeChanges)
 			showToast("No changes to save.");
 		if(tsid == null)
 			showToast("No street loaded.");
-		
+
 		return;
 	}
-	
+
 	List<Map> entities = [];
 	int complete = 0;
 	querySelectorAll(".placedEntity").forEach((Element element)
@@ -404,17 +405,17 @@ void saveToServer()
 		entity['animationColumns'] = int.parse(element.attributes['columns']);
 		entity['animationNumFrames'] = int.parse(element.attributes['frames']);
 		entity['x'] = num.parse(element.style.left.replaceAll("px", "")).toInt();
-		entity['y'] = currentStreet.streetBounds.height-num.parse(element.style.top.replaceAll("px", "")).toInt()-element.client.height;
+		entity['y'] = num.parse(element.style.top.replaceAll("px", "")).toInt()+element.client.height;
 		if(element.attributes['flipped'] != null)
 			entity['hflip'] = "true";
 		if(element.attributes['rotation'] != null)
 			entity['rotation'] = int.parse(element.attributes['rotation']);
 		entities.add(entity);
 	});
-	
+
 	int required = querySelector("#MissingEntities").children.length;
 	Map data = {'tsid':tsid,'entities':JSON.encode(entities),'required':required.toString(),'complete':complete.toString()};
-	HttpRequest.request("$serverAddress/entityUpload", method: "POST", 
+	HttpRequest.request("$serverAddress/entityUpload", method: "POST",
 			requestHeaders: {"content-type": "application/json"}, sendData:JSON.encode(data)).then((HttpRequest request)
 	{
 		if(request.response == "OK")
@@ -443,7 +444,7 @@ void showSaveWindow(Function onResponse)
 		madeChanges = false;
 		onResponse();
 	});
-	
+
 	return;
 }
 
@@ -454,7 +455,7 @@ loadLocationJson()
 		showSaveWindow(loadLocationJson);
 		return;
 	}
-		
+
 	TextInputElement locationInput = querySelector("#LocationCodeInput");
 	String location = locationInput.value;
 	if(location != "")
@@ -472,7 +473,7 @@ loadLocationJson()
 }
 
 void setupListener(DivElement entityParent)
-{	
+{
 	DivElement entity = entityParent.querySelector(".centerEntity");
 	entityParent.onMouseDown.listen((MouseEvent event)
 	{
@@ -484,14 +485,14 @@ void setupListener(DivElement entityParent)
     			stop(alreadyPickedUp);
     			return;
     		}
-    		
+
     		alreadyPickedUp.remove();
     		if(clickListener != null)
     			clickListener.cancel();
     		if(moveListener != null)
     			moveListener.cancel();
     	}
-        	
+
 		DivElement drag = new DivElement();
 		CssStyleDeclaration style = entity.getComputedStyle();
 		int scale = 4;
@@ -512,13 +513,13 @@ void setupListener(DivElement entityParent)
 		drag.style.left = event.client.x.toString()+"px";
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
-		
+
 		setCursorMove();
-		
+
 		stopListener = querySelector("#ToolBox").onMouseUp.listen((_) => stop(drag));
 		clickListener = getClickListener(drag,event);
 		moveListener = getMoveListener(drag);
-		
+
 		event.stopPropagation();
 	});
 }
@@ -542,13 +543,13 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 		percentY = 1;
 	num dragX = percentX*drag.client.width-drag.client.width;
 	num dragY = percentY*drag.client.height;
-	
+
 	drag.style.top = (event.page.y-drag.client.height+dragY).toString()+"px";
 	drag.style.left = (event.page.x+dragX).toString()+"px";
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
 	clickListener = layer.onMouseUp.listen((MouseEvent event)
-	{		
+	{
 		num percentX = event.page.x/ui.gameScreenWidth;
 		num percentY = (event.page.y-ui.gameScreenTop)/ui.gameScreenHeight;
 		if(percentX > 1)
@@ -557,7 +558,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
 			percentY = 1;
 		num dragX = percentX*drag.client.width-drag.client.width;
 		num dragY = percentY*drag.client.height;
-		
+
 		num x,y;
 		//if we clicked on another deco inside the target layer
 		if((event.target as Element).id != layer.id)
@@ -575,7 +576,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         drag.style.left = (x+dragX).toString()+"px";
         drag.classes.add("placedEntity");
         drag.classes.remove("dashedBorder");
-        
+
         layer.append(drag);
 		setCursorStill();
         madeChanges = true;
@@ -585,7 +586,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event)
         moveListener.cancel();
         clickListener.cancel();
 	});
-	
+
 	return clickListener;
 }
 
@@ -603,12 +604,12 @@ StreamSubscription getMoveListener(DivElement drag)
 			percentY = 1;
 		num dragX = percentX*drag.client.width-drag.client.width;
 		num dragY = percentY*drag.client.height;
-		
+
 		num height = num.parse(drag.style.height.replaceAll("px", ""));
 		drag.style.top = (event.page.y-height+dragY).toString()+"px";
         drag.style.left = (event.page.x+dragX).toString()+"px";
 	});
-	
+
 	return moveListener;
 }
 
@@ -618,7 +619,7 @@ void loadExistingEntities(Map entities)
 	{
 		String type = ent['type'];
 		Element entity = querySelector("#$type");
-		
+
 		DivElement drag = new DivElement();
 		CssStyleDeclaration style = entity.getComputedStyle();
 		int scale = 4;
@@ -626,10 +627,10 @@ void loadExistingEntities(Map entities)
 			scale = int.parse(entity.attributes['scale']);
 		num width = num.parse(style.width.replaceAll("px", "")) * scale;
 		num height = num.parse(style.height.replaceAll("px", "")) * scale;
-		
+
 		num x = ent['x'];
-        num y = currentStreet.streetBounds.height-ent['y']-height;
-        		
+        num y = ent['y']-height;
+
 		drag.style.backgroundImage = style.backgroundImage;
 		drag.style.backgroundPosition = style.backgroundPosition;
 		drag.attributes['type'] = entity.id;
@@ -643,12 +644,12 @@ void loadExistingEntities(Map entities)
 		drag.style.left = x.toString()+"px";
 		drag.classes.add("placedEntity");
 		querySelector("#$currentLayer").append(drag);
-		
+
 		if(ent['rotation'] != null)
 			rotate(drag,ent['rotation']);
 		if(ent['hflip'] == "true")
 			flip(drag);
-						
+
 		crossOff(drag);
 	});
 }
@@ -658,9 +659,9 @@ void crossOff(Element placed)
 	UListElement missingEntities = querySelector("#MissingEntities");
 	if(missingEntities == null)
 		return;
-	
+
 	String type = normalizeType(placed);
-	
+
 	//now check the list for an un-crossed-out instance of type
 	bool found = false;
 	missingEntities.children.forEach((Element listItem)
@@ -680,7 +681,7 @@ void unCrossOff(Element removed)
 	UListElement missingEntities = querySelector("#MissingEntities");
 	if(missingEntities == null)
 		return;
-	
+
 	String type = normalizeType(removed);
     int numOfType = 0;
     querySelectorAll(".placedEntity").forEach((Element placedEntity)
@@ -688,7 +689,7 @@ void unCrossOff(Element removed)
 		if(normalizeType(placedEntity) == type)
 			numOfType++;
 	});
-	    
+
     //now check the list for a crossed-out instance of type
     Element found = null;
     int numOnList = 0;
@@ -702,14 +703,14 @@ void unCrossOff(Element removed)
 				found = listItem;
 		}
 	});
-    
+
     //only uncross off an item if there are not enough left on screen after removal of this one
     if(numOnList > numOfType - 1)
     {
     	if(found != null)
     	{
     		found.classes.remove("crossedOff");
-        	missingEntities.insertBefore(found, missingEntities.children.first);	
+        	missingEntities.insertBefore(found, missingEntities.children.first);
      	}
     }
 }
@@ -722,7 +723,7 @@ String normalizeType(Element placed)
 	{
         	type = "Quoin";
 	}
-	
+
 	//check for camel case and insert a space if so
 	for(int i=1; i<type.length; i++)
 	{
@@ -733,11 +734,11 @@ String normalizeType(Element placed)
 			i++; //skip past the space
 		}
 	}
-	
-	type = type.replaceAll(" Ix",""); type = type.replaceAll(" Firebog",""); 
-	type = type.replaceAll(" Uralia",""); type = type.replaceAll(" Groddle",""); 
+
+	type = type.replaceAll(" Ix",""); type = type.replaceAll(" Firebog","");
+	type = type.replaceAll(" Uralia",""); type = type.replaceAll(" Groddle","");
 	type = type.replaceAll(" Zutto","");
-	
+
 	return type;
 }
 
@@ -745,7 +746,7 @@ Future loadStreet(Map streetData)
 {
 	Completer c = new Completer();
 	layers.children.clear();
-        	
+
 	CurrentPlayer.doPhysicsApply = false;
 	currentStreet = new Street(streetData);
 	try
@@ -771,26 +772,26 @@ Map generate()
 	streetMap["label"] = "no label";
 	streetMap["gradient"] = {"top":"ffffff","bottom":"ffffff"};
 	streetMap["dynamic"] = dynamicMap;
-	
+
 	dynamicMap["l"] = -1000;
 	dynamicMap["r"] = 1000;
 	dynamicMap["t"] = 2000;
 	dynamicMap["b"] = 0;
 	dynamicMap["rookable_type"] = 0;
 	dynamicMap["ground_y"] = 0;
-	
+
 	int count = 0;
 	Map layerMap = {};
 	querySelectorAll("#layerList li").forEach((Element child)
 	{
 		Map layer = {};
-		layer["name"] = child.querySelector("#title").text;		
+		layer["name"] = child.querySelector("#title").text;
 		layer["w"] = int.parse(child.querySelector("#width").text.replaceAll("px", ""));
 		layer["h"] = int.parse(child.querySelector("#height").text.replaceAll("px", ""));
 		layer["z"] = count;
 		count--;
 		layer["filters"] = {};
-		
+
 		List<Map> decosList = [];
 		layers.querySelector("#${layer["name"]}").children.forEach((ImageElement deco)
 		{
@@ -808,7 +809,7 @@ Map generate()
 			decosList.add(decoMap);
 		});
 		layer["decos"] = decosList;
-		
+
 		List<Map> signposts = [];
 		querySelector("#exitList").children.forEach((Element element)
 		{
@@ -817,7 +818,7 @@ Map generate()
         	signposts.add({"connects":[{"label":exitTitle.value,"tsid":exitTsid.value}]});
 		});
 		layer["signposts"] = signposts;
-		
+
 		List platforms = [];
 		if(currentStreet != null)
 		{
@@ -844,24 +845,24 @@ Map generate()
     		defaultPlatform["platform_item_perm"] = -1;
     		defaultPlatform["platform_pc_perm"] = -1;
     		defaultPlatform["endpoints"] = [{"name":"start","x":-bounds.width~/2,"y":0},{"name":"end","x":bounds.width-bounds.width~/2,"y":0}];
-    		layer["platformLines"] = [defaultPlatform];	
+    		layer["platformLines"] = [defaultPlatform];
 		}
 		layer["ladders"] = [];
 		layer["walls"] = [];
 		layerMap[layer["name"]] = layer;
 	});
-	
+
 	dynamicMap["layers"] = layerMap;
-	
+
 	if(currentStreet != null)
 	{
 		//download file
 		var pom = document.createElement('a');
         pom.setAttribute('href', 'data:application/json;charset=utf-8,' + Uri.encodeComponent(JSON.encode(streetMap)));
         pom.setAttribute('download', streetMap["label"]+".street");
-        pom.click();	
+        pom.click();
 	}
-        
+
 	return streetMap;
 }
 
@@ -880,13 +881,13 @@ void rotate(Element element, int degrees)
 	int rotation = degrees;
 	if(element.attributes['rotation'] != null)
 		rotation += int.parse(element.attributes['rotation']);
-	
+
 	element.attributes['rotation'] = rotation.toString();
 	element.style.transform = "rotate(${rotation}deg)";
-	
+
 	if(element.attributes['flipped'] != null)
 		element.style.transform += " scale(-1,1)";
-	
+
 	madeChanges = true;
 }
 
@@ -908,7 +909,7 @@ void flip(Element element)
 		else
         	element.style.transform = "scale(-1,1)";
 	}
-	
+
 	madeChanges = true;
 }
 
@@ -916,7 +917,7 @@ void delete([Element element])
 {
 	if(element != null)
 		element.classes.add("dashedBorder");
-	
+
 	if(clickListener != null)
 		clickListener.cancel();
 	if(moveListener != null)
@@ -927,7 +928,7 @@ void delete([Element element])
 		element.remove();
 		madeChanges = true;
 	});
-	
+
 	setCursorStill();
 	playerInput.removeHoverButtons();
 }

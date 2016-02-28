@@ -1,604 +1,732 @@
 .entity {
-	display: inline-block;
-	text-align: center;
+    display: inline-block;
+    text-align: center;
 }
+
 .placedEntity {
-	cursor: crosshair;
-	cursor: -webkit-grab;
+    cursor: crosshair;
+    cursor: -webkit-grab;
 }
+
 .centerEntity {
-	display: inline-block;
-	cursor: crosshair;
-	cursor: -webkit-grab;
+    display: inline-block;
+    cursor: crosshair;
+    cursor: -webkit-grab;
 }
+
 #BeanTree {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_bean__f_cap_10_f_num_10_h_10_m_10_seed_0_191991191_png_1354829669.png');
-	background-position: 594px 270px;
-	background-size: 247.5px 945px; /*990 / 4, 3780 / 4*/
-	width: 49.5px; /*198 / 4*/
-	height: 67.5px; /*270 / 4 */
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_bean__f_cap_10_f_num_10_h_10_m_10_seed_0_191991191_png_1354829669.png');
+    background-position: 594px 270px;
+    background-size: 247.5px 945px; /*990 / 4, 3780 / 4*/
+    width: 49.5px; /*198 / 4*/
+    height: 67.5px; /*270 / 4 */
 }
+
 #BubbleTree {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_bubble__f_cap_10_f_num_10_h_10_m_10_seed_0_119919911_png_1354830301.png');
-	background-position: 167px 277px;
-	background-size: 793.25px 277px;/*3173 / 4, 1108 / 4*/
-	width: 41.75px; /* 167 / 4*/
-	height: 69.25px; /* 277 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_bubble__f_cap_10_f_num_10_h_10_m_10_seed_0_119919911_png_1354830301.png');
+    background-position: 167px 277px;
+    background-size: 793.25px 277px; /*3173 / 4, 1108 / 4*/
+    width: 41.75px; /* 167 / 4*/
+    height: 69.25px; /* 277 / 4*/
 }
+
 #EggPlant {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_egg__f_cap_10_f_num_10_h_10_m_10_seed_0_11191191_png_1354829638.png');
-	background-position: 296px 278px;
-	background-size: 814px 347.5px;
-	width: 74px; /* 296 / 4 */
-	height: 69.5px; /* 278 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_egg__f_cap_10_f_num_10_h_10_m_10_seed_0_11191191_png_1354829638.png');
+    background-position: 296px 278px;
+    background-size: 814px 347.5px;
+    width: 74px; /* 296 / 4 */
+    height: 69.5px; /* 278 / 4*/
 }
+
 #FruitTree {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_fruit__f_cap_10_f_num_10_h_10_m_10_seed_0_111119119_png_1354830686.png');
-	background-position: 271px 249px;
-	background-size: 1016.25px 249px;
-	width: 67.75px; /* 271 / 4 */
-	height: 62.25px; /* 249 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_fruit__f_cap_10_f_num_10_h_10_m_10_seed_0_111119119_png_1354830686.png');
+    background-position: 271px 249px;
+    background-size: 1016.25px 249px;
+    width: 67.75px; /* 271 / 4 */
+    height: 62.25px; /* 249 / 4*/
 }
+
 #GasPlant {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_gas__f_cap_10_f_num_10_h_10_m_10_seed_0_19191191_png_1354830919.png');
-	background-position: -2760px 258px;
-	background-size: 966px 258px;
-	width: 69px; /*276 / 4*/
-	height: 64.5px; /*258 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_gas__f_cap_10_f_num_10_h_10_m_10_seed_0_19191191_png_1354830919.png');
+    background-position: -2760px 258px;
+    background-size: 966px 258px;
+    width: 69px; /*276 / 4*/
+    height: 64.5px; /*258 / 4*/
 }
+
 #PaperTree {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/paper_tree_needs_pet_false_needs_water_false_paper_count_21_x22_1_png_1354832565.png');
-	background-position: 696px 216px;
-	background-size: 232px 324px;
-	width: 58px; /* 232/4*/
-	height: 54px; /*216/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/paper_tree_needs_pet_false_needs_water_false_paper_count_21_x22_1_png_1354832565.png');
+    background-position: 696px 216px;
+    background-size: 232px 324px;
+    width: 58px; /* 232/4*/
+    height: 54px; /*216/4*/
 }
+
 #SpicePlant {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_spice__f_cap_10_f_num_10_h_10_m_10_seed_0_191119119_png_1354830969.png');
-	background-position: 318px 250px;
-	background-size: 874.5px 375px;
-	width: 79.5px; /*318/4*/
-	height: 62.5px; /*250/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/trant_spice__f_cap_10_f_num_10_h_10_m_10_seed_0_191119119_png_1354830969.png');
+    background-position: 318px 250px;
+    background-size: 874.5px 375px;
+    width: 79.5px; /*318/4*/
+    height: 62.5px; /*250/4*/
 }
+
 #WoodTree {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/wood_tree_maturity_6_variant_2_x6_1_png_1354833445.png');
-	background-position: 88px 138px;
-	background-size: 132px 34.5px;
-	width: 22px; /*88/4*/
-	height: 34.5px; /*138/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/wood_tree_maturity_6_variant_2_x6_1_png_1354833445.png');
+    background-position: 88px 138px;
+    background-size: 132px 34.5px;
+    width: 22px; /*88/4*/
+    height: 34.5px; /*138/4*/
 }
+
 #BerylRock {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_beryl_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354831451.png');
-	background-size: 167.5px 30px;
-	width: 33.5px; /*134/4*/
-	height: 30px; /*120/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_beryl_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354831451.png');
+    background-size: 167.5px 30px;
+    width: 33.5px; /*134/4*/
+    height: 30px; /*120/4*/
 }
+
 #DulliteRock {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_dullite_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354831459.png');
-	background-size: 163.75px 28.5px;
-	width: 32.75px; /*131/4*/
-	height: 28.5px; /*114/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_dullite_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354831459.png');
+    background-size: 163.75px 28.5px;
+    width: 32.75px; /*131/4*/
+    height: 28.5px; /*114/4*/
 }
+
 #MetalRock {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_metal_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354832615.png');
-	background-size: 171.25px 25px;
-	width: 34.25px; /*137/4*/
-	height: 25px; /*100/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_metal_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354832615.png');
+    background-size: 171.25px 25px;
+    width: 34.25px; /*137/4*/
+    height: 25px; /*100/4*/
 }
 
 #SparklyRock {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_sparkly_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354831467.png');
-	background-size: 163.75px 31.75px;
-	width: 32.75px; /*131/4*/
-	height: 31.75px; /*127/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/rock_sparkly_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354831467.png');
+    background-size: 163.75px 31.75px;
+    width: 32.75px; /*131/4*/
+    height: 31.75px; /*127/4*/
 }
+
 #Garden {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/garden_new/garden_new__x1_1_png_1354833270.png');
-	background-size: 100% 100%;
-	width: 40.5px; /*81/2*/
-	height: 21.5px; /*43/2*/
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/garden_new/garden_new__x1_1_png_1354833270.png');
+    background-size: 100% 100%;
+    width: 40.5px; /*81/2*/
+    height: 21.5px; /*43/2*/
 }
+
 #Patch {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/patch__x1_1_png_1354829604.png');
-	background-size: 100% 100%;
-	width: 57.5px; /*115/2*/
-	height: 16px; /*32/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/patch__x1_1_png_1354829604.png');
+    background-size: 100% 100%;
+    width: 57.5px; /*115/2*/
+    height: 16px; /*32/2*/
 }
+
 #DarkPatch {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/patch_dark__x1_1_png_1354831151.png');
-	background-size: 100% 100%;
-	width: 57.5px; /*115/2*/
-	height: 16px; /*32/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/patch_dark__x1_1_png_1354831151.png');
+    background-size: 100% 100%;
+    width: 57.5px; /*115/2*/
+    height: 16px; /*32/2*/
 }
+
 #DirtPile {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/dirt_pile_dirt_state_x11_1_variant_dirt1_1_png_1354833756.png');
-	background-size: 195px 53.25px;
-	width: 48.75px; /*195/4*/
-	height: 17.75px; /*71/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/dirt_pile_dirt_state_x11_1_variant_dirt1_1_png_1354833756.png');
+    background-size: 195px 53.25px;
+    width: 48.75px; /*195/4*/
+    height: 17.75px; /*71/4*/
 }
+
 #PeatBog {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/peat_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354832710.png');
-	background-size: 158.25px 26px;
-	width: 52.75px; /*211/4*/
-	height: 13.25px; /*52/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/peat_x1_5_x1_4_x1_3_x1_2_x1_1__1_png_1354832710.png');
+    background-size: 158.25px 26px;
+    width: 52.75px; /*211/4*/
+    height: 13.25px; /*52/4*/
 }
+
 #Firefly {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_firefly__x1_fullPath_png_1354833043.png');
-	background-size: 435px 180px;
-	width: 43.5px; /*87/2*/
-	height: 20px; /*40/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_firefly__x1_fullPath_png_1354833043.png');
+    background-size: 435px 180px;
+    width: 43.5px; /*87/2*/
+    height: 20px; /*40/2*/
 }
+
 #MortarBarnacle {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/barnacle__x1_1_x1_2_x1_3_x1_4_png_1354832735.png');
-	background-size: 194px 23.5px;
-	width: 48.5px; /*97/2*/
-	height: 23.5px; /*47/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/barnacle__x1_1_x1_2_x1_3_x1_4_png_1354832735.png');
+    background-size: 194px 23.5px;
+    width: 48.5px; /*97/2*/
+    height: 23.5px; /*47/2*/
 }
+
 #Jellisac {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/jellisac_clump__x1_iconic_png_1354833095.png');
-	background-size: 19.5px 22.5px;
-	width: 19.5px; /*39/2*/
-	height: 22.5px; /*45/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/jellisac_clump__x1_iconic_png_1354833095.png');
+    background-size: 19.5px 22.5px;
+    width: 19.5px; /*39/2*/
+    height: 22.5px; /*45/2*/
 }
+
 #IceNubbin {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/ice_knob/ice_knob_knob_knob1_x1_empty_x1_small_x1_big_x1_ready_png_1354840521.png');
-	background-position: 45px 69px;
-	background-size: 90px 34.5px;
-	width: 22.5px; /*45/2*/
-	height: 34.5px; /*69/2*/
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/ice_knob/ice_knob_knob_knob1_x1_empty_x1_small_x1_big_x1_ready_png_1354840521.png');
+    background-position: 45px 69px;
+    background-size: 90px 34.5px;
+    width: 22.5px; /*45/2*/
+    height: 34.5px; /*69/2*/
 }
+
 #VisitingStone {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/visiting_stone__x1_1_png_1354840181.png');
-	background-size: 25.25px 38.75px;
-	width: 25.25px; /*101/4*/
-	height: 38.75px; /*155/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/visiting_stone__x1_1_png_1354840181.png');
+    background-size: 25.25px 38.75px;
+    width: 25.25px; /*101/4*/
+    height: 38.75px; /*155/4*/
 }
+
 #DustTrap {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/dust_trap__x1_iconic_png_1354833763.png');
-	background-size: 22.5px 43px;
-	width: 22.5px; /*45/2*/
-	height: 43px; /*86/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/dust_trap__x1_idle_png_1354833764.png');
+    background-size: 27.5px 63.75px;
+    width: 27.5px; /*110/4*/
+    height: 63.75px; /*255/4*/
 }
+
 #Mailbox {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_mailbox_variant_mailboxLeft_x1_idle_png_1354832232.png');
-	background-size: 24.25px 36.5px;
-	width: 24.25px; /*97/4*/
-	height: 36.5px; /*146/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_mailbox_variant_mailboxLeft_x1_idle_png_1354832232.png');
+    background-size: 24.25px 36.5px;
+    width: 24.25px; /*97/4*/
+    height: 36.5px; /*146/4*/
 }
+
+#Flag {
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Flag_icon_orange_4.svg/171px-Flag_icon_orange_4.svg.png');
+    background-size: 42.5px 60px;
+    width: 42.5px; /*171/4*/
+    height: 60px; /*240/4*/
+}
+
 #Batterfly {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_batterfly__x1_profile_png_1354831844.png');
-	background-size: 222px 120px;
-	width: 27.75px; /*111/4*/
-	height: 24px; /*96/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_batterfly__x1_profile_png_1354831844.png');
+    background-size: 222px 120px;
+    width: 27.75px; /*111/4*/
+    height: 24px; /*96/4*/
 }
+
 #Butterfly {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_butterfly__x1_fly-side_png_1354829525.png');
-	background-size: 490px 195px;
-	width: 35px; /*70/2*/
-	height: 32.5px; /*65/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_butterfly__x1_fly-side_png_1354829525.png');
+    background-size: 490px 195px;
+    width: 35px; /*70/2*/
+    height: 32.5px; /*65/2*/
 }
+
 #Chicken {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_chicken__x1_walk_png_1354830385.png');
-	background-size: 222px 110px;
-	width: 37px; /*148/4*/
-	height: 27.5px; /*110/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_chicken__x1_walk_png_1354830385.png');
+    background-size: 222px 110px;
+    width: 37px; /*148/4*/
+    height: 27.5px; /*110/4*/
 }
+
 #Crab {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_crab__x1_walk_png_1354831183.png');
-	background-size: 196.5px 129px;
-	width: 32.75px; /*131/4*/
-	height: 32.25px; /*129/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_crab__x1_walk_png_1354831183.png');
+    background-size: 196.5px 129px;
+    width: 32.75px; /*131/4*/
+    height: 32.25px; /*129/4*/
 }
+
 #Fox {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_fox_fox_orangeFox_x1_walk_png_1354839598.png');
-	background-size: 229.5px 139px;
-	width: 38.25px; /*153/4*/
-	height: 34.75px; /*139/4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_fox_fox_orangeFox_x1_walk_png_1354839598.png');
+    background-size: 229.5px 139px;
+    width: 38.25px; /*153/4*/
+    height: 34.75px; /*139/4*/
 }
+
 #Piggy {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_piggy__x1_walk_png_1354829432.png');
-	background-size: 352px 93px;
-	width: 44px; /*88/2*/
-	height: 31px; /*62/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_piggy__x1_walk_png_1354829432.png');
+    background-size: 352px 93px;
+    width: 44px; /*88/2*/
+    height: 31px; /*62/2*/
 }
+
 #Salmon {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_salmon__x1_swimRight_png_1354840508.png');
-	background-size: 324.5px 37px;
-	width: 29.5px; /*59/2*/
-	height: 18.5px; /*37/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_salmon__x1_swimRight_png_1354840508.png');
+    background-size: 324.5px 37px;
+    width: 29.5px; /*59/2*/
+    height: 18.5px; /*37/2*/
 }
+
 #BundleOfJoy {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_bundle_of_joy__x1_walk_png_1354839563.png');
-	background-size: 416px 29.5px;
-	width: 52px; /*104/2*/
-	height: 29.5px; /*59/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_bundle_of_joy__x1_walk_png_1354839563.png');
+    background-size: 416px 29.5px;
+    width: 52px; /*104/2*/
+    height: 29.5px; /*59/2*/
 }
+
 #HeliKitty {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_kitty_chicken__x1_2fly_png_1354840551.png');
-	background-size: 476px 172.5px;
-	width: 68px; /*136/2*/
-	height: 57.5px; /*172.5/2*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_kitty_chicken__x1_2fly_png_1354840551.png');
+    background-size: 476px 172.5px;
+    width: 68px; /*136/2*/
+    height: 57.5px; /*172.5/2*/
 }
+
 #Img {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    width: 40px;
+    height: 45px;
 }
+
 #Mood {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -45px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -45px;
+    width: 40px;
+    height: 45px;
 }
+
 #Energy {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -90px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -90px;
+    width: 40px;
+    height: 45px;
 }
+
 #Currant {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -135px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -135px;
+    width: 40px;
+    height: 45px;
 }
+
 #Mystery {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -180px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -180px;
+    width: 40px;
+    height: 45px;
 }
+
 #Favor {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -225px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -225px;
+    width: 40px;
+    height: 45px;
 }
+
 #Time {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -270px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -270px;
+    width: 40px;
+    height: 45px;
 }
+
 #Quarazy {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
-	background-position: 0px -315px;
-	width: 40px;
-	height: 45px;
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/quoin/quoin__x1_1_x1_2_x1_3_x1_4_x1_5_x1_6_x1_7_x1_8_png_1354829599.png');
+    background-position: 0px -315px;
+    width: 40px;
+    height: 45px;
 }
+
 #Alph {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_alph/npc_shrine_alph__x1_open_png_1354831207.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_alph/npc_shrine_alph__x1_open_png_1354831207.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Cosma {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_cosma/npc_shrine_cosma__x1_open_png_1354831212.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_cosma/npc_shrine_cosma__x1_open_png_1354831212.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Friendly {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_friendly/npc_shrine_friendly__x1_open_png_1354831217.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_friendly/npc_shrine_friendly__x1_open_png_1354831217.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Grendaline {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_grendaline/npc_shrine_grendaline__x1_open_png_1354831222.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_grendaline/npc_shrine_grendaline__x1_open_png_1354831222.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Humbaba {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_humbaba/npc_shrine_humbaba__x1_open_png_1354831227.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_humbaba/npc_shrine_humbaba__x1_open_png_1354831227.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Lem {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_lem/npc_shrine_lem__x1_open_png_1354831232.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_lem/npc_shrine_lem__x1_open_png_1354831232.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Mab {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_mab/npc_shrine_mab__x1_open_png_1354831237.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_mab/npc_shrine_mab__x1_open_png_1354831237.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Pot {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_pot/npc_shrine_pot__x1_open_png_1354831241.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_pot/npc_shrine_pot__x1_open_png_1354831241.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Spriggan {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_spriggan/npc_shrine_spriggan__x1_open_png_1354831246.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_spriggan/npc_shrine_spriggan__x1_open_png_1354831246.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Tii {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ti/npc_shrine_ti__x1_open_png_1354831256.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ti/npc_shrine_ti__x1_open_png_1354831256.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #Zille {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_zille/npc_shrine_zille__x1_open_png_1354831251.png');
-	background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_zille/npc_shrine_zille__x1_open_png_1354831251.png');
+    background-size: 226.5px 188px; /*906 / 4, 752 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #AlphFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_alph/npc_shrine_firebog_alph__x1_open_png_1354832764.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_alph/npc_shrine_firebog_alph__x1_open_png_1354832764.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #CosmaFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_cosma/npc_shrine_firebog_cosma__x1_open_png_1354832771.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_cosma/npc_shrine_firebog_cosma__x1_open_png_1354832771.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #FriendlyFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_friendly/npc_shrine_firebog_friendly__x1_open_png_1354832798.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_friendly/npc_shrine_firebog_friendly__x1_open_png_1354832798.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #GrendalineFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_grendaline/npc_shrine_firebog_grendaline__x1_open_png_1354832806.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_grendaline/npc_shrine_firebog_grendaline__x1_open_png_1354832806.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #HumbabaFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_humbaba/npc_shrine_firebog_humbaba__x1_open_png_1354832813.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_humbaba/npc_shrine_firebog_humbaba__x1_open_png_1354832813.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #LemFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_lem/npc_shrine_firebog_lem__x1_open_png_1354832820.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_lem/npc_shrine_firebog_lem__x1_open_png_1354832820.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #MabFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_mab/npc_shrine_firebog_mab__x1_open_png_1354832828.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_mab/npc_shrine_firebog_mab__x1_open_png_1354832828.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #PotFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_pot/npc_shrine_firebog_pot__x1_open_png_1354832834.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_pot/npc_shrine_firebog_pot__x1_open_png_1354832834.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #SprigganFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_spriggan/npc_shrine_firebog_spriggan__x1_open_png_1354832841.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_spriggan/npc_shrine_firebog_spriggan__x1_open_png_1354832841.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #TiiFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_tii/npc_shrine_firebog_tii__x1_open_png_1354832848.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_tii/npc_shrine_firebog_tii__x1_open_png_1354832848.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #ZilleFirebog {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_zille/npc_shrine_firebog_zille__x1_open_png_1354832855.png');
-	background-size: 246px 212px; /*984 / 4, 848 / 4*/
-	width: 41px; /*164 / 4*/
-	height: 53px; /*212 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_firebog_zille/npc_shrine_firebog_zille__x1_open_png_1354832855.png');
+    background-size: 246px 212px; /*984 / 4, 848 / 4*/
+    width: 41px; /*164 / 4*/
+    height: 53px; /*212 / 4 */
 }
+
 #AlphIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_alph/npc_shrine_ix_alph__x1_open_png_1354831261.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_alph/npc_shrine_ix_alph__x1_open_png_1354831261.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #CosmaIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_cosma/npc_shrine_ix_cosma__x1_open_png_1354831267.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_cosma/npc_shrine_ix_cosma__x1_open_png_1354831267.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #FriendlyIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_friendly/npc_shrine_ix_friendly__x1_open_png_1354831272.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_friendly/npc_shrine_ix_friendly__x1_open_png_1354831272.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #GrendalineIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_grendaline/npc_shrine_ix_grendaline__x1_open_png_1354831277.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_grendaline/npc_shrine_ix_grendaline__x1_open_png_1354831277.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #HumbabaIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_humbaba/npc_shrine_ix_humbaba__x1_open_png_1354831282.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_humbaba/npc_shrine_ix_humbaba__x1_open_png_1354831282.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #LemIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_lem/npc_shrine_ix_lem__x1_open_png_1354831287.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_lem/npc_shrine_ix_lem__x1_open_png_1354831287.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #MabIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_mab/npc_shrine_ix_mab__x1_open_png_1354831292.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_mab/npc_shrine_ix_mab__x1_open_png_1354831292.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #PotIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_pot/npc_shrine_ix_pot__x1_open_png_1354831298.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_pot/npc_shrine_ix_pot__x1_open_png_1354831298.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #SprigganIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_spriggan/npc_shrine_ix_spriggan__x1_open_png_1354831303.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_spriggan/npc_shrine_ix_spriggan__x1_open_png_1354831303.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #TiiIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_ti/npc_shrine_ix_ti__x1_open_png_1354831313.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_ti/npc_shrine_ix_ti__x1_open_png_1354831313.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #ZilleIx {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_zille/npc_shrine_ix_zille__x1_open_png_1354831308.png');
-	background-size: 210px 270px; /*840 / 4, 1080 / 5*/
-	width: 42px; /*168 / 4*/
-	height: 54px; /*216 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_ix_zille/npc_shrine_ix_zille__x1_open_png_1354831308.png');
+    background-size: 210px 270px; /*840 / 4, 1080 / 5*/
+    width: 42px; /*168 / 4*/
+    height: 54px; /*216 / 4 */
 }
+
 #AlphUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_alph/npc_shrine_uralia_alph__x1_open_png_1354831859.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_alph/npc_shrine_uralia_alph__x1_open_png_1354831859.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #CosmaUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_cosma/npc_shrine_uralia_cosma__x1_open_png_1354831867.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_cosma/npc_shrine_uralia_cosma__x1_open_png_1354831867.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #FriendlyUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_friendly/npc_shrine_uralia_friendly__x1_open_png_1354831874.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_friendly/npc_shrine_uralia_friendly__x1_open_png_1354831874.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #GrendalineUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_grendaline/npc_shrine_uralia_grendaline__x1_open_png_1354831881.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_grendaline/npc_shrine_uralia_grendaline__x1_open_png_1354831881.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #HumbabaUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_humbaba/npc_shrine_uralia_humbaba__x1_open_png_1354831888.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_humbaba/npc_shrine_uralia_humbaba__x1_open_png_1354831888.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #LemUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_lem/npc_shrine_uralia_lem__x1_open_png_1354831895.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_lem/npc_shrine_uralia_lem__x1_open_png_1354831895.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #MabUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_mab/npc_shrine_uralia_mab__x1_open_png_1354831902.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_mab/npc_shrine_uralia_mab__x1_open_png_1354831902.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #PotUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_pot/npc_shrine_uralia_pot__x1_open_png_1354831908.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_pot/npc_shrine_uralia_pot__x1_open_png_1354831908.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #SprigganUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_spriggan/npc_shrine_uralia_spriggan__x1_open_png_1354831915.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_spriggan/npc_shrine_uralia_spriggan__x1_open_png_1354831915.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #TiiUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_ti/npc_shrine_uralia_ti__x1_open_png_1354831922.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_ti/npc_shrine_uralia_ti__x1_open_png_1354831922.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #ZilleUralia {
-	background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_zille/npc_shrine_uralia_zille__x1_open_png_1354831929.png');
-	background-size: 189px 188px; /*756 / 4, 752 / 4*/
-	width: 31.5px; /*126 / 4*/
-	height: 47px; /*188 / 4 */
+    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/npc_shrine_uralia_zille/npc_shrine_uralia_zille__x1_open_png_1354831929.png');
+    background-size: 189px 188px; /*756 / 4, 752 / 4*/
+    width: 31.5px; /*126 / 4*/
+    height: 47px; /*188 / 4 */
 }
+
 #StreetSpiritGroddle {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_groddle_base_base_L0dirt_bottom_none_eyes_eyes_L0eyes2_skull_skull_L0dirt_top_none_x1_open_png_1354834585.png');
-	background-size: 245px 75px; /*980 / 4, 300 / 4*/
-	width: 24.5px; /*98 / 4*/
-	height: 37.5px; /*150 / 4 */
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_groddle_base_base_L0dirt_bottom_none_eyes_eyes_L0eyes2_skull_skull_L0dirt_top_none_x1_open_png_1354834585.png');
+    background-size: 245px 75px; /*980 / 4, 300 / 4*/
+    width: 24.5px; /*98 / 4*/
+    height: 37.5px; /*150 / 4 */
 }
+
 #StreetSpiritFirebog {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_firebog_size_large_x1_idle_move_png_1354832884.png');
-	background-size: 214px 183px; /*856 / 4, 732 / 4*/
-	width: 26.75px; /*107 / 4*/
-	height: 61px; /*244 / 4 */
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_firebog_size_large_x1_idle_move_png_1354832884.png');
+    background-size: 214px 183px; /*856 / 4, 732 / 4*/
+    width: 26.75px; /*107 / 4*/
+    height: 61px; /*244 / 4 */
 }
+
 #StreetSpiritZutto {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_zutto_cap_capAqua_x1_hoverIdle_png_1354833704.png');
-	background-size: 226.5px 180px; /*906 / 4, 720 / 4*/
-	width: 37.75px; /*151 / 4*/
-	height: 45px; /*180 / 4 */
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/street_spirit_zutto_cap_capAqua_x1_hoverIdle_png_1354833704.png');
+    background-size: 226.5px 180px; /*906 / 4, 720 / 4*/
+    width: 37.75px; /*151 / 4*/
+    height: 45px; /*180 / 4 */
 }
+
 #ToolVendor {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_tool_vendor__x1_turn_left_png_1354831414.png');
-	background-size: 231.25px 125px; /*925 / 4, 500 / 4*/
-	width: 46.25px; /*185 / 4*/
-	height: 62.5px; /*250 / 4 */
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_tool_vendor__x1_turn_left_png_1354831414.png');
+    background-size: 231.25px 125px; /*925 / 4, 500 / 4*/
+    width: 46.25px; /*185 / 4*/
+    height: 62.5px; /*250 / 4 */
 }
+
+#Auctioneer {
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_rare_item_vendor__x1_idle_png_1354840068.png');
+    background-size: 233.75px 500.5px; /*935 / 4, 2002 / 4*/
+    width: 46.75px; /*187 / 4*/
+    height: 22.75px; /*91 / 4 */
+}
+
 #Helga {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_jabba2__x1_walk_png_1354831670.png');
-	background-size: 219px 388px; /*876 / 4, 1552 / 4*/
-	width: 109.5px; /*438 / 4*/
-	height: 48.5px; /*194 / 4 */
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/npc_jabba2__x1_walk_png_1354831670.png');
+    background-size: 219px 388px; /*876 / 4, 1552 / 4*/
+    width: 109.5px; /*438 / 4*/
+    height: 48.5px; /*194 / 4 */
 }
+
 #Woodworker {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/woodworker__x1_active_png_1354839735.png');
-	background-size: 219px 619.5px; /*876 / 4, 2478 / 4*/
-	width: 36.5px; /*146 / 4*/
-	height: 88.5px; /*354 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/woodworker__x1_active_png_1354839735.png');
+    background-size: 219px 619.5px; /*876 / 4, 2478 / 4*/
+    width: 36.5px; /*146 / 4*/
+    height: 88.5px; /*354 / 4*/
 }
+
 #Fuelmaker {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/fuelmaker__x1_active_png_1354833208.png');
-	background-size: 231px 582.75px; /*924 / 4, 2331 / 4*/
-	width: 38.5px; /*154 / 4*/
-	height: 83.25px; /*333 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/fuelmaker__x1_active_png_1354833208.png');
+    background-size: 231px 582.75px; /*924 / 4, 2331 / 4*/
+    width: 38.5px; /*154 / 4*/
+    height: 83.25px; /*333 / 4*/
 }
+
 #MetalMachine {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/metalmaker__x1_active_png_1354836843.png');
-	background-size: 227.5px 635.25px; /*910 / 4, 2541 / 4*/
-	width: 32.5px; /*130 / 4*/
-	height: 90.75px; /*363 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/metalmaker__x1_active_png_1354836843.png');
+    background-size: 227.5px 635.25px; /*910 / 4, 2541 / 4*/
+    width: 32.5px; /*130 / 4*/
+    height: 90.75px; /*363 / 4*/
 }
+
 #Blockmaker {
-	background-image: url('http://c2.glitch.bz/items/2012-12-06/blockmaker__x1_active_png_1354833151.png');
-	background-size: 223.5px 460.25px; /*894 / 4, 1841 / 4*/
-	width: 37.25px; /*149 / 4*/
-	height: 65.75px; /*263 / 4*/
+    background-image: url('http://c2.glitch.bz/items/2012-12-06/blockmaker__x1_active_png_1354833151.png');
+    background-size: 223.5px 460.25px; /*894 / 4, 1841 / 4*/
+    width: 37.25px; /*149 / 4*/
+    height: 65.75px; /*263 / 4*/
 }
+
 #NormalShrines {
-	display: block;
+    display: block;
 }
+
 #FirebogShrines {
-	display: none;
+    display: none;
 }
+
 #IxShrines {
-	display: none;
+    display: none;
 }
+
 #UraliaShrines {
-	display: none;
+    display: none;
 }
+
 #ShoppeDoor {
-	background-image: url('http://childrenofur.com/assets/game/doors/shoppe_door_ext.png');
-	background-size: 182px 166px;
-	width: 182px;
-	height: 166px;
+    background-image: url('http://childrenofur.com/svgs/door_asset_shoppe.svg');
+    background-size: 45.5px 41.5px; /*182 / 4, 166 / 4*/
+    width: 45.5px; /*182 / 4*/
+    height: 41.5px; /*166 / 4*/
+}
+
+#BureaucraticHallDoor {
+    background-image: url('http://childrenofur.com/assets/game/doors/bureaucratic_hall_door_ext.png');
+    background-size: 45.5px 41.5px; /*182 / 4, 166 / 4*/
+    width: 45.5px; /*182 / 4*/
+    height: 41.5px; /*166 / 4*/
+}
+
+#MachineRoomDoor {
+    background-image: url('http://childrenofur.com/assets/game/doors/machine_room_door_int.png');
+    background-size: 45.5px 41.5px; /*182 / 4, 166 / 4*/
+    width: 45.5px; /*182 / 4*/
+    height: 41.5px; /*166 / 4*/
 }

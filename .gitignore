@@ -1,6 +1,11 @@
+#webstorm config directory
+.idea
+
 # Don’t commit the following directories created by pub.
 build/
 packages/
+.packages
+packages
 
 # Or the files created by dart2js.
 *.dart.js

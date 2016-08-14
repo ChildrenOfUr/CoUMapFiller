@@ -107,10 +107,10 @@
 }
 
 #Garden {
-    background-image: url('https://raw.githubusercontent.com/RobertMcDermot/coUspritesheets/master/spritesheets/garden_new/garden_new__x1_1_png_1354833270.png');
-    background-size: 100% 100%;
-    width: 40.5px; /*81/2*/
-    height: 21.5px; /*43/2*/
+    background-image: url('http://childrenofur.com/assets/entityImages/garden_plot_planted_baby.png');
+    background-size: 50px 45px;
+    width: 50px; /*100/2*/
+    height: 45px; /*90/2*/
 }
 
 #Patch {

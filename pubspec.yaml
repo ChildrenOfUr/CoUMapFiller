@@ -9,3 +9,7 @@ dependencies:
     git:
       ref: master
       url: https://github.com/ChildrenOfUr/libld
+  nomirrorsmap: "^1.0.24"
+
+transformers:
+  - nomirrorsmap

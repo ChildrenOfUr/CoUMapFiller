@@ -53,21 +53,23 @@ class Input
 			}
 		});
 		
-		document.onMouseOver.listen((MouseEvent event)
-		{
-			if(event.target is! Element || querySelector('.dashedBorder') != null)
+		document.onMouseOver.listen((MouseEvent event) {
+			if(event.target is! Element || querySelector('.dashedBorder') != null) {
 				return;
+			}
 			
 			Element target = event.target;
-			if(target.className == 'placedEntity')
+			if(target.className == 'placedEntity' && querySelector('.hoverButtonParent') == null) {
 				addHoverButtons(target);
-			else if(target.classes.contains('hoverButtonParent'))
+			} else if(target.classes.contains('hoverButtonParent')) {
 				addHoverButtons(target.parent);
-			else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
-				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton'))
+			} else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
+				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton')
+			    || target.classes.contains('zUpButton') || target.classes.contains('zDownButton')) {
 				addHoverButtons(target.parent.parent);
-			else
+			} else {
 				removeHoverButtons();
+			}
 		});
 		
 		CheckboxInputElement doNotShow = querySelector("#doNotShow") as CheckboxInputElement;
@@ -194,6 +196,14 @@ class Input
 			..className = 'hoverButton deleteButton fa fa-times'
 			..title = 'Delete'
 			..onClick.listen((_) => delete(element));
+//		DivElement zIndexUpButton = new DivElement()
+//			..className = 'hoverButton zUpButton fa fa-plus'
+//			..title = 'z-index up'
+//			..onClick.listen((_) => zIndex(element, 'up'));
+//		DivElement zIndexDownButton = new DivElement()
+//			..className = 'hoverButton zDownButton fa fa-minus'
+//			..title = 'z-index down'
+//			..onClick.listen((_) => zIndex(element, 'down'));
 		
 		hoverParent..append(flipButton)..append(deleteButton)
 				   ..append(rotateLeftButton)..append(rotateRightButton);

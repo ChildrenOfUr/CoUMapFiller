@@ -101,8 +101,8 @@ class Street
 			{
 				for (Map deco in layer['decos'])
     			{
-    				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png'))
-                            decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename'] + '.png');
+    				if (!decosToLoad.contains('http://childrenofur.com/locodarto/scenery/' + deco['filename']))
+                            decosToLoad.add('http://childrenofur.com/locodarto/scenery/' + deco['filename']);
     			}
 			}
 		}
@@ -230,9 +230,9 @@ class Street
 					int z = deco['z'];
 		        
 					// only draw if the image is loaded.
-					if (ASSET[deco['filename']] != null)
+					if (ASSET[deco['filename'].replaceAll('.png','')] != null)
 					{
-						ImageElement d = ASSET[deco['filename']].get();
+						ImageElement d = ASSET[deco['filename'].replaceAll('.png','')].get();
 						
 						//resize the image now so that it doesn't have to be done each time
 						//it comes into view by the browser's rendering engine

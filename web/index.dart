@@ -40,7 +40,7 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String serverAddress = "http://localhost:8181";
+String serverAddress = "http://robertmcdermot.com:8181";
 int width = 3000,
 	height = 1000;
 DivElement gameScreen, layers;
@@ -95,19 +95,6 @@ main() {
 	querySelector("#LocationCodeButton").onClick.listen((_) => loadLocationJson());
 	querySelector("#RandomStreet").onClick.listen((_) => loadRandomStreet());
 
-	window.onMessage.listen((MessageEvent event) {
-		try {
-			showToast("Loading...", untilCanceled: true, immediate: true);
-			if (madeChanges && tsid != null)
-				showSaveWindow(() => loadPreview(event));
-			else
-				loadPreview(event);
-		}
-		catch (e) {
-			print("Error loading the preview: $e");
-		}
-	});
-
 	querySelectorAll(".entity").forEach((Element treeDiv) => setupListener(treeDiv));
 
 	ui.init();
@@ -139,14 +126,14 @@ void loadRandomStreet() {
 	});
 }
 
-void loadPreview(MessageEvent event) {
-	loadStreet(JSON.decode(event.data)).then((_) {
+void loadPreview(String streetJson) {
+	loadStreet(JSON.decode(streetJson)).then((_) {
 		//load a preview image of the street
-		tsid = JSON.decode(event.data)['tsid'];
+		tsid = JSON.decode(streetJson)['tsid'];
 		if (tsid.startsWith("G"))
 			tsid = tsid.replaceFirst("G", "L");
 
-		displayPreview(JSON.decode(event.data)).then((_) => cancelToast());
+		displayPreview(JSON.decode(streetJson)).then((_) => cancelToast());
 	});
 }
 
@@ -464,15 +451,22 @@ loadLocationJson() {
 	TextInputElement locationInput = querySelector("#LocationCodeInput");
 	String location = locationInput.value;
 	if (location != "") {
-		String loc = location;
 		locationInput.blur();
 		if (location.startsWith("L"))
 			location = location.replaceFirst("L", "G");
-		String url = "http://RobertMcDermot.github.io/CAT422-glitch-location-viewer/locations/$location.callback.json";
-		ScriptElement loadStreet = new ScriptElement();
-		loadStreet.src = url;
-		loadStreet.onError.first.then((Event e) => showToast("Failed to load $loc"));
-		document.body.append(loadStreet);
+		String url = "https://rawgit.com/ChildrenOfUr/CAT422-glitch-location-viewer/master/locations/$location.json";
+		HttpRequest.request(url).then((HttpRequest request) {
+			try{
+				if (madeChanges && tsid != null)
+					showSaveWindow(() => loadPreview(request.responseText));
+				else
+					loadPreview(request.responseText);
+			}
+			catch (e) {
+				print("Error loading the preview: $e");
+			}
+		});
+		showToast("Loading...", untilCanceled: true, immediate: true);
 	}
 }
 

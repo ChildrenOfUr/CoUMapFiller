@@ -51,6 +51,9 @@ StreamSubscription moveListener, clickListener, stopListener;
 bool madeChanges = false,
 	popupMinimized = false;
 
+bool get useLiveServer => (querySelector('#server_live') as CheckboxInputElement).checked;
+bool get useDevServer => (querySelector('#server_dev') as CheckboxInputElement).checked;
+
 // Declare our game_loop
 double lastTime = 0.0;
 DateTime startTime = new DateTime.now();
@@ -84,21 +87,21 @@ main() {
 		generateButton.classes.remove("shadow");
 	});
 	generateButton.onMouseUp.listen((MouseEvent event) {
-		saveToServer(event.shiftKey, event.ctrlKey);
+		saveToServer();
 		generateButton.classes.add("shadow");
 	});
 
 	querySelector('#LocationCodeForm').onSubmit.listen((MouseEvent e) {
 		e.preventDefault();
-		loadLocationJson(e.shiftKey, e.ctrlKey);
+		loadLocationJson();
 	});
 
-	querySelector("#LocationCodeButton").onClick.listen((MouseEvent event) {
-		loadLocationJson(event.shiftKey, event.ctrlKey);
+	querySelector("#LocationCodeButton").onClick.listen((_) {
+		loadLocationJson();
 	});
 
-	querySelector("#RandomStreet").onClick.listen((MouseEvent event) {
-		loadRandomStreet(event.shiftKey, event.ctrlKey);
+	querySelector("#RandomStreet").onClick.listen((_) {
+		loadRandomStreet();
 	});
 
 	querySelectorAll(".entity").forEach((Element treeDiv) => setupListener(treeDiv));
@@ -125,11 +128,11 @@ main() {
 	});
 }
 
-void loadRandomStreet(bool live, bool dev) {
+void loadRandomStreet() {
 	String serverAddress;
-	if (live) {
+	if (useLiveServer) {
 		serverAddress = liveServerAddress;
-	} else if (dev) {
+	} else if (useDevServer) {
 		serverAddress = devServerAddress;
 	} else {
 		showToast('No server selected');
@@ -138,7 +141,7 @@ void loadRandomStreet(bool live, bool dev) {
 
 	HttpRequest.getString("$serverAddress/getRandomStreet").then((String response) {
 		(querySelector("#LocationCodeInput") as InputElement).value = response;
-		loadLocationJson(live, dev);
+		loadLocationJson();
 	});
 }
 
@@ -379,7 +382,7 @@ String encode(dynamic objectToMap) {
 	return new NoMirrorsMap().convert(objectToMap, new ClassConverter(), new JsonConverter());
 }
 
-void saveToServer(bool live, bool dev) {
+void saveToServer() {
 	if (!madeChanges || tsid == null) {
 		if (!madeChanges)
 			showToast("No changes to save.");
@@ -389,7 +392,7 @@ void saveToServer(bool live, bool dev) {
 		return;
 	}
 
-	if (!live && !dev) {
+	if (!useLiveServer && !useDevServer) {
 		showToast('No server selected');
 		return;
 	}
@@ -448,11 +451,11 @@ void saveToServer(bool live, bool dev) {
 		});
 	}
 
-	if (live) {
+	if (useLiveServer) {
 		_saveToServer('live', liveServerAddress);
 	}
 
-	if (dev) {
+	if (useDevServer) {
 		_saveToServer('dev', devServerAddress);
 	}
 }
@@ -460,9 +463,9 @@ void saveToServer(bool live, bool dev) {
 void showSaveWindow(Function onResponse) {
 	Element saveDialog = querySelector("#SaveDialog");
 	saveDialog.hidden = false;
-	querySelector("#SaveYes").onClick.first.then((MouseEvent event) {
+	querySelector("#SaveYes").onClick.first.then((_) {
 		saveDialog.hidden = true;
-		saveToServer(event.shiftKey, event.ctrlKey);
+		saveToServer();
 		onResponse();
 	});
 	querySelector("#SaveNo").onClick.first.then((_) {
@@ -474,13 +477,13 @@ void showSaveWindow(Function onResponse) {
 	return;
 }
 
-loadLocationJson(bool live, bool dev) {
+loadLocationJson() {
 	String serverName;
 	String serverAddress;
-	if (live) {
+	if (useLiveServer) {
 		serverAddress = liveServerAddress;
 		serverName = 'live';
-	} else if (dev) {
+	} else if (useDevServer) {
 		serverAddress = devServerAddress;
 		serverName = 'dev';
 	} else {
@@ -489,7 +492,7 @@ loadLocationJson(bool live, bool dev) {
 	}
 
 	if (madeChanges && tsid != null) {
-		showSaveWindow(() => loadLocationJson(live, dev));
+		showSaveWindow(() => loadLocationJson());
 		return;
 	}
 

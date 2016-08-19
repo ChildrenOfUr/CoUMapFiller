@@ -40,7 +40,8 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String serverAddress = "http://robertmcdermot.com:8181";
+String liveServerAddress = "http://robertmcdermot.com:8181";
+String devServerAddress = 'http://server.childrenofur.com:8181';
 int width = 3000,
 	height = 1000;
 DivElement gameScreen, layers;
@@ -82,18 +83,23 @@ main() {
 	generateButton.onMouseDown.listen((_) {
 		generateButton.classes.remove("shadow");
 	});
-	generateButton.onMouseUp.listen((_) {
-		saveToServer();
+	generateButton.onMouseUp.listen((MouseEvent event) {
+		saveToServer(event.shiftKey, event.ctrlKey);
 		generateButton.classes.add("shadow");
 	});
 
-	querySelector('#LocationCodeForm').onSubmit.listen((Event e) {
+	querySelector('#LocationCodeForm').onSubmit.listen((MouseEvent e) {
 		e.preventDefault();
-		loadLocationJson();
+		loadLocationJson(e.shiftKey, e.ctrlKey);
 	});
 
-	querySelector("#LocationCodeButton").onClick.listen((_) => loadLocationJson());
-	querySelector("#RandomStreet").onClick.listen((_) => loadRandomStreet());
+	querySelector("#LocationCodeButton").onClick.listen((MouseEvent event) {
+		loadLocationJson(event.shiftKey, event.ctrlKey);
+	});
+
+	querySelector("#RandomStreet").onClick.listen((MouseEvent event) {
+		loadRandomStreet(event.shiftKey, event.ctrlKey);
+	});
 
 	querySelectorAll(".entity").forEach((Element treeDiv) => setupListener(treeDiv));
 
@@ -119,25 +125,35 @@ main() {
 	});
 }
 
-void loadRandomStreet() {
+void loadRandomStreet(bool live, bool dev) {
+	String serverAddress;
+	if (live) {
+		serverAddress = liveServerAddress;
+	} else if (dev) {
+		serverAddress = devServerAddress;
+	} else {
+		showToast('No server selected');
+		return;
+	}
+
 	HttpRequest.getString("$serverAddress/getRandomStreet").then((String response) {
 		(querySelector("#LocationCodeInput") as InputElement).value = response;
-		loadLocationJson();
+		loadLocationJson(live, dev);
 	});
 }
 
-void loadPreview(String streetJson) {
+void loadPreview(String streetJson, String serverAddress) {
 	loadStreet(JSON.decode(streetJson)).then((_) {
 		//load a preview image of the street
 		tsid = JSON.decode(streetJson)['tsid'];
 		if (tsid.startsWith("G"))
 			tsid = tsid.replaceFirst("G", "L");
 
-		displayPreview(JSON.decode(streetJson)).then((_) => cancelToast());
+		displayPreview(JSON.decode(streetJson), serverAddress).then((_) => cancelToast());
 	});
 }
 
-Future displayPreview(Map streetData) {
+Future displayPreview(Map streetData, String serverAddress) {
 	Completer c = new Completer();
 
 	Element existingPreview = querySelector("#PreviewWindow");
@@ -363,13 +379,18 @@ String encode(dynamic objectToMap) {
 	return new NoMirrorsMap().convert(objectToMap, new ClassConverter(), new JsonConverter());
 }
 
-void saveToServer() {
+void saveToServer(bool live, bool dev) {
 	if (!madeChanges || tsid == null) {
 		if (!madeChanges)
 			showToast("No changes to save.");
 		if (tsid == null)
 			showToast("No street loaded.");
 
+		return;
+	}
+
+	if (!live && !dev) {
+		showToast('No server selected');
 		return;
 	}
 
@@ -411,26 +432,37 @@ void saveToServer() {
 		..tsid = tsid
 		..entities = entityList;
 
-	HttpRequest.request("$serverAddress/setEntities", method: "POST",
-							requestHeaders: {"content-type": "application/json"},
-							sendData: encode(data)).then((
-																														HttpRequest request) {
-		if (request.response == "OK") {
-			showToast("Entities Saved");
-			madeChanges = false;
-		}
-		else {
-			showToast("There was a problem, try again later.");
-		}
-	});
+	void _saveToServer(String name, String serverAddress) {
+		HttpRequest.request("$serverAddress/setEntities", method: "POST",
+			requestHeaders: {"content-type": "application/json"},
+			sendData: encode(data)
+		).then((
+			HttpRequest request) {
+			if (request.response == "OK") {
+				showToast("Entities saved to $name server!");
+				madeChanges = false;
+			}
+			else {
+				showToast("There was a problem saving to the $name server, try again later.");
+			}
+		});
+	}
+
+	if (live) {
+		_saveToServer('live', liveServerAddress);
+	}
+
+	if (dev) {
+		_saveToServer('dev', devServerAddress);
+	}
 }
 
 void showSaveWindow(Function onResponse) {
 	Element saveDialog = querySelector("#SaveDialog");
 	saveDialog.hidden = false;
-	querySelector("#SaveYes").onClick.first.then((_) {
+	querySelector("#SaveYes").onClick.first.then((MouseEvent event) {
 		saveDialog.hidden = true;
-		saveToServer();
+		saveToServer(event.shiftKey, event.ctrlKey);
 		onResponse();
 	});
 	querySelector("#SaveNo").onClick.first.then((_) {
@@ -442,9 +474,22 @@ void showSaveWindow(Function onResponse) {
 	return;
 }
 
-loadLocationJson() {
+loadLocationJson(bool live, bool dev) {
+	String serverName;
+	String serverAddress;
+	if (live) {
+		serverAddress = liveServerAddress;
+		serverName = 'live';
+	} else if (dev) {
+		serverAddress = devServerAddress;
+		serverName = 'dev';
+	} else {
+		showToast('No server selected');
+		return;
+	}
+
 	if (madeChanges && tsid != null) {
-		showSaveWindow(loadLocationJson);
+		showSaveWindow(() => loadLocationJson(live, dev));
 		return;
 	}
 
@@ -458,15 +503,15 @@ loadLocationJson() {
 		HttpRequest.request(url).then((HttpRequest request) {
 			try{
 				if (madeChanges && tsid != null)
-					showSaveWindow(() => loadPreview(request.responseText));
+					showSaveWindow(() => loadPreview(request.responseText, serverAddress));
 				else
-					loadPreview(request.responseText);
+					loadPreview(request.responseText, serverAddress);
 			}
 			catch (e) {
 				print("Error loading the preview: $e");
 			}
 		});
-		showToast("Loading...", untilCanceled: true, immediate: true);
+		showToast("Loading from $serverName server...", untilCanceled: true, immediate: true);
 	}
 }
 

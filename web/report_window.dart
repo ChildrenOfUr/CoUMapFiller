@@ -72,7 +72,7 @@ class ReportWindow
 			if(finished.checked)
 				reason = "Finished";
 			String details = detailsBox.value;
-			String address = "$serverAddress/reportStreet?tsid=$tsid&reason=$reason&details=$details";
+			String address = "$liveServerAddress/reportStreet?tsid=$tsid&reason=$reason&details=$details";
 			HttpRequest.getString(address).then((String response)
         	{
 				if(response == "OK")

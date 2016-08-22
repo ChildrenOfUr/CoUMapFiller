@@ -730,3 +730,10 @@
     width: 45.5px; /*182 / 4*/
     height: 41.5px; /*166 / 4*/
 }
+
+#GardeningGoodsVendor {
+    background-image: url(http://childrenofur.com/assets/entityImages/npc_gardening_vendor__x1_walk_png_1354830998.png);
+    background-size: 222.5px 148.5px; /* 890 / 4, 594 / 4 */
+    width: 222.5px; /* 890 / 4 */
+    height: 148.5px; /* 594 / 4 */
+}

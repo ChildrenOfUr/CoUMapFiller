@@ -79,7 +79,6 @@ class ReportWindow
 				{
 					showToast("Thanks for the report");
 					destroy();
-					new Timer(new Duration(milliseconds:1500), () => loadRandomStreet());
 				}
 				else
 					showToast("Problem sending report");

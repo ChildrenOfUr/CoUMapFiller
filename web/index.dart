@@ -40,8 +40,8 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String liveServerAddress = "http://robertmcdermot.com:8181";
-String devServerAddress = 'http://server.childrenofur.com:8181';
+String devServerAddress = "http://robertmcdermot.com:8181";
+String liveServerAddress = 'http://server.childrenofur.com:8181';
 int width = 3000,
 	height = 1000;
 DivElement gameScreen, layers;
@@ -100,10 +100,6 @@ main() {
 		loadLocationJson();
 	});
 
-	querySelector("#RandomStreet").onClick.listen((_) {
-		loadRandomStreet();
-	});
-
 	querySelectorAll(".entity").forEach((Element treeDiv) => setupListener(treeDiv));
 
 	ui.init();
@@ -125,23 +121,6 @@ main() {
 		CurrentPlayer = new Player();
 		CurrentPlayer.doPhysicsApply = false;
 		CurrentPlayer.loadAnimations().then((_) => gameLoop(0.0));
-	});
-}
-
-void loadRandomStreet() {
-	String serverAddress;
-	if (useLiveServer) {
-		serverAddress = liveServerAddress;
-	} else if (useDevServer) {
-		serverAddress = devServerAddress;
-	} else {
-		showToast('No server selected');
-		return;
-	}
-
-	HttpRequest.getString("$serverAddress/getRandomStreet").then((String response) {
-		(querySelector("#LocationCodeInput") as InputElement).value = response;
-		loadLocationJson();
 	});
 }
 
@@ -435,29 +414,29 @@ void saveToServer() {
 		..tsid = tsid
 		..entities = entityList;
 
-	void _saveToServer(String name, String serverAddress) {
-		HttpRequest.request("$serverAddress/setEntities", method: "POST",
-			requestHeaders: {"content-type": "application/json"},
-			sendData: encode(data)
-		).then((
-			HttpRequest request) {
-			if (request.response == "OK") {
-				showToast("Entities saved to $name server!");
-				madeChanges = false;
-			}
-			else {
-				showToast("There was a problem saving to the $name server, try again later.");
-			}
-		});
-	}
-
 	if (useLiveServer) {
-		_saveToServer('live', liveServerAddress);
+		_saveToServer('live', liveServerAddress, data);
 	}
 
 	if (useDevServer) {
-		_saveToServer('dev', devServerAddress);
+		_saveToServer('dev', devServerAddress, data);
 	}
+}
+
+void _saveToServer(String name, String serverAddress, EntitySet data) {
+	HttpRequest.request("$serverAddress/setEntities", method: "POST",
+		requestHeaders: {"content-type": "application/json"},
+		sendData: encode(data)
+	).then((
+		HttpRequest request) {
+		if (request.response == "OK") {
+			showToast("Entities saved to $name server!");
+			madeChanges = false;
+		}
+		else {
+			showToast("There was a problem saving to the $name server, try again later.");
+		}
+	});
 }
 
 void showSaveWindow(Function onResponse) {

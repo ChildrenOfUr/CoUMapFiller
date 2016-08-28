@@ -738,16 +738,16 @@
     height: 49.25px; /* 197 / 4 */
 }
 
-#HellBartender {
-    background-image: url(http://childrenofur.com/assets/entityImages/hell_bartender__x1_talk_right_out_png_1354837783.png);
-    background-size: 244px 98.5px; /* 976 / 4, 394 / 4 */
-    width: 61px; /* 244 / 4 */
-    height: 49.25px; /* 197 / 4 */
-}
-
 #HellGrapes {
     background-image: url(http://childrenofur.com/assets/entityImages/bunch_of_grapes__x1_iconic_png_1354829729.png);
     background-size: 35px 36.5px; /* 70 / 2, 73 / 2 */
     width: 35px; /* 70 / 2 */
     height: 36.5px; /* 73 / 2 */
+}
+
+#MealVendor {
+    background-image: url(http://childrenofur.com/assets/entityImages/npc_cooking_vendor__x1_walk_right_png_1354831603.png);
+    background-size: 189px 230px; /* 756 / 4, 920 / 4 */
+    width: 47.25px; /* 189 / 4 */
+    height: 57.5px; /* 230 / 4 */
 }

@@ -751,3 +751,24 @@
     width: 47.25px; /* 189 / 4 */
     height: 57.5px; /* 230 / 4 */
 }
+
+#AwesomeStewRespawningItem {
+    background-image: url(http://childrenofur.com/assets/entityImages/awesome_stew__x1_iconic_png_1354829702.png);
+    background-size: 22px 14.5px; /* 44 / 2, 29 / 2 */
+    width: 22px; /* 44 / 2 */
+    height: 14.5px; /* 29 / 2 */
+}
+
+#EarthshakerRespawningItem {
+    background-image: url(http://childrenofur.com/assets/entityImages/earthshaker__x1_iconic_png_1354829805.png);
+    background-size: 10.5px 22px; /* 21 / 2, 44 / 2 */
+    width: 10.5px; /* 21 / 2 */
+    height: 22px; /* 44 / 2 */
+}
+
+#TomatoRespawningItem {
+    background-image: url(http://childrenofur.com/assets/entityImages/tomato__x1_iconic_png_1354830044.png);
+    background-size: 17px 16px; /* 34 / 2, 32 / 2 */
+    width: 17px; /* 34 / 2 */
+    height: 16px; /* 32 / 2 */
+}

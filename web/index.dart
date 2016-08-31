@@ -40,7 +40,7 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String devServerAddress = "http://robertmcdermot.com:8181";
+String devServerAddress = "http://localhost:8181";
 String liveServerAddress = 'http://server.childrenofur.com:8181';
 int width = 3000,
 	height = 1000;
@@ -393,7 +393,7 @@ void saveToServer() {
 		entity['animationNumFrames'] = int.parse(element.attributes['frames']);
 		entity['x'] = num.parse(element.style.left.replaceAll("px", "")).toInt();
 		entity['y'] = num.parse(element.style.top.replaceAll("px", "")).toInt() + element.client.height;
-//		entity['z'] = num.parse(element.style.zIndex);
+		entity['z'] = num.parse(element.style.zIndex);
 		if (element.attributes['flipped'] != null)
 			entity['hflip'] = "true";
 		if (element.attributes['rotation'] != null)
@@ -406,6 +406,7 @@ void saveToServer() {
 		StreetEntity dbEntity = new StreetEntity()
 			..x = entity['x']
 			..y = entity['y']
+			..z = entity['z']
 			..type = entity['type']
 			..tsid = tsid;
 		entityList.add(dbEntity);
@@ -535,6 +536,7 @@ void setupListener(DivElement entityParent) {
 		drag.style.height = height.toString() + "px";
 		drag.style.top = (event.client.y - height).toString() + "px";
 		drag.style.left = event.client.x.toString() + "px";
+		drag.style.zIndex = '0';
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
 
@@ -568,6 +570,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event) {
 
 	drag.style.top = (event.page.y - drag.client.height + dragY).toString() + "px";
 	drag.style.left = (event.page.x + dragX).toString() + "px";
+	drag.style.zIndex = '0';
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
 	clickListener = layer.onMouseUp.listen((MouseEvent event) {
@@ -646,7 +649,7 @@ void loadExistingEntities(Map entities) {
 
 		num x = ent['x'];
 		num y = ent['y'] - height;
-//		num z = ent['z'] ?? 0;
+		num z = ent['z'] ?? 0;
 
 		drag.style.backgroundImage = style.backgroundImage;
 		drag.style.backgroundPosition = style.backgroundPosition;
@@ -662,7 +665,7 @@ void loadExistingEntities(Map entities) {
 		drag.style.height = height.toString() + "px";
 		drag.style.top = y.toString() + "px";
 		drag.style.left = x.toString() + "px";
-//		drag.style.zIndex = z.toString();
+		drag.style.zIndex = z.toString();
 		drag.classes.add("placedEntity");
 		querySelector("#$currentLayer").append(drag);
 
@@ -986,6 +989,8 @@ void zIndex(Element element, String direction) {
 	}
 
 	element.style.zIndex = index.toString();
+
+	madeChanges = true;
 }
 
 void setCursorMove() {

@@ -59,7 +59,7 @@ class Input
 			}
 			
 			Element target = event.target;
-			if(target.className == 'placedEntity' && querySelector('.hoverButtonParent') == null) {
+			if(target.className == 'placedEntity') {
 				addHoverButtons(target);
 			} else if(target.classes.contains('hoverButtonParent')) {
 				addHoverButtons(target.parent);
@@ -196,17 +196,18 @@ class Input
 			..className = 'hoverButton deleteButton fa fa-times'
 			..title = 'Delete'
 			..onClick.listen((_) => delete(element));
-//		DivElement zIndexUpButton = new DivElement()
-//			..className = 'hoverButton zUpButton fa fa-plus'
-//			..title = 'z-index up'
-//			..onClick.listen((_) => zIndex(element, 'up'));
-//		DivElement zIndexDownButton = new DivElement()
-//			..className = 'hoverButton zDownButton fa fa-minus'
-//			..title = 'z-index down'
-//			..onClick.listen((_) => zIndex(element, 'down'));
+		DivElement zIndexUpButton = new DivElement()
+			..className = 'hoverButton zUpButton fa fa-plus'
+			..title = 'z-index up'
+			..onClick.listen((_) => zIndex(element, 'up'));
+		DivElement zIndexDownButton = new DivElement()
+			..className = 'hoverButton zDownButton fa fa-minus'
+			..title = 'z-index down'
+			..onClick.listen((_) => zIndex(element, 'down'));
 		
 		hoverParent..append(flipButton)..append(deleteButton)
-				   ..append(rotateLeftButton)..append(rotateRightButton);
+				   ..append(rotateLeftButton)..append(rotateRightButton)
+		           ..append(zIndexUpButton)..append(zIndexDownButton);
 		
 		querySelector("#ButtonCanvas").append(hoverParent);
 	}

@@ -150,8 +150,9 @@
 
 #MortarBarnacle {
     background-image: url('http://childrenofur.com/locodarto/scenery/mortar_barnacle.svg');
-    width: 40.33px; /*80.66/2*/
-    height: 50px; /*100/2*/
+    background-size: 22px 21.5px;
+    width: 22px;
+    height: 21.5px;
 }
 
 #Jellisac {

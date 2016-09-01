@@ -711,14 +711,14 @@
 }
 
 #BureaucraticHallDoor {
-    background-image: url('http://childrenofur.com/assets/game/doors/bureaucratic_hall_door_ext.png');
+    background-image: url('http://childrenofur.com/svgs/bureaucratic_hall_door_ext.svg');
     background-size: 45.5px 41.5px; /*182 / 4, 166 / 4*/
     width: 45.5px; /*182 / 4*/
     height: 41.5px; /*166 / 4*/
 }
 
 #MachineRoomDoor {
-    background-image: url('http://childrenofur.com/assets/game/doors/machine_room_door_int.png');
+    background-image: url('http://childrenofur.com/svgs/machine_room_door_int.svg');
     background-size: 45.5px 41.5px; /*182 / 4, 166 / 4*/
     width: 45.5px; /*182 / 4*/
     height: 41.5px; /*166 / 4*/

@@ -40,7 +40,7 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String devServerAddress = "http://localhost:8181";
+String devServerAddress = "http://robertmcdermot.com:8181";
 String liveServerAddress = 'http://server.childrenofur.com:8181';
 int width = 3000,
 	height = 1000;

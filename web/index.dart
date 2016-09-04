@@ -536,7 +536,14 @@ void setupListener(DivElement entityParent) {
 		drag.style.height = height.toString() + "px";
 		drag.style.top = (event.client.y - height).toString() + "px";
 		drag.style.left = event.client.x.toString() + "px";
-		drag.style.zIndex = '0';
+
+		//default moving entities to be at zIndex 1
+		String defaultZIndex = '0';
+		if (['Piggy','Salmon', 'Chicken','Butterfly','Batterfly','Firefly','Fox','Helikitty','Crab'].contains(entity.id) ||
+		    entity.id.contains('Vendory') || entity.id.contains('Spirit')) {
+			defaultZIndex = '1';
+		}
+		drag.style.zIndex = defaultZIndex;
 		drag.classes.add("dashedBorder");
 		document.body.append(drag);
 
@@ -570,7 +577,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event) {
 
 	drag.style.top = (event.page.y - drag.client.height + dragY).toString() + "px";
 	drag.style.left = (event.page.x + dragX).toString() + "px";
-	drag.style.zIndex = '0';
+	drag.style.zIndex = drag.style.zIndex;
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
 	clickListener = layer.onMouseUp.listen((MouseEvent event) {

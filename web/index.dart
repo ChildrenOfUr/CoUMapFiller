@@ -40,7 +40,7 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String devServerAddress = "http://robertmcdermot.com:8181";
+String devServerAddress = "http://localhost:8181";
 String liveServerAddress = 'http://server.childrenofur.com:8181';
 int width = 3000,
 	height = 1000;
@@ -209,7 +209,6 @@ Future displayPreview(Map streetData, String serverAddress) {
 	//and cross off (and display) ones that already exist
 	HttpRequest.getString("$serverAddress/getEntities?tsid=$tsid").then((String response) {
 		Map entities = JSON.decode(response);
-		print('got entities: $entities');
 		if (entities['entities'] != null)
 			loadExistingEntities(entities);
 	});
@@ -394,10 +393,12 @@ void saveToServer() {
 		entity['x'] = num.parse(element.style.left.replaceAll("px", "")).toInt();
 		entity['y'] = num.parse(element.style.top.replaceAll("px", "")).toInt() + element.client.height;
 		entity['z'] = num.parse(element.style.zIndex);
-		if (element.attributes['flipped'] != null)
-			entity['hflip'] = "true";
-		if (element.attributes['rotation'] != null)
+		entity['hflip'] = element.attributes['flipped'] != null;
+		if (element.attributes['rotation'] != null) {
 			entity['rotation'] = int.parse(element.attributes['rotation']);
+		} else {
+			entity['rotation'] = 0;
+		}
 		entities.add(entity);
 	});
 
@@ -407,8 +408,11 @@ void saveToServer() {
 			..x = entity['x']
 			..y = entity['y']
 			..z = entity['z']
+			..h_flip = entity['hflip']
+			..rotation = entity['rotation']
 			..type = entity['type']
 			..tsid = tsid;
+		print(dbEntity);
 		entityList.add(dbEntity);
 	}
 	EntitySet data = new EntitySet()
@@ -657,6 +661,8 @@ void loadExistingEntities(Map entities) {
 		num x = ent['x'];
 		num y = ent['y'] - height;
 		num z = ent['z'] ?? 0;
+		num r = ent['rotation'] ?? 0;
+		bool h_flip = ent['h_flip'] ?? false;
 
 		drag.style.backgroundImage = style.backgroundImage;
 		drag.style.backgroundPosition = style.backgroundPosition;
@@ -676,10 +682,12 @@ void loadExistingEntities(Map entities) {
 		drag.classes.add("placedEntity");
 		querySelector("#$currentLayer").append(drag);
 
-		if (ent['rotation'] != null)
-			rotate(drag, ent['rotation']);
-		if (ent['hflip'] == "true")
+		if (r != 0) {
+			rotate(drag, r);
+		}
+		if (h_flip) {
 			flip(drag);
+		}
 
 		crossOff(drag);
 	});

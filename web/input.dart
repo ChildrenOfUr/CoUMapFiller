@@ -67,12 +67,12 @@ class Input
 					addHoverButtons(target);
 				}
 			} else if(target.classes.contains('hoverButtonParent')) {
-				addHoverButtons(target.parent);
+				addHoverButtons(hoveredElement);
 			} else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
 				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton')
 			    || target.classes.contains('zUpButton') || target.classes.contains('zDownButton')
 			    || target.classes.contains('zIndexDisplay')) {
-				addHoverButtons(target.parent.parent);
+				addHoverButtons(hoveredElement);
 			} else {
 				removeHoverButtons();
 			}
@@ -227,19 +227,29 @@ class Input
 		element.parent.insertBefore(hoverParent, element);
 		element.classes.add("dashedHoveredBorder");
 		hoveredElement = element;
+		querySelectorAll('.placedEntity').forEach((Element e) {
+			if (e.id != hoveredElement.id) {
+				e.style.pointerEvents = 'none';
+			}
+		});
+		hoveredElement.onMouseLeave.first.then((MouseEvent e) {
+			querySelectorAll('.placedEntity').forEach((Element e) {
+				e.style.pointerEvents = 'auto';
+			});
+			removeHoverButtons();
+		});
 	}
 	
-	void removeHoverButtons({Element except : null})
-	{
-		if (except == null) {
-			hoveredElement?.classes?.remove('dashedHoveredBorder');
-			hoveredElement = null;
-		}
+	void removeHoverButtons({Element except : null}) {
+		querySelectorAll('.dashedHoveredBorder').forEach((Element e) {
+			e.classes.remove('dashedHoveredBorder');
+		});
 
-		querySelectorAll('.hoverButtonParent').forEach((Element e)
-		{
+		querySelectorAll('.hoverButtonParent').forEach((Element e) {
 			if(e.parent != except)
 				e.remove();
 		});
+
+		hoveredElement = null;
 	}
 }

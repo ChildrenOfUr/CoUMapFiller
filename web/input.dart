@@ -33,6 +33,7 @@ class Input
 		document.onMouseDown.listen((MouseEvent event)
 		{
 			Element target = event.target;
+			print(target.className);
 			if(target.className == "ExitLabel")
 			{
 				ScriptElement loadStreet = new ScriptElement();
@@ -40,7 +41,7 @@ class Input
 				playerTeleFrom = target.attributes['from'];
 				document.body.append(loadStreet);
 			}
-			if(target.className == "placedEntity")
+			if(target.className.contains("placedEntity"))
 			{
 				removeHoverButtons();
 				setCursorMove();
@@ -61,7 +62,7 @@ class Input
 			}
 
 			Element target = event.target;
-			if(target.className == 'placedEntity') {
+			if(target.className.contains('placedEntity')) {
 				if (hoveredElement == null) {
 					addHoverButtons(target);
 				}
@@ -69,7 +70,8 @@ class Input
 				addHoverButtons(target.parent);
 			} else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
 				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton')
-			    || target.classes.contains('zUpButton') || target.classes.contains('zDownButton')) {
+			    || target.classes.contains('zUpButton') || target.classes.contains('zDownButton')
+			    || target.classes.contains('zIndexDisplay')) {
 				addHoverButtons(target.parent.parent);
 			} else {
 				removeHoverButtons();
@@ -225,13 +227,14 @@ class Input
 		element.parent.insertBefore(hoverParent, element);
 		element.classes.add("dashedHoveredBorder");
 		hoveredElement = element;
-//		querySelector("#EntityHolder").append(hoverParent);
 	}
 	
 	void removeHoverButtons({Element except : null})
 	{
-		hoveredElement?.classes?.remove('dashedHoveredBorder');
-		hoveredElement = null;
+		if (except == null) {
+			hoveredElement?.classes?.remove('dashedHoveredBorder');
+			hoveredElement = null;
+		}
 
 		querySelectorAll('.hoverButtonParent').forEach((Element e)
 		{

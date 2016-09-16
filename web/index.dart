@@ -412,7 +412,6 @@ void saveToServer() {
 			..rotation = entity['rotation']
 			..type = entity['type']
 			..tsid = tsid;
-		print(dbEntity);
 		entityList.add(dbEntity);
 	}
 	EntitySet data = new EntitySet()

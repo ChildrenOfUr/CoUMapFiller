@@ -194,6 +194,11 @@ body {
  .dashedBorder {
  	border: 1px dashed black;
  	pointer-events: none;
+	transform: translate(-1px, -1px);
+ }
+ .dashedHoveredBorder {
+	 border: 1px dashed black;
+	 transform: translate(-1px, -1px);
  }
  .flip {
  	transform: scale(-1,1);
@@ -421,8 +426,8 @@ body {
  	display: inline;
  }
  img#MapGlyph {
- 	width: 38;
- 	height: 38;
+ 	width: 38px;
+ 	height: 38px;
  }
  div#toolsTitle {
  	text-align: center;
@@ -538,7 +543,7 @@ body {
 .hoverButton {
 	border: 1px solid rgba(0,0,0,0.5);
 	border-radius: 5px;
-	padding: 6px 4px 4px 4px;
+	padding: 4px;
 	margin: 2px;
 	height: 20px;
 	width: 20px;
@@ -546,9 +551,44 @@ body {
 	background-color: #fafafa;
 	box-shadow: 0 0 1px rgba(0,0,0,0.5);
 	cursor: pointer;
+	position: absolute;
+	z-index: 1000;
 }
 .hoverButton:hover {
     background-color:#fff;
+}
+.hoverButton.flipButton {
+}
+.hoverButton.deleteButton {
+	right: 0;
+}
+.hoverButton.rotateLeftButton {
+	top: 50%;
+	transform: translateY(-50%);
+}
+.hoverButton.rotateRightButton {
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+}
+.hoverButton.zDownButton {
+	bottom: 0;
+}
+.hoverButton.zUpButton {
+	bottom: 0;
+	right: 0;
+}
+.zIndexDisplay {
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	display: inline-block;
+	position: absolute;
+	background-color: white;
+	border: 1px solid black;
+	padding: 3px;
+	border-radius: 5px;
+	z-index: 1000;
 }
 .moveCursor {
 	cursor: move;

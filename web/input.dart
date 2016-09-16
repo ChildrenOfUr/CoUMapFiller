@@ -6,6 +6,8 @@ class Input
 {
 	bool leftKey, rightKey, upKey, downKey, jumpKey;
 	bool ignoreKeys = false;
+	DivElement zIndexDisplay;
+	Element hoveredElement;
 	Map<String,int> keys = {"LeftBindingPrimary":65,"LeftBindingAlt":37,"RightBindingPrimary":68,"RightBindingAlt":39,"UpBindingPrimary":87,"UpBindingAlt":38,"DownBindingPrimary":83,"DownBindingAlt":40,"JumpBindingPrimary":32,"JumpBindingAlt":32,};
 	
 	Input()
@@ -57,10 +59,12 @@ class Input
 			if(event.target is! Element || querySelector('.dashedBorder') != null) {
 				return;
 			}
-			
+
 			Element target = event.target;
 			if(target.className == 'placedEntity') {
-				addHoverButtons(target);
+				if (hoveredElement == null) {
+					addHoverButtons(target);
+				}
 			} else if(target.classes.contains('hoverButtonParent')) {
 				addHoverButtons(target.parent);
 			} else if(target.classes.contains('flipButton') || target.classes.contains('deleteButton')
@@ -168,18 +172,24 @@ class Input
 			return;
 		
 		DivElement hoverParent = new DivElement();
-		num left = num.parse(element.style.left.replaceAll('px', ''))+(num.parse(element.style.width.replaceAll('px', ''))/2-35);
-		num top = num.parse(element.style.top.replaceAll('px', ''))+(num.parse(element.style.height.replaceAll('px', ''))-10);
-		num elementBottom = element.getBoundingClientRect().bottom+60;
-		num screenBottom = gameScreen.getBoundingClientRect().bottom;
-		if(elementBottom > screenBottom)
-        	top = num.parse(element.style.top.replaceAll('px', ''))-65;
+		num left = num.parse(element.style.left.replaceAll('px', '')) - 31;
+		num top = num.parse(element.style.top.replaceAll('px', '')) - 31;
+		num width = element.getBoundingClientRect().width + 62;
+		num height = element.getBoundingClientRect().height + 62;
+		if (width < 92) {
+			width = 92;
+		}
+		if (height < 92) {
+			height = 92;
+		}
 		
 		hoverParent
 			..className = "hoverButtonParent"
 			..style.top = top.toString()+'px'
-			..style.left = left.toString()+'px';
-		
+			..style.left = left.toString()+'px'
+			..style.width = width.toString()+'px'
+			..style.height = height.toString()+'px';
+
 		DivElement flipButton = new DivElement()
 			..className = 'hoverButton flipButton fa fa-arrows-h'
 			..title = 'Flip Horizontally'
@@ -204,16 +214,25 @@ class Input
 			..className = 'hoverButton zDownButton fa fa-minus'
 			..title = 'z-index down'
 			..onClick.listen((_) => zIndex(element, 'down'));
+		zIndexDisplay = new DivElement()
+			..className = 'zIndexDisplay'
+			..text = element.style.zIndex;
 		
 		hoverParent..append(flipButton)..append(deleteButton)
 				   ..append(rotateLeftButton)..append(rotateRightButton)
-		           ..append(zIndexUpButton)..append(zIndexDownButton);
-		
-		querySelector("#ButtonCanvas").append(hoverParent);
+		           ..append(zIndexUpButton)..append(zIndexDisplay)..append(zIndexDownButton);
+
+		element.parent.insertBefore(hoverParent, element);
+		element.classes.add("dashedHoveredBorder");
+		hoveredElement = element;
+//		querySelector("#EntityHolder").append(hoverParent);
 	}
 	
 	void removeHoverButtons({Element except : null})
 	{
+		hoveredElement?.classes?.remove('dashedHoveredBorder');
+		hoveredElement = null;
+
 		querySelectorAll('.hoverButtonParent').forEach((Element e)
 		{
 			if(e.parent != except)

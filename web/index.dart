@@ -544,7 +544,7 @@ void setupListener(DivElement entityParent) {
 		//default moving entities to be at zIndex 1
 		String defaultZIndex = '0';
 		if (['Piggy','Salmon', 'Chicken','Butterfly','Batterfly','Firefly','Fox','Helikitty','Crab'].contains(entity.id) ||
-		    entity.id.contains('Vendory') || entity.id.contains('Spirit')) {
+		    entity.id.contains('Vendor') || entity.id.contains('Spirit')) {
 			defaultZIndex = '1';
 		}
 		drag.style.zIndex = defaultZIndex;
@@ -609,12 +609,12 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event) {
 		drag.style.left = (x + dragX).toString() + "px";
 		drag.classes.add("placedEntity");
 		drag.classes.remove("dashedBorder");
+		drag.id = 'fake_id_${rand.nextInt(1000000)}';
 
 		layer.append(drag);
 		setCursorStill();
 		madeChanges = true;
 		crossOff(drag);
-		sortEntities();
 
 		stopListener.cancel();
 		moveListener.cancel();
@@ -691,21 +691,6 @@ void loadExistingEntities(Map entities) {
 
 		crossOff(drag);
 	});
-
-	//sort the entities so that the lower the y, the higher the z-index
-	sortEntities();
-}
-
-void sortEntities() {
-	List<Element> entities = new List.from(querySelectorAll('.placedEntity'));
-	entities.sort((Element a, Element b) {
-		num aTop = num.parse(a.style.top.replaceAll('px',''));
-		num bTop = num.parse(b.style.top.replaceAll('px',''));
-		return aTop.compareTo(bTop);
-	});
-	for (Element e in entities) {
-		querySelector("#$currentLayer").append(e);
-	}
 }
 
 void crossOff(Element placed) {
@@ -996,12 +981,13 @@ void zIndex(Element element, String direction) {
 		//it probably didn't have one set
 	}
 
-
 	if (direction == 'up') {
 		index++;
 	} else {
 		index--;
 	}
+
+	playerInput.zIndexDisplay?.text = '$index';
 
 	element.style.zIndex = index.toString();
 

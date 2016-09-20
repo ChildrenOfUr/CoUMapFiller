@@ -583,7 +583,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event) {
 	drag.style.zIndex = drag.style.zIndex;
 	document.body.append(drag);
 	Element layer = querySelector("#$currentLayer");
-	clickListener = layer.onMouseUp.listen((MouseEvent event) {
+	clickListener = document.onMouseUp.listen((MouseEvent event) {
 		num percentX = event.page.x / ui.gameScreenWidth;
 		num percentY = (event.page.y - ui.gameScreenTop) / ui.gameScreenHeight;
 		if (percentX > 1)
@@ -594,16 +594,14 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event) {
 		num dragY = percentY * drag.client.height;
 
 		num x, y;
-		//if we clicked on another deco inside the target layer
-		if ((event.target as Element).id != layer.id) {
-			y = (event.target as Element).offset.top + event.offset.y;
-			x = (event.target as Element).offset.left + event.offset.x;
-		}
-		//else we clicked on empty space in the layer
-		else {
+		if ((event.target as Element).id == layer.id) {
 			y = event.offset.y;
 			x = event.offset.x;
+		} else {
+			y = event.page.y - layer.marginEdge.top;
+			x = event.page.x - layer.marginEdge.left;
 		}
+
 		drag.style.top = (y - drag.clientHeight + dragY).toString() + "px";
 		drag.style.left = (x + dragX).toString() + "px";
 		drag.classes.add("placedEntity");
@@ -611,6 +609,7 @@ StreamSubscription getClickListener(DivElement drag, MouseEvent event) {
 		drag.id = 'fake_id_${rand.nextInt(1000000)}';
 
 		layer.append(drag);
+		playerInput.addHoverButtons(drag);
 		setCursorStill();
 		madeChanges = true;
 		crossOff(drag);

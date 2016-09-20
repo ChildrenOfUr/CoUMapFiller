@@ -227,17 +227,17 @@ class Input
 		element.parent.insertBefore(hoverParent, element);
 		element.classes.add("dashedHoveredBorder");
 		hoveredElement = element;
-		querySelectorAll('.placedEntity').forEach((Element e) {
-			if (e.id != hoveredElement.id) {
-				e.style.pointerEvents = 'none';
-			}
-		});
-		hoveredElement.onMouseLeave.first.then((MouseEvent e) {
-			querySelectorAll('.placedEntity').forEach((Element e) {
-				e.style.pointerEvents = 'auto';
-			});
-			removeHoverButtons();
-		});
+//		querySelectorAll('.placedEntity').forEach((Element e) {
+//			if (e.id != hoveredElement.id) {
+//				e.style.pointerEvents = 'none';
+//			}
+//		});
+//		hoverParent.onMouseLeave.first.then((MouseEvent e) {
+//			querySelectorAll('.placedEntity').forEach((Element e) {
+//				e.style.pointerEvents = 'auto';
+//			});
+//			removeHoverButtons();
+//		});
 	}
 	
 	void removeHoverButtons({Element except : null}) {

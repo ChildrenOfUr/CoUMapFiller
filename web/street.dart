@@ -30,8 +30,8 @@ class Camera
 		}
 	}
 	
-	int getX() => _x;
-	int getY() => _y;
+	int get x => _x;
+	int get y => _y;
 }
 
 class Platform
@@ -481,8 +481,8 @@ class Street
 		//only update if camera x,y have changed since last render cycle
 		if(camera.dirty)
 		{
-			num currentPercentX = camera.getX() / (streetBounds.width - ui.gameScreenWidth);
-			num currentPercentY = camera.getY() / (streetBounds.height - ui.gameScreenHeight);
+			num currentPercentX = camera.x / (streetBounds.width - ui.gameScreenWidth);
+			num currentPercentY = camera.y / (streetBounds.height - ui.gameScreenHeight);
 			
 			//modify left and top for parallaxing
 			Map<String,DivElement> transforms = new Map();

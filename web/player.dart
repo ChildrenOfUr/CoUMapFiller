@@ -154,7 +154,7 @@ class Player
 	{
 		String xattr = playerParentElement.attributes['translateX'];
 		String yattr = playerParentElement.attributes['translateY'];
-		num prevX, prevY, prevCamX = camera.getX(), prevCamY = camera.getY();
+		num prevX, prevY, prevCamX = camera.x, prevCamY = camera.y;
 		if(xattr != null)
 			prevX = num.parse(xattr);
 		else
@@ -165,7 +165,7 @@ class Player
 			prevY = 0;
 				
 		num translateX = posX, translateY = ui.gameScreenHeight - height;
-		num camX = camera.getX(), camY = camera.getY();
+		num camX = camera.x, camY = camera.y;
 		if(posX > currentStreet.streetBounds.width - width/2 - ui.gameScreenWidth/2)
 		{
 			camX = currentStreet.streetBounds.width - ui.gameScreenWidth;

@@ -33,7 +33,6 @@ class Input
 		document.onMouseDown.listen((MouseEvent event)
 		{
 			Element target = event.target;
-			print(target.className);
 			if(target.className == "ExitLabel")
 			{
 				ScriptElement loadStreet = new ScriptElement();
@@ -55,7 +54,7 @@ class Input
 				document.body.append(ReportWindow.create());
 			}
 		});
-		
+
 		document.onMouseOver.listen((MouseEvent event) {
 			if(event.target is! Element || querySelector('.dashedBorder') != null) {
 				return;
@@ -72,7 +71,7 @@ class Input
 				|| target.classes.contains('rotateLeftButton') || target.classes.contains('rotateRightButton')
 			    || target.classes.contains('zUpButton') || target.classes.contains('zDownButton')
 			    || target.classes.contains('zIndexDisplay')) {
-				addHoverButtons(hoveredElement);
+//				addHoverButtons(hoveredElement);
 			} else {
 				removeHoverButtons();
 			}

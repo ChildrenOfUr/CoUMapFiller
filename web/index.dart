@@ -40,8 +40,8 @@ String currentLayer = "EntityHolder",
 	tsid,
 	initialPopupWidth,
 	initialPopupHeight;
-String devServerAddress = "http://robertmcdermot.com:8181";
-String liveServerAddress = 'http://server.childrenofur.com:8181';
+String devServerAddress = "https://robertmcdermot.com:8181";
+String liveServerAddress = 'https://server.childrenofur.com:8181';
 int width = 3000,
 	height = 1000;
 DivElement gameScreen, layers;
